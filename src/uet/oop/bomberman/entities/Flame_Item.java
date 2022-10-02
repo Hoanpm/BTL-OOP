@@ -3,14 +3,12 @@ package uet.oop.bomberman.entities;
 import javafx.scene.Scene;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Grass extends Entity {
-
-    public Grass(int x, int y, Sprite sprite_) {
+public class Flame_Item extends Entity{
+    public Flame_Item(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
 
     @Override
     public void update(Scene scene) {
-
     }
 }
