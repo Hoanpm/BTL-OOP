@@ -12,22 +12,22 @@ public class Balloon extends Enemy {
     public Balloon(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
         sprite_ = Sprite.balloom_left1;
-        direction_ = (int)(Math.random() * 4);
+
     }
     protected void chooseSprite() {
+        if (!canmove(this)) direction_ = -direction_;
         switch(direction_) {
-            case 0:
             case 1:
                 sprite_ = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, AnimatedEntity.animate_, 60);
                 break;
-            case 2:
-            case 3:
+            case -1:
                 sprite_ = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, AnimatedEntity.animate_, 60);
                 break;
         }
     }
     @Override
     public void render(GraphicsContext gc) {
+        calculateMove();
         chooseSprite();
         Image new_img = sprite_.getFxImage();
         gc.drawImage(new_img, x, y);
