@@ -40,10 +40,16 @@ public abstract class Entity {
         return sprite_;
     }
 
+    public void setSprite_(Sprite sprite_) {
+        this.sprite_ = sprite_;
+    }
+
     public void render(GraphicsContext gc) {
         gc.drawImage(img, x, y);
     }
+
     public abstract void update(Scene scene);
+
     public boolean checkCollision(Entity other) {
         int left_a = this.x;
         int right_a = this.x + this.sprite_.get_realWidth() * 2;
