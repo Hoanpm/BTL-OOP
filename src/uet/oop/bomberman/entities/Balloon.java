@@ -1,14 +1,37 @@
 package uet.oop.bomberman.entities;
 
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Balloon extends Entity {
+import java.awt.*;
+import java.util.Random;
+
+public class Balloon extends Enemy {
     public Balloon(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
+        sprite_ = Sprite.balloom_left1;
+        direction_ = (int)(Math.random() * 4);
     }
-
+    protected void chooseSprite() {
+        switch(direction_) {
+            case 0:
+            case 1:
+                sprite_ = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, AnimatedEntity.animate_, 60);
+                break;
+            case 2:
+            case 3:
+                sprite_ = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, AnimatedEntity.animate_, 60);
+                break;
+        }
+    }
     @Override
-    public void update(Scene scene) {
+    public void render(GraphicsContext gc) {
+        chooseSprite();
+        Image new_img = sprite_.getFxImage();
+        gc.drawImage(new_img, x, y);
     }
+    public void update(Scene scene) {};
 }
+
