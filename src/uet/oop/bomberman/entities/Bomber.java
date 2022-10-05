@@ -8,6 +8,9 @@ import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bomber extends Entity {
     private int dx, dy;
     private static final int velocity = 2;
@@ -18,6 +21,10 @@ public class Bomber extends Entity {
                                 MOVE_LEFT = "LEFT";
 
     private String direction = MOVE_RIGHT;
+
+    public static List<Bomb> bombList = new ArrayList<>();
+
+    protected boolean isSetBomb_ = false;
 
     public Bomber(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
@@ -43,6 +50,9 @@ public class Bomber extends Entity {
                     case RIGHT:
                     case D:
                         dx = velocity;
+                        break;
+                    case SPACE:
+                        isSetBomb_ = true;
                         break;
                 }
             }
@@ -137,11 +147,20 @@ public class Bomber extends Entity {
         }
     }
 
+    public void setBomb() {
+        if (isSetBomb_) {
+            Bomb new_b = new Bomb(getX() / 32, getY() / 32, Sprite.bomb);
+            bombList.add(new_b);
+            isSetBomb_ = false;
+        }
+    }
+
     @Override
     public void update(Scene scene) {
         setKey(scene);
         AnimatedEntity.animate();
         move();
+        setBomb();
     }
 
     @Override

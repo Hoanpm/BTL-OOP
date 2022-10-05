@@ -148,10 +148,7 @@ public class BombermanGame extends Application {
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
+        Bomber.bombList.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
-    }
-
-    public List<Entity> getStillObjects() {
-        return stillObjects;
     }
 }
