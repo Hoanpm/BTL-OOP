@@ -141,14 +141,19 @@ public class BombermanGame extends Application {
     }
 
     public void update(Scene scene) {
-        for (int i=0; i<entities.size(); i++)
+        for (int i=0; i<entities.size(); i++) {
+            if (i < Bomber.bombList.size())
+                Bomber.bombList.get(i).update(scene);
             entities.get(i).update(scene);
+        }
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
         Bomber.bombList.forEach(g -> g.render(gc));
+        Bomber.flame_bombs.forEach(g -> g.render(gc));
+        Bomber.flame_last_bombs.forEach(g -> g.render(gc));
         entities.forEach(g -> g.render(gc));
     }
 }
