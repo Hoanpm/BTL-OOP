@@ -152,7 +152,7 @@ public class Bomber extends Entity {
 
     public void checkFlame(Bomb bomb) {
         List<String> c_ = BombermanGame.str;
-        if (c_.get(bomb.getY()/32 + 1).charAt(getX()/32 +1) == ' ') {
+        if (c_.get(bomb.getY()/32 + 1).charAt(getX()/32 + 1) == ' ') {
             if (c_.get(bomb.getY()/32 + 1).charAt(getX()/32 + 2) != ' ') {
                 Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX()/32 + 1, bomb.getY()/32, Sprite.explosion_horizontal);
                 flame_bomb_hor.setDirection(0);
@@ -213,11 +213,34 @@ public class Bomber extends Entity {
         }
     }
 
+    public void checkDes(Bomb bomb) {
+        List<Entity> c_ = BombermanGame.entities;
+        int x = bomb.getX();
+        int y = bomb.getY();
+
+        for (Entity entity : c_) {
+            if (entity instanceof Brick) {
+                if (entity.getY() == y) {
+                    if (entity.getX() == x + 32 || entity.getX() == x - 32
+                            || entity.getX() == x + 64 || entity.getX() == x - 64) {
+                        entity.isDes = true;
+                    }
+                } else if (entity.getX() == x) {
+                    if (entity.getY() == y + 32 || entity.getY() == y - 32
+                            || entity.getY() == y + 64 || entity.getY() == y - 64) {
+                        entity.isDes = true;
+                    }
+                }
+            }
+        }
+    }
+
     public void setBomb() {
         if (isSetBomb_) {
             Bomb new_b = new Bomb(getX() / 32, getY() / 32, Sprite.bomb);
             bombList.add(new_b);
             checkFlame(new_b);
+            checkDes(new_b);
             isSetBomb_ = false;
         }
     }

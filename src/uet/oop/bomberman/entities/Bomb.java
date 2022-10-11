@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends Entity {
@@ -18,6 +19,11 @@ public class Bomb extends Entity {
             Bomber.bombList.remove(0);
             Bomber.flame_last_bombs.clear();
             Bomber.flame_bombs.clear();
+            for (int i=0; i< BombermanGame.entities.size(); i++) {
+                if (BombermanGame.entities.get(i).isDes) {
+                    BombermanGame.entities.remove(i);
+                }
+            }
             delayTime = 0;
         }
     }
