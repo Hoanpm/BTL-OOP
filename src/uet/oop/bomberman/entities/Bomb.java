@@ -19,11 +19,17 @@ public class Bomb extends Entity {
             Bomber.bombList.remove(0);
             Bomber.flame_last_bombs.clear();
             Bomber.flame_bombs.clear();
-            for (int i=0; i< BombermanGame.entities.size(); i++) {
+
+            for (int i=0; i<BombermanGame.entities.size(); i++) {
                 if (BombermanGame.entities.get(i).isDes) {
+                    int x = BombermanGame.entities.get(i).getX();
+                    int y = BombermanGame.entities.get(i).getY();
+                    BombermanGame.map_[y/32][x/32] = ' ';
                     BombermanGame.entities.remove(i);
+                    i--;
                 }
             }
+
             delayTime = 0;
         }
     }

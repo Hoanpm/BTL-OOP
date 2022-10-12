@@ -217,22 +217,25 @@ public class Bomber extends Entity {
 
     public void checkDes(Bomb bomb) {
         List<Entity> c_ = BombermanGame.entities;
+        char[][] b = BombermanGame.map_;
         int x = bomb.getX();
         int y = bomb.getY();
 
         for (Entity entity : c_) {
             if (entity instanceof Brick) {
-                if (entity.getY() == y) {
-                    if (entity.getX() == x + 32 || entity.getX() == x - 32
-                            || entity.getX() == x + 64 || entity.getX() == x - 64) {
+                int x_ = entity.getX();
+                int y_ = entity.getY();
+                if (y_ == y) {
+                    if (x_ == x + 64 && b[y/32][x/32 + 1] == ' '
+                        || x_ == x - 64 && b[y/32][x/32 - 1] == ' '
+                        || x_ == x + 32 || x_ == x - 32) {
                         entity.isDes = true;
-                        BombermanGame.map_[entity.getY()/32][entity.getX()/32] = ' ';
                     }
-                } else if (entity.getX() == x) {
-                    if (entity.getY() == y + 32 || entity.getY() == y - 32
-                            || entity.getY() == y + 64 || entity.getY() == y - 64) {
+                } else if (x_ == x) {
+                    if (y_ == y + 64 && b[y/32 + 1][x/32] == ' '
+                            || y_ == y - 64 && b[y/32 - 1][x/32] == ' '
+                            || y_ == y + 32 || y_ == y - 32) {
                         entity.isDes = true;
-                        BombermanGame.map_[entity.getY()/32][entity.getX()/32] = ' ';
                     }
                 }
             }
