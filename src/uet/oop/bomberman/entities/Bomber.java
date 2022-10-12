@@ -151,9 +151,11 @@ public class Bomber extends Entity {
     }
 
     public void checkFlame(Bomb bomb) {
-        List<String> c_ = BombermanGame.str;
-        if (c_.get(bomb.getY()/32 + 1).charAt(getX()/32 + 1) == ' ') {
-            if (c_.get(bomb.getY()/32 + 1).charAt(getX()/32 + 2) != ' ') {
+        char[][] c = BombermanGame.map_;
+        int y = bomb.getY() / 32;
+        int x = bomb.getX() / 32;
+        if (c[y][x + 1] == ' ' || c[y][x + 1] == '1' || c[y][x + 1] == '2') {
+            if (c[y][x + 2] != ' ' && c[y][x + 2] != '1' && c[y][x + 2] != '2') {
                 Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX()/32 + 1, bomb.getY()/32, Sprite.explosion_horizontal);
                 flame_bomb_hor.setDirection(0);
                 flame_bombs.add(flame_bomb_hor);
@@ -167,8 +169,8 @@ public class Bomber extends Entity {
             }
         }
 
-        if (c_.get(bomb.getY()/32 + 1).charAt(getX()/32 - 1) == ' ' || c_.get(bomb.getY()/32 + 1).charAt(getX()/32 - 1) == 'p') {
-            if (c_.get(bomb.getY()/32 + 1).charAt(getX()/32 - 2) != 'p' && c_.get(bomb.getY()/32 + 1).charAt(getX()/32 - 2) != ' ') {
+        if (c[y][x - 1] == ' ' || c[y][x - 1] == 'p' || c[y][x - 1] == '1' || c[y][x - 1] == '2') {
+            if (c[y][x - 2] != 'p' && c[y][x - 2] != ' ' && c[y][x - 2] != '1' && c[y][x - 2] != '2') {
                 Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX()/32 - 1, bomb.getY()/32, Sprite.explosion_horizontal);
                 flame_bomb_hor.setDirection(0);
                 flame_bombs.add(flame_bomb_hor);
@@ -182,8 +184,8 @@ public class Bomber extends Entity {
             }
         }
 
-        if (c_.get(bomb.getY()/32 + 1 - 1).charAt(getX()/32) == ' ' || c_.get(bomb.getY()/32 + 1 - 1).charAt(getX()/32) == 'p') {
-            if (c_.get(bomb.getY()/32 + 1 - 2).charAt(getX()/32) != 'p' && c_.get(bomb.getY()/32 + 1 - 2).charAt(getX()/32) != ' ') {
+        if (c[y - 1][x] == ' ' || c[y - 1][x] == 'p' || c[y - 1][x] == '1' || c[y - 1][x] == '2') {
+            if (c[y - 2][x] != 'p' && c[y - 2][x] != ' ' && c[y - 2][x] != '1' && c[y - 2][x] != '2') {
                 Flame_bomb flame_bomb_ver = new Flame_bomb(bomb.getX()/32, bomb.getY()/32 - 1, Sprite.explosion_vertical);
                 flame_bomb_ver.setDirection(1);
                 flame_bombs.add(flame_bomb_ver);
@@ -197,8 +199,8 @@ public class Bomber extends Entity {
             }
         }
 
-        if (c_.get(bomb.getY()/32 + 1 + 1).charAt(getX()/32) == ' ') {
-            if (c_.get(bomb.getY()/32 + 1 + 2).charAt(getX()/32) != ' ') {
+        if (c[y + 1][x] == ' ' || c[y + 1][x] == '1' || c[y + 1][x] == '2') {
+            if (c[y + 2][x] != ' ' && c[y + 2][x] != '1' && c[y + 2][x] != '2') {
                 Flame_bomb flame_bomb_ver = new Flame_bomb(bomb.getX()/32, bomb.getY()/32 + 1, Sprite.explosion_vertical);
                 flame_bomb_ver.setDirection(1);
                 flame_bombs.add(flame_bomb_ver);
@@ -224,11 +226,13 @@ public class Bomber extends Entity {
                     if (entity.getX() == x + 32 || entity.getX() == x - 32
                             || entity.getX() == x + 64 || entity.getX() == x - 64) {
                         entity.isDes = true;
+                        BombermanGame.map_[entity.getY()/32][entity.getX()/32] = ' ';
                     }
                 } else if (entity.getX() == x) {
                     if (entity.getY() == y + 32 || entity.getY() == y - 32
                             || entity.getY() == y + 64 || entity.getY() == y - 64) {
                         entity.isDes = true;
+                        BombermanGame.map_[entity.getY()/32][entity.getX()/32] = ' ';
                     }
                 }
             }

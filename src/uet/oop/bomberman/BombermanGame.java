@@ -24,8 +24,7 @@ public class BombermanGame extends Application {
     private Canvas canvas;
     public static List<Entity> entities = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
-
-    public static List<String> str = new ArrayList<>();
+    public static char[][] map_ = new char[100][100];
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -33,7 +32,7 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // Tao map
-        str = createMap();
+        List<String> str = createMap();
         // Tao Canvas
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
@@ -78,6 +77,12 @@ public class BombermanGame extends Application {
             String[] numb = str.get(0).trim().split(" ");
             HEIGHT = Integer.parseInt(numb[1]);
             WIDTH = Integer.parseInt(numb[2]);
+
+            for (int i=0; i<HEIGHT; i++) {
+                for (int j=0; j<WIDTH; j++) {
+                    map_[i][j] = str.get(i+1).charAt(j);
+                }
+            }
 
             for (int i=0; i<HEIGHT; i++) {
                 for (int j=0; j<WIDTH; j++) {
