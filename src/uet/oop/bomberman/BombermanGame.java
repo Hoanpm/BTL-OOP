@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BombermanGame extends Application {
-    public int WIDTH;
-    public int HEIGHT;
+    public static int WIDTH;
+    public static int HEIGHT;
     
     private GraphicsContext gc;
     private Canvas canvas;

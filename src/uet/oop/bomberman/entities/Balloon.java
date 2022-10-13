@@ -15,19 +15,30 @@ public class Balloon extends Enemy {
 
     }
     protected void chooseSprite() {
-        if (!canmove(this)) direction_ = -direction_;
+        if (!canmove(this)) {
+            if (direction_ == 3) {
+                direction_ = 4;
+                check3 = false;
+                check4 = true;
+            }
+            else if (direction_ == 4) {
+                direction_ = 3;
+                check4 = false;
+                check3 = true;
+            }
+        }
         switch(direction_) {
-            case 1:
+            case 4:
                 sprite_ = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, AnimatedEntity.animate_, 60);
                 break;
-            case -1:
+            case 3:
                 sprite_ = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, AnimatedEntity.animate_, 60);
                 break;
         }
     }
     @Override
     public void render(GraphicsContext gc) {
-        calculateMove();
+        //calculateMove();
         chooseSprite();
         Image new_img = sprite_.getFxImage();
         gc.drawImage(new_img, x, y);
