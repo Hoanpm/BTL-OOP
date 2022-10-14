@@ -8,6 +8,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends Entity {
     public static int delayTime = 0;
+    private boolean isBuff = false;
 
     public Bomb(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
@@ -17,8 +18,8 @@ public class Bomb extends Entity {
         if (delayTime <= 180) delayTime++;
         else {
             Bomber.bombList.remove(0);
-            Bomber.flame_last_bombs.clear();
-            Bomber.flame_bombs.clear();
+            Flame_obj.flame_last_bombs.clear();
+            Flame_obj.flame_bombs.clear();
 
             for (int i=0; i<BombermanGame.entities.size(); i++) {
                 if (BombermanGame.entities.get(i).isDes) {
@@ -26,6 +27,10 @@ public class Bomb extends Entity {
                     int y = BombermanGame.entities.get(i).getY();
                     BombermanGame.map_[y/32][x/32] = ' ';
                     BombermanGame.entities.remove(i);
+                    if (BombermanGame.buffs.size() > 0
+                        && i == BombermanGame.buffs.get(0).getIndexBrick()) {
+                        BombermanGame.buffs.get(0).setRevealed(true);
+                    }
                     i--;
                 }
             }
@@ -51,4 +56,11 @@ public class Bomb extends Entity {
         gc.drawImage(new_img, x, y);
     }
 
+    public boolean isBuff() {
+        return isBuff;
+    }
+
+    public void setBuff(boolean buff) {
+        isBuff = buff;
+    }
 }

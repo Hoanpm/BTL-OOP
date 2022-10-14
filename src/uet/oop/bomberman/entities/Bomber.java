@@ -15,6 +15,7 @@ public class Bomber extends Entity {
     private int dx, dy;
     private static final int velocity = 2;
     private boolean isMove_ = false;
+    private boolean isStep_buff = false;
     private static final String MOVE_UP = "UP",
                                 MOVE_DOWN = "DOWN",
                                 MOVE_RIGHT = "RIGHT",
@@ -23,10 +24,8 @@ public class Bomber extends Entity {
     private String direction = MOVE_RIGHT;
 
     public static List<Bomb> bombList = new ArrayList<>();
-    public static List<Flame_bomb> flame_bombs = new ArrayList<>();
-    public static List<Flame_last_bomb> flame_last_bombs = new ArrayList<>();
 
-    protected boolean isSetBomb_ = false;
+    private boolean isSetBomb_ = false;
 
     public Bomber(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
@@ -129,8 +128,7 @@ public class Bomber extends Entity {
         x += dx;
         y += dy;
 
-        if (dx != 0 || dy != 0) isMove_ = true;
-        else if (dx == 0 && dy == 0) isMove_ = false;
+        isMove_ = dx != 0 || dy != 0;
 
         for (int i=0; i < BombermanGame.stillObjects.size(); i++) {
             if (BombermanGame.stillObjects.get(i) instanceof Wall) {
@@ -147,96 +145,10 @@ public class Bomber extends Entity {
                     }
                 }
             }
-        }
-    }
-
-    public void checkFlame(Bomb bomb) {
-        char[][] c = BombermanGame.map_;
-        int y = bomb.getY() / 32;
-        int x = bomb.getX() / 32;
-        if (c[y][x + 1] == ' ' || c[y][x + 1] == '1' || c[y][x + 1] == '2') {
-            if (c[y][x + 2] != ' ' && c[y][x + 2] != '1' && c[y][x + 2] != '2') {
-                Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX()/32 + 1, bomb.getY()/32, Sprite.explosion_horizontal);
-                flame_bomb_hor.setDirection(0);
-                flame_bombs.add(flame_bomb_hor);
-            } else {
-                Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX()/32 + 1, bomb.getY()/32, Sprite.explosion_horizontal);
-                Flame_last_bomb flame_last_bomb_right = new Flame_last_bomb(bomb.getX()/32 + 2, bomb.getY()/32, Sprite.explosion_horizontal_right_last);
-                flame_bomb_hor.setDirection(0);
-                flame_last_bomb_right.setDirection(0);
-                flame_bombs.add(flame_bomb_hor);
-                flame_last_bombs.add(flame_last_bomb_right);
-            }
-        }
-
-        if (c[y][x - 1] == ' ' || c[y][x - 1] == 'p' || c[y][x - 1] == '1' || c[y][x - 1] == '2') {
-            if (c[y][x - 2] != 'p' && c[y][x - 2] != ' ' && c[y][x - 2] != '1' && c[y][x - 2] != '2') {
-                Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX()/32 - 1, bomb.getY()/32, Sprite.explosion_horizontal);
-                flame_bomb_hor.setDirection(0);
-                flame_bombs.add(flame_bomb_hor);
-            } else {
-                Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX()/32 - 1, bomb.getY()/32, Sprite.explosion_horizontal);
-                Flame_last_bomb flame_last_bomb_left = new Flame_last_bomb(bomb.getX()/32 - 2, bomb.getY()/32, Sprite.explosion_horizontal_left_last);
-                flame_bomb_hor.setDirection(0);
-                flame_last_bomb_left.setDirection(1);
-                flame_bombs.add(flame_bomb_hor);
-                flame_last_bombs.add(flame_last_bomb_left);
-            }
-        }
-
-        if (c[y - 1][x] == ' ' || c[y - 1][x] == 'p' || c[y - 1][x] == '1' || c[y - 1][x] == '2') {
-            if (c[y - 2][x] != 'p' && c[y - 2][x] != ' ' && c[y - 2][x] != '1' && c[y - 2][x] != '2') {
-                Flame_bomb flame_bomb_ver = new Flame_bomb(bomb.getX()/32, bomb.getY()/32 - 1, Sprite.explosion_vertical);
-                flame_bomb_ver.setDirection(1);
-                flame_bombs.add(flame_bomb_ver);
-            } else {
-                Flame_bomb flame_bomb_ver = new Flame_bomb(bomb.getX()/32, bomb.getY()/32 - 1, Sprite.explosion_vertical);
-                Flame_last_bomb flame_last_bomb_top = new Flame_last_bomb(bomb.getX()/32, bomb.getY()/32 - 2, Sprite.explosion_vertical_top_last);
-                flame_bomb_ver.setDirection(1);
-                flame_last_bomb_top.setDirection(2);
-                flame_bombs.add(flame_bomb_ver);
-                flame_last_bombs.add(flame_last_bomb_top);
-            }
-        }
-
-        if (c[y + 1][x] == ' ' || c[y + 1][x] == '1' || c[y + 1][x] == '2') {
-            if (c[y + 2][x] != ' ' && c[y + 2][x] != '1' && c[y + 2][x] != '2') {
-                Flame_bomb flame_bomb_ver = new Flame_bomb(bomb.getX()/32, bomb.getY()/32 + 1, Sprite.explosion_vertical);
-                flame_bomb_ver.setDirection(1);
-                flame_bombs.add(flame_bomb_ver);
-            } else {
-                Flame_bomb flame_bomb_ver = new Flame_bomb(bomb.getX()/32, bomb.getY()/32 + 1, Sprite.explosion_vertical);
-                Flame_last_bomb flame_last_bomb_down = new Flame_last_bomb(bomb.getX()/32, bomb.getY()/32 + 2, Sprite.explosion_vertical_down_last);
-                flame_bomb_ver.setDirection(1);
-                flame_last_bomb_down.setDirection(3);
-                flame_bombs.add(flame_bomb_ver);
-                flame_last_bombs.add(flame_last_bomb_down);
-            }
-        }
-    }
-
-    public void checkDes(Bomb bomb) {
-        List<Entity> c_ = BombermanGame.entities;
-        char[][] b = BombermanGame.map_;
-        int x = bomb.getX();
-        int y = bomb.getY();
-
-        for (Entity entity : c_) {
-            if (entity instanceof Brick) {
-                int x_ = entity.getX();
-                int y_ = entity.getY();
-                if (y_ == y) {
-                    if (x_ == x + 64 && b[y/32][x/32 + 1] == ' '
-                        || x_ == x - 64 && b[y/32][x/32 - 1] == ' '
-                        || x_ == x + 32 || x_ == x - 32) {
-                        entity.isDes = true;
-                    }
-                } else if (x_ == x) {
-                    if (y_ == y + 64 && b[y/32 + 1][x/32] == ' '
-                            || y_ == y - 64 && b[y/32 - 1][x/32] == ' '
-                            || y_ == y + 32 || y_ == y - 32) {
-                        entity.isDes = true;
-                    }
+            if (i < BombermanGame.buffs.size()) {
+                if (checkCollision(BombermanGame.buffs.get(0)) && BombermanGame.buffs.get(0).isRevealed()) {
+                    isStep_buff = true;
+                    BombermanGame.buffs.remove(0);
                 }
             }
         }
@@ -245,9 +157,10 @@ public class Bomber extends Entity {
     public void setBomb() {
         if (isSetBomb_) {
             Bomb new_b = new Bomb(getX() / 32, getY() / 32, Sprite.bomb);
+            if (isStep_buff) new_b.setBuff(true);
             bombList.add(new_b);
-            checkFlame(new_b);
-            checkDes(new_b);
+            Flame_obj.checkFlame(new_b);
+            Brick.checkDes(new_b);
             isSetBomb_ = false;
         }
     }

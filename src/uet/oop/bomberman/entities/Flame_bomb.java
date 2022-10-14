@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Flame_bomb extends Entity {
+public class Flame_bomb extends Flame_obj {
     private int direction = 0;
     public Flame_bomb(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);

@@ -7,7 +7,6 @@ import javafx.util.Pair;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
-import java.sql.SQLOutput;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -52,30 +51,29 @@ public class Oneal extends Enemy {
             }
         }
         for (int i = 0; i < 4; ++i) {
-                    int u = x/32 + moveX[i];
-                    int v = y/32 + moveY[i];
-                    if ( u > 0 && v > 0 && u < BombermanGame.WIDTH && v < BombermanGame.HEIGHT) {
-                        if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f') continue;
-                        if (distance[y/32][x/32] == 0) direction_ = 0;
-                        if (distance[v][u] == distance[y/32][x/32] - 1) {
-                            switch (i) {
-                                case 0:
-                                    direction_ = 2;
-                                    break;
-                                case 1:
-                                    direction_ = 1;
-                                    break;
-                                case 2:
-                                    direction_ = 4;
-                                    break;
-                                case 3:
-                                    direction_ = 3;
-                                    break;
-                            }
-                        }
+            int u = x/32 + moveX[i];
+            int v = y/32 + moveY[i];
+            if ( u > 0 && v > 0 && u < BombermanGame.WIDTH && v < BombermanGame.HEIGHT) {
+                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f') continue;
+                if (distance[y/32][x/32] == 0) direction_ = 0;
+                if (distance[v][u] == distance[y/32][x/32] - 1) {
+                    switch (i) {
+                        case 0:
+                            direction_ = 2;
+                            break;
+                        case 1:
+                            direction_ = 1;
+                            break;
+                        case 2:
+                            direction_ = 4;
+                            break;
+                        case 3:
+                            direction_ = 3;
+                            break;
                     }
+                }
+            }
         }
-
     }
     protected void chooseSprite() {
 
