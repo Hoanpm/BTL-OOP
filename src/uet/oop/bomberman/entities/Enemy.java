@@ -5,7 +5,9 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Enemy extends Entity {
 
-    public int delaychangemove = 0;
+    protected int delaychangemove = 0;
+    protected int TimeDelay = 0;
+
     public Enemy(int xUnit, int yUnit, Sprite sprite_) {
         super(xUnit, yUnit, sprite_);
     }
@@ -52,16 +54,38 @@ public abstract class Enemy extends Entity {
                     return false;
                 }
             }
-            if (i < BombermanGame.entities.size()) {
-                if (BombermanGame.entities.get(i) instanceof Brick) {
-                    if (checkCollision(BombermanGame.entities.get(i))) {
-                        return false;
-                    }
+            if (i < BombermanGame.bricks.size()) {
+                if (checkCollision(BombermanGame.bricks.get(i))) {
+                    return false;
                 }
             }
         }
         return true;
     }
+
+    public boolean checkDie() {
+        for (int i=0; i<Bomb.flame_objs.size(); i++) {
+            if (checkCollision(Bomb.flame_objs.get(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void deleteEnemy() {
+        if (Bomb.delayTime > 150) {
+            if (TimeDelay < 29) {
+                TimeDelay++;
+            } else {
+                for (int i = 0; i < BombermanGame.enemies.size(); i++) {
+                    if (x == BombermanGame.enemies.get(i).getX()
+                            && y == BombermanGame.enemies.get(i).getY()) {
+                        BombermanGame.enemies.remove(i);
+                        i--;
+                    }
+                    System.out.println("hehe");
+                }
+            }
+        }
+    }
 }
-
-

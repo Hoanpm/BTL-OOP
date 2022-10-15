@@ -27,6 +27,8 @@ public class Bomber extends Entity {
 
     private boolean isSetBomb_ = false;
 
+    public Bomber() {}
+
     public Bomber(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
@@ -137,12 +139,10 @@ public class Bomber extends Entity {
                     y -= dy;
                 }
             }
-            if (i < BombermanGame.entities.size()) {
-                if (BombermanGame.entities.get(i) instanceof Brick) {
-                    if (checkCollision(BombermanGame.entities.get(i))) {
-                        x -= dx;
-                        y -= dy;
-                    }
+            if (i < BombermanGame.bricks.size()) {
+                if (checkCollision(BombermanGame.bricks.get(i))) {
+                    x -= dx;
+                    y -= dy;
                 }
             }
             if (i < BombermanGame.buffs.size()) {

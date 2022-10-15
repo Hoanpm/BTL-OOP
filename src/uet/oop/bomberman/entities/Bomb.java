@@ -6,27 +6,31 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Bomb extends Entity {
     public static int delayTime = 0;
     private boolean isBuff = false;
+
+    public static List<Flame_obj> flame_objs = new ArrayList<>();
 
     public Bomb(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
 
     public void checkDelay() {
-        if (delayTime <= 180) delayTime++;
+        if (delayTime < 180) delayTime++;
         else {
             Bomber.bombList.remove(0);
-            Flame_obj.flame_last_bombs.clear();
-            Flame_obj.flame_bombs.clear();
+            flame_objs.clear();
 
-            for (int i=0; i<BombermanGame.entities.size(); i++) {
-                if (BombermanGame.entities.get(i).isDes) {
-                    int x = BombermanGame.entities.get(i).getX();
-                    int y = BombermanGame.entities.get(i).getY();
+            for (int i=0; i<BombermanGame.bricks.size(); i++) {
+                if (BombermanGame.bricks.get(i).isDes()) {
+                    int x = BombermanGame.bricks.get(i).getX();
+                    int y = BombermanGame.bricks.get(i).getY();
                     BombermanGame.map_[y/32][x/32] = ' ';
-                    BombermanGame.entities.remove(i);
+                    BombermanGame.bricks.remove(i);
                     if (BombermanGame.buffs.size() > 0
                         && i == BombermanGame.buffs.get(0).getIndexBrick()) {
                         BombermanGame.buffs.get(0).setRevealed(true);

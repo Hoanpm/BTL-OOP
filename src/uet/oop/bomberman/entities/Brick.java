@@ -9,12 +9,13 @@ import uet.oop.bomberman.graphics.Sprite;
 import java.util.List;
 
 public class Brick extends Entity {
+    private boolean isDes = false;
     public Brick(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
 
     public static void checkDes(Bomb bomb) {
-        List<Entity> c_ = BombermanGame.entities;
+        List<Brick> c_ = BombermanGame.bricks;
         char[][] b = BombermanGame.map_;
         int x = bomb.getX();
         int y = bomb.getY();
@@ -27,43 +28,41 @@ public class Brick extends Entity {
         }
 
         for (int i=0; i<c_.size(); i++) {
-            if (c_.get(i) instanceof Brick) {
-                int x_ = c_.get(i).getX();
-                int y_ = c_.get(i).getY();
-                if (y_ == y) {
-                    if (bomb.isBuff()) {
-                        if (x_ == x + 64 && b[y / 32][x / 32 + 1] == ' '
-                                || x_ == x - 64 && b[y / 32][x / 32 - 1] == ' '
-                                || x_ == x + 32 || x_ == x - 32) {
-                            c_.get(i).isDes = true;
-                            if (x_ == x_buff && y_ == y_buff) {
-                                BombermanGame.buffs.get(0).setIndexBrick(i);
-                            }
-                        }
-                    } else {
-                        if (x_ == x + 32 || x_ == x - 32) {
-                            c_.get(i).isDes = true;
-                            if (x_ == x_buff && y_ == y_buff) {
-                                BombermanGame.buffs.get(0).setIndexBrick(i);
-                            }
+            int x_ = c_.get(i).getX();
+            int y_ = c_.get(i).getY();
+            if (y_ == y) {
+                if (bomb.isBuff()) {
+                    if (x_ == x + 64 && b[y / 32][x / 32 + 1] == ' '
+                            || x_ == x - 64 && b[y / 32][x / 32 - 1] == ' '
+                            || x_ == x + 32 || x_ == x - 32) {
+                        c_.get(i).setDes(true);
+                        if (x_ == x_buff && y_ == y_buff) {
+                            BombermanGame.buffs.get(0).setIndexBrick(i);
                         }
                     }
-                } else if (x_ == x) {
-                    if (bomb.isBuff()) {
-                        if (y_ == y + 64 && b[y / 32 + 1][x / 32] == ' '
-                                || y_ == y - 64 && b[y / 32 - 1][x / 32] == ' '
-                                || y_ == y + 32 || y_ == y - 32) {
-                            c_.get(i).isDes = true;
-                            if (x_ == x_buff && y_ == y_buff) {
-                                BombermanGame.buffs.get(0).setIndexBrick(i);
-                            }
+                } else {
+                    if (x_ == x + 32 || x_ == x - 32) {
+                        c_.get(i).setDes(true);
+                        if (x_ == x_buff && y_ == y_buff) {
+                            BombermanGame.buffs.get(0).setIndexBrick(i);
                         }
-                    } else {
-                        if (y_ == y + 32 || y_ == y - 32) {
-                            c_.get(i).isDes = true;
-                            if (x_ == x_buff && y_ == y_buff) {
-                                BombermanGame.buffs.get(0).setIndexBrick(i);
-                            }
+                    }
+                }
+            } else if (x_ == x) {
+                if (bomb.isBuff()) {
+                    if (y_ == y + 64 && b[y / 32 + 1][x / 32] == ' '
+                            || y_ == y - 64 && b[y / 32 - 1][x / 32] == ' '
+                            || y_ == y + 32 || y_ == y - 32) {
+                        c_.get(i).setDes(true);
+                        if (x_ == x_buff && y_ == y_buff) {
+                            BombermanGame.buffs.get(0).setIndexBrick(i);
+                        }
+                    }
+                } else {
+                    if (y_ == y + 32 || y_ == y - 32) {
+                        c_.get(i).setDes(true);
+                        if (x_ == x_buff && y_ == y_buff) {
+                            BombermanGame.buffs.get(0).setIndexBrick(i);
                         }
                     }
                 }
@@ -88,5 +87,13 @@ public class Brick extends Entity {
             Image new_img = sprite_.getFxImage();
             gc.drawImage(new_img, x, y);
         } else gc.drawImage(img, x, y);
+    }
+
+    public boolean isDes() {
+        return isDes;
+    }
+
+    public void setDes(boolean des) {
+        isDes = des;
     }
 }

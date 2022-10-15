@@ -25,10 +25,14 @@ public class BombermanGame extends Application {
 
     private GraphicsContext gc;
     private Canvas canvas;
-    public static List<Entity> entities = new ArrayList<>();
+
     public static List<Buff> buffs = new ArrayList<>();
+    public static List<Brick> bricks = new ArrayList<>();
+    public static List<Enemy> enemies = new ArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
+
     public static char[][] map_ = new char[100][100];
+    public static Bomber bomber = new Bomber();
     public static void main(String[] args) {
         Application.launch(BombermanGame.class);
     }
@@ -93,6 +97,7 @@ public class BombermanGame extends Application {
                     Entity obj;
                     Enemy obj_;
                     Buff buff;
+                    Brick brick;
                     switch (str.get(i + 1).charAt(j)) {
                         case '#' :
                             obj = new Wall(j, i, Sprite.wall);
@@ -105,42 +110,41 @@ public class BombermanGame extends Application {
                         case '*' :
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Brick(j, i, Sprite.brick);
-                            entities.add(obj);
+                            brick = new Brick(j, i, Sprite.brick);
+                            bricks.add(brick);
                             break;
                         case 'p' :
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Bomber(1, 1, Sprite.player_right);
-                            entities.add(obj);
+                            bomber = new Bomber(1, 1, Sprite.player_right);
                             break;
                         case 'x' :
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
                             obj = new Portal(j, i, Sprite.portal);
                             stillObjects.add(obj);
-                            obj = new Brick(j, i, Sprite.brick);
-                            entities.add(obj);
+                            brick = new Brick(j, i, Sprite.brick);
+                            bricks.add(brick);
                             break;
                         case '1' :
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
                             obj_ = new Balloon(j ,i, Sprite.balloom_right1);
-                            entities.add(obj_);
+                            enemies.add(obj_);
                             break;
                         case '2' :
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
                             obj_ = new Oneal(j, i, Sprite.oneal_right1);
-                            entities.add(obj_);
+                            enemies.add(obj_);
                             break;
                         case 'f' :
                             obj = new Grass(j, i, Sprite.grass);
                             stillObjects.add(obj);
                             buff = new Flame_Item(j, i, Sprite.powerup_flames);
                             buffs.add(buff);
-                            obj = new Brick(j, i, Sprite.brick);
-                            entities.add(obj);
+                            brick = new Brick(j, i, Sprite.brick);
+                            bricks.add(brick);
                             break;
                     }
                 }
@@ -152,20 +156,21 @@ public class BombermanGame extends Application {
     }
 
     public void update(Scene scene) {
-        for (int i=0; i<entities.size(); i++) {
-            if (i < Bomber.bombList.size())
+        for (int i=0; i<Bomber.bombList.size(); i++) {
                 Bomber.bombList.get(i).update(scene);
-            entities.get(i).update(scene);
         }
+        bomber.update(scene);
+        enemies.forEach(g -> g.update(scene));
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         stillObjects.forEach(g -> g.render(gc));
-        Bomber.bombList.forEach(g -> g.render(gc));
-        Flame_obj.flame_bombs.forEach(g -> g.render(gc));
-        Flame_obj.flame_last_bombs.forEach(g -> g.render(gc));
         buffs.forEach(g -> g.render(gc));
-        entities.forEach(g -> g.render(gc));
+        bricks.forEach(g -> g.render(gc));
+        enemies.forEach(g -> g.render(gc));
+        Bomber.bombList.forEach(g -> g.render(gc));
+        Bomb.flame_objs.forEach(g -> g.render(gc));
+        bomber.render(gc);
     }
 }

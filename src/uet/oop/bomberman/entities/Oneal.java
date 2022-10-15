@@ -88,13 +88,20 @@ public class Oneal extends Enemy {
     }
     @Override
     public void render(GraphicsContext gc) {
-        chooseSprite();
-        Image new_img = sprite_.getFxImage();
-        gc.drawImage(new_img, x, y);
+//        if (checkDie() && TimeDelay <= 29) {
+//            sprite_ = Sprite.oneal_dead;
+//            img = sprite_.getFxImage();
+//            gc.drawImage(img, x, y);
+//        } else {
+            chooseSprite();
+            Image new_img = sprite_.getFxImage();
+            gc.drawImage(new_img, x, y);
+        //}
     }
 
     public void update(Scene scene) {
-        caculated(BombermanGame.entities.get(0));
-        calculateMove();
+            caculated(BombermanGame.bomber);
+            calculateMove();
+          //  deleteEnemy();
     }
 }

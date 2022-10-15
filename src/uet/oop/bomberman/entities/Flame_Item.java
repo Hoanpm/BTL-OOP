@@ -9,6 +9,5 @@ public class Flame_Item extends Buff {
     }
 
     @Override
-    public void update(Scene scene) {
-    }
+    public void update(Scene scene) {}
 }
