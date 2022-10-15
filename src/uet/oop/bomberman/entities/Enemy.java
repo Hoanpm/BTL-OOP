@@ -3,6 +3,8 @@ package uet.oop.bomberman.entities;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.Random;
+
 public abstract class Enemy extends Entity {
 
     protected int delaychangemove = 0;
@@ -14,6 +16,7 @@ public abstract class Enemy extends Entity {
 
     public boolean check = false ,check1 = false, check2 = false, check3 = false, check4 = false;
     protected int direction_ = 3;
+
 
     public void calculateMove() {
         if (delaychangemove == 32) {
@@ -64,7 +67,7 @@ public abstract class Enemy extends Entity {
     }
 
     public boolean checkDie() {
-        for (int i=0; i<Bomb.flame_objs.size(); i++) {
+        for (int i = 0; i < Bomb.flame_objs.size(); i++) {
             if (checkCollision(Bomb.flame_objs.get(i))) {
                 return true;
             }
@@ -73,7 +76,7 @@ public abstract class Enemy extends Entity {
     }
 
     public void deleteEnemy() {
-        if (Bomb.delayTime > 150) {
+        if (Bomb.delayTime > 150 && checkDie()) {
             if (TimeDelay < 29) {
                 TimeDelay++;
             } else {
@@ -83,7 +86,6 @@ public abstract class Enemy extends Entity {
                         BombermanGame.enemies.remove(i);
                         i--;
                     }
-                    System.out.println("hehe");
                 }
             }
         }
