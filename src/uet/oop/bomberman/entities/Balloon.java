@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Balloon extends Enemy {
     public Balloon(int x, int y, Sprite sprite_) {
@@ -14,15 +13,15 @@ public class Balloon extends Enemy {
 
 
     protected void chooseSprite() {
-            switch(direction_) {
-                case 1:
-                case 4:
-                    sprite_ = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, AnimatedEntity.animate_, 60);
-                    break;
-                case 2:
-                case 3:
-                    sprite_ = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, AnimatedEntity.animate_, 60);
-                    break;
+        switch(direction_) {
+            case 1:
+            case 4:
+                sprite_ = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, AnimatedEntity.animate_, 60);
+                break;
+            case 2:
+            case 3:
+                sprite_ = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, AnimatedEntity.animate_, 60);
+                break;
         }
     }
 
