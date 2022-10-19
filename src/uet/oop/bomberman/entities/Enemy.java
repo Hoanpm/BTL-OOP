@@ -7,8 +7,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Enemy extends Entity {
 
-    protected int TimeDelay = 0;
-
     public Enemy(int xUnit, int yUnit, Sprite sprite_) {
         super(xUnit, yUnit, sprite_);
     }

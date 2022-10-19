@@ -55,7 +55,6 @@ public class Oneal extends Enemy {
             int v = y/32 + moveY[i];
             if ( u > 0 && v > 0 && u < BombermanGame.WIDTH && v < BombermanGame.HEIGHT) {
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f') continue;
-                //if (distance[y/32][x/32] == 0) direction_ = 0;
                 if (distance[v][u] == distance[y/32][x/32] - 1) {
                     switch (i) {
                         case 0:
@@ -74,7 +73,12 @@ public class Oneal extends Enemy {
                 }
             }
         }
-        check = distance[y/32][x/32] == 0;
+        if (distance[y/32][x/32] == 0) {
+            if (((x/32 != sx) || (y/32 != sy)))
+                check = true;
+            else
+                direction_ = 0;
+        } else check = false;
     }
     protected void chooseSprite() {
 
