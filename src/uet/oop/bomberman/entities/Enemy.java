@@ -102,17 +102,14 @@ public abstract class Enemy extends Entity {
 
     public void deleteEnemy() {
         if (Bomb.delayTime > 150 && checkDie()) {
-            if (TimeDelay < 29) {
-                TimeDelay++;
-            } else {
-                for (int i = 0; i < BombermanGame.enemies.size(); i++) {
-                    if (x == BombermanGame.enemies.get(i).getX()
-                            && y == BombermanGame.enemies.get(i).getY()) {
-                        BombermanGame.enemies.remove(i);
+                for (int i = 1; i <= BombermanGame.enemies.size(); i++) {
+                    if (x == BombermanGame.enemies.get(i-1).getX()
+                            && y == BombermanGame.enemies.get(i-1).getY()) {
+                        BombermanGame.enemies.remove(i-1);
                         i--;
                     }
                 }
-            }
+
         }
     }
 }

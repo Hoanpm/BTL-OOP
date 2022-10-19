@@ -96,10 +96,10 @@ public class Oneal extends Enemy {
 
     public void update(Scene scene) {
         caculated(BombermanGame.bomber);
-        if (check)
-            caculateBalloon();
-        else
-            calculateMove();
+//        if (check)
+//            caculateBalloon();
+//        else
+//            calculateMove();
         //deleteEnemy();
     }
 }

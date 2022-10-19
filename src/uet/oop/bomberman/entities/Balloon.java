@@ -33,5 +33,7 @@ public class Balloon extends Enemy {
     }
     public void update(Scene scene) {
         caculateBalloon();
+        checkDie();
+        deleteEnemy();
     };
 }

@@ -160,7 +160,7 @@ public class BombermanGame extends Application {
                 Bomber.bombList.get(i).update(scene);
         }
         bomber.update(scene);
-        enemies.forEach(g -> g.update(scene));
+        enemies.    forEach(g -> g.update(scene));
     }
 
     public void render() {
