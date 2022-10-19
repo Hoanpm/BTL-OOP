@@ -79,9 +79,11 @@ public class Oneal extends Enemy {
     protected void chooseSprite() {
 
         switch(direction_) {
+            case 4:
             case 1:
                 sprite_ = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, AnimatedEntity.animate_, 60);
                 break;
+            case 2:
             case 3:
                 sprite_ = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, AnimatedEntity.animate_, 60);
                 break;
@@ -96,10 +98,10 @@ public class Oneal extends Enemy {
 
     public void update(Scene scene) {
         caculated(BombermanGame.bomber);
-//        if (check)
-//            caculateBalloon();
-//        else
-//            calculateMove();
-        //deleteEnemy();
+        if (check)
+            caculateBalloon();
+        else
+            calculateMove();
+        deleteEnemy();
     }
 }

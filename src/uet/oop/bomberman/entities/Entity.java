@@ -97,16 +97,16 @@ public abstract class Entity {
 
         if (top_b == top_a || bottom_b == bottom_a) {
             if (right_b > left_a && right_b < right_a) {
-                return  true;
+                return true;
             }
         }
 
         if (top_b == top_a || bottom_b == bottom_a) {
             if (right_a > left_b && left_b > left_a) {
-                return  true;
+                return true;
             }
         }
 
-        return false;
+        return top_a == top_b && right_a == right_b && bottom_a == bottom_b;
     }
 }

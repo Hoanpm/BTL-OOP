@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class BombermanGame extends Application {
     public static int WIDTH;
@@ -28,7 +29,7 @@ public class BombermanGame extends Application {
 
     public static List<Buff> buffs = new ArrayList<>();
     public static List<Brick> bricks = new ArrayList<>();
-    public static List<Enemy> enemies = new ArrayList<>();
+    public static List<Enemy> enemies = new CopyOnWriteArrayList<>();
     public static List<Entity> stillObjects = new ArrayList<>();
 
     public static char[][] map_ = new char[100][100];
@@ -160,7 +161,9 @@ public class BombermanGame extends Application {
                 Bomber.bombList.get(i).update(scene);
         }
         bomber.update(scene);
-        enemies.    forEach(g -> g.update(scene));
+        for (Enemy enemy : enemies) {
+            enemy.update(scene);
+        }
     }
 
     public void render() {
