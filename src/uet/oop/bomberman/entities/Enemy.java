@@ -22,20 +22,20 @@ public abstract class Enemy extends Entity {
             while (!canmove(direction_)) {
                 direction_ = ThreadLocalRandom.current().nextInt(1, 5);
             }
-        }
-        switch (direction_) {
-            case 1:
-                check1 = true;
-                break;
-            case 2:
-                check2 = true;
-                break;
-            case 3:
-                check3 = true;
-                break;
-            case 4:
-                check4 = true;
-                break;
+            switch (direction_) {
+                case 1:
+                    check1 = true;
+                    break;
+                case 2:
+                    check2 = true;
+                    break;
+                case 3:
+                    check3 = true;
+                    break;
+                case 4:
+                    check4 = true;
+                    break;
+            }
         }
         if (check1) y -= 1;
         if (check2) y += 1;

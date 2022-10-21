@@ -29,15 +29,15 @@ public class Balloon extends Enemy {
 
     @Override
     public void render(GraphicsContext gc) {
-        chooseSprite();
-        Image new_img = sprite_.getFxImage();
-        gc.drawImage(new_img, x, y);
+       chooseSprite();
+   Image new_img = sprite_.getFxImage();
+      gc.drawImage(new_img, x, y);
     }
     public void update(Scene scene) {
         checkDie();
         if (!checkdie) {
             caculateBalloon();
-            checkbomberdie(BombermanGame.bomber);
+            //checkbomberdie(BombermanGame.bomber);
         }
         else deleteEnemy();
     };
