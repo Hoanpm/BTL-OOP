@@ -37,7 +37,7 @@ public class Balloon extends Enemy {
         checkDie();
         if (!checkdie) {
             caculateBalloon();
-            //checkbomberdie(BombermanGame.bomber);
+            checkbomberdie(BombermanGame.bomber);
         }
         else deleteEnemy();
     };

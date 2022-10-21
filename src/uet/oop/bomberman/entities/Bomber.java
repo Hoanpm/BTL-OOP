@@ -30,7 +30,7 @@ public class Bomber extends Entity {
     public static List<Bomb> bombList = new ArrayList<>();
 
     private boolean isSetBomb_ = false;
-    private boolean isStepOut = false;
+    public static boolean isStepOut = false;
 
     public Bomber() {}
 
@@ -166,6 +166,12 @@ public class Bomber extends Entity {
                     }
                 }
             }
+            if (isStepOut && bombList.size() > 0) {
+                if (checkCollision(bombList.get(0))) {
+                    x -= dx;
+                    y -= dy;
+                }
+            }
         }
     }
 
@@ -181,12 +187,29 @@ public class Bomber extends Entity {
         }
     }
 
+    public void setIsStepOut() {
+        if (bombList.size() > 0) {
+            int left_b = this.x;
+            int right_b = this.x + this.sprite_.get_realWidth() * 2;
+            int top_b = this.y;
+            int bottom_b = this.y + this.sprite_.get_realHeight() * 2;
+
+            int m = bombList.get(0).getX();
+            int n = bombList.get(0).getY();
+
+            if (right_b <= m || left_b >= (m + 32) || top_b >= (n + 32) || bottom_b <= n) {
+                isStepOut = true;
+            }
+        }
+    }
+
     @Override
     public void update(Scene scene) {
+        setIsStepOut();
         setKey(scene);
         AnimatedEntity.animate();
-        move();
         setBomb();
+        move();
     }
 
     @Override

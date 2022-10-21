@@ -160,6 +160,9 @@ public class BombermanGame extends Application {
         for (int i=0; i<Bomber.bombList.size(); i++) {
                 Bomber.bombList.get(i).update(scene);
         }
+        for (int i=0; i<Bomb.flame_objs.size(); i++) {
+            Bomb.flame_objs.get(i).update(scene);
+        }
         bomber.update(scene);
         for (Enemy enemy : enemies) {
             enemy.update(scene);

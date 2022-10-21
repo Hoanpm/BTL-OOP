@@ -38,7 +38,7 @@ public class Bomb extends Entity {
                     i--;
                 }
             }
-
+            Bomber.isStepOut = false;
             delayTime = 0;
         }
     }
