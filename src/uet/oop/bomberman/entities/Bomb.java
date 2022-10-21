@@ -22,7 +22,7 @@ public class Bomb extends Entity {
     public void checkDelay() {
         if (delayTime < 180) delayTime++;
         else {
-            Bomber.bombList.remove(0);
+            Bomber.bombList.clear();
             flame_objs.clear();
 
             for (int i=0; i<BombermanGame.bricks.size(); i++) {
@@ -46,8 +46,10 @@ public class Bomb extends Entity {
     public void chooseSprite() {
         if (delayTime <= 150)
             sprite_ = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, delayTime, 50);
-        if (delayTime > 150 && delayTime <= 180)
+        if (delayTime > 150 && delayTime <= 180) {
+            BombermanGame.map_[getY()/32][getX()/32] = ' ';
             sprite_ = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, delayTime, 30);
+        }
     }
 
     public void update(Scene scene_){

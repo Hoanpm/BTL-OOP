@@ -87,7 +87,7 @@ public abstract class Enemy extends Entity {
         }
         if (u > BombermanGame.WIDTH || u < 1) return false;
         if (v > BombermanGame.HEIGHT || v < 1) return false;
-        return mapgame[v][u] != '*' && mapgame[v][u] != '#' && mapgame[v][u] != 'x' && mapgame[v][u] != 'f';
+        return mapgame[v][u] != '*' && mapgame[v][u] != '#' && mapgame[v][u] != 'x' && mapgame[v][u] != 'f' && mapgame[v][u] != 'o';
     }
 
     public boolean checkDie() {

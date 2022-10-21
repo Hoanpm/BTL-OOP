@@ -53,60 +53,56 @@ public abstract class Entity {
     public abstract void update(Scene scene);
 
     public boolean checkCollision(Entity other) {
-        int left_a = this.x;
-        int right_a = this.x + this.sprite_.get_realWidth() * 2;
-        int top_a = this.y;
-        int bottom_a = this.y + this.sprite_.get_realHeight() * 2;
+        int left_b = this.x;
+        int right_b = this.x + this.sprite_.get_realWidth() * 2;
+        int top_b = this.y;
+        int bottom_b = this.y + this.sprite_.get_realHeight() * 2;
 
-        int left_b = other.getX();
-        int right_b = other.getX() + other.getSprite_().get_realWidth() * 2;
-        int top_b = other.getY();
-        int bottom_b = other.getY() + other.getSprite_().get_realHeight() * 2;
+        int left_a = other.getX();
+        int right_a = other.getX() + other.getSprite_().get_realWidth() * 2;
+        int top_a = other.getY();
+        int bottom_a = other.getY() + other.getSprite_().get_realHeight() * 2;
 
-        if (left_a > left_b && left_a < right_b)
-        {
-            if (top_a > top_b && top_a < bottom_b)
-            {
+        if (left_b < left_a && right_b > left_a) {
+            if (top_b < top_a && bottom_b > top_a) {
+                return true;
+            }
+            if (top_b < bottom_a && bottom_b > bottom_a) {
                 return true;
             }
         }
 
-        if (left_a > left_b && left_a < right_b)
-        {
-            if (bottom_a > top_b && bottom_a < bottom_b)
-            {
+        if (left_b < right_a && right_b > right_a) {
+            if (top_b < top_a && bottom_b > top_a) {
+                return true;
+            }
+            if (top_b < bottom_a && bottom_b > bottom_a) {
                 return true;
             }
         }
 
-        if (right_a > left_b && right_a < right_b)
-        {
-            if (top_a > top_b && top_a < bottom_b)
-            {
+        if (top_b >= top_a && bottom_b <= bottom_a) {
+            if (left_b < left_a && right_b > left_a) {
+                return true;
+            }
+            if (left_b < right_a && right_b > right_a) {
                 return true;
             }
         }
 
-        if (right_a > left_b && right_a < right_b)
-        {
-            if (bottom_a > top_b && bottom_a < bottom_b)
-            {
+        if (left_b >= left_a && right_b <= right_a) {
+            if (top_b < top_a && bottom_b > top_a) {
+                return true;
+            }
+            if (top_b < bottom_a && bottom_b > bottom_a) {
                 return true;
             }
         }
 
-        if (top_b == top_a || bottom_b == bottom_a) {
-            if (right_b > left_a && right_b < right_a) {
-                return true;
-            }
+        if (left_b >= left_a && right_b <= right_a && top_b >= top_a && bottom_b <= bottom_a) {
+            return true;
         }
 
-        if (top_b == top_a || bottom_b == bottom_a) {
-            if (right_a > left_b && left_b > left_a) {
-                return true;
-            }
-        }
-
-        return top_a == top_b && right_a == right_b && bottom_a == bottom_b;
+        return false;
     }
 }

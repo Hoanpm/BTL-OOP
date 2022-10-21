@@ -156,7 +156,8 @@ public class Bomber extends Entity {
 
     public void setBomb() {
         if (isSetBomb_) {
-            Bomb new_b = new Bomb(getX() / 32, getY() / 32, Sprite.bomb);
+            Bomb new_b = new Bomb((getX() + 16) / 32, (getY()  + 16) / 32, Sprite.bomb);
+
             if (isStep_buff) new_b.setBuff(true);
             bombList.add(new_b);
             Flame_obj.checkFlame(new_b);

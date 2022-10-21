@@ -41,7 +41,7 @@ public class Oneal extends Enemy {
 
                 if (u > BombermanGame.WIDTH || u < 1) continue;
                 if (v > BombermanGame.HEIGHT || v < 1) continue;
-                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f') continue;
+                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
 
                 if (!visit[v][u]) {
                     distance[v][u] = distance[y1][x1] + 1;
