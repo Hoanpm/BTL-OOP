@@ -92,6 +92,8 @@ public class Oneal extends Enemy {
                 sprite_ = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, AnimatedEntity.animate_, 60);
                 break;
         }
+        if (checkdie)
+            sprite_ = (Sprite.oneal_dead);
     }
     @Override
     public void render(GraphicsContext gc) {
@@ -102,10 +104,13 @@ public class Oneal extends Enemy {
 
     public void update(Scene scene) {
         caculated(BombermanGame.bomber);
-        if (check)
-            caculateBalloon();
-        else
-            calculateMove();
-        deleteEnemy();
+        checkbomberdie(BombermanGame.bomber);
+        checkDie();
+        if (!checkdie)
+            if (check)
+                caculateBalloon();
+            else
+                calculateMove();
+        else deleteEnemy();
     }
 }
