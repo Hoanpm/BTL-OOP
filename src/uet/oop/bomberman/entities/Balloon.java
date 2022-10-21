@@ -12,7 +12,6 @@ public class Balloon extends Enemy {
 
     }
 
-
     protected void chooseSprite() {
         switch(direction_) {
             case 1:

@@ -30,6 +30,7 @@ public class Bomber extends Entity {
     public static List<Bomb> bombList = new ArrayList<>();
 
     private boolean isSetBomb_ = false;
+    private boolean isStepOut = false;
 
     public Bomber() {}
 
@@ -130,39 +131,39 @@ public class Bomber extends Entity {
             this.sprite_ = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, AnimatedEntity.animate_, 60);
     }
 
-    public void move()  {
+    public void move() {
         setDirection();
-        if (checkdie ) {
-            if (delaydie == 60) {
+        if (checkdie) {
+            if (delaydie == 40) {
                 x = 32;
                 y = 32;
                 checkdie = false;
                 delaydie = 0;
             }
-            delaydie ++;
-        }
+            delaydie++;
+        } else {
+            x += dx;
+            y += dy;
+            isMove_ = dx != 0 || dy != 0;
 
-        x += dx;
-        y += dy;
-        isMove_ = dx != 0 || dy != 0;
-
-        for (int i=0; i < BombermanGame.stillObjects.size(); i++) {
-            if (BombermanGame.stillObjects.get(i) instanceof Wall) {
-                if (checkCollision(BombermanGame.stillObjects.get(i))) {
-                    x -= dx;
-                    y -= dy;
+            for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
+                if (BombermanGame.stillObjects.get(i) instanceof Wall) {
+                    if (checkCollision(BombermanGame.stillObjects.get(i))) {
+                        x -= dx;
+                        y -= dy;
+                    }
                 }
-            }
-            if (i < BombermanGame.bricks.size()) {
-                if (checkCollision(BombermanGame.bricks.get(i))) {
-                    x -= dx;
-                    y -= dy;
+                if (i < BombermanGame.bricks.size()) {
+                    if (checkCollision(BombermanGame.bricks.get(i))) {
+                        x -= dx;
+                        y -= dy;
+                    }
                 }
-            }
-            if (i < BombermanGame.buffs.size()) {
-                if (checkCollision(BombermanGame.buffs.get(0)) && BombermanGame.buffs.get(0).isRevealed()) {
-                    isStep_buff = true;
-                    BombermanGame.buffs.remove(0);
+                if (i < BombermanGame.buffs.size()) {
+                    if (checkCollision(BombermanGame.buffs.get(0)) && BombermanGame.buffs.get(0).isRevealed()) {
+                        isStep_buff = true;
+                        BombermanGame.buffs.remove(0);
+                    }
                 }
             }
         }
@@ -171,7 +172,7 @@ public class Bomber extends Entity {
     public void setBomb() {
         if (isSetBomb_) {
             Bomb new_b = new Bomb((getX() + 16) / 32, (getY()  + 16) / 32, Sprite.bomb);
-
+            BombermanGame.map_[new_b.getY()/32][new_b.getX()/32] = 'o';
             if (isStep_buff) new_b.setBuff(true);
             bombList.add(new_b);
             Flame_obj.checkFlame(new_b);

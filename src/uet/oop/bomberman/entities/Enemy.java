@@ -91,8 +91,10 @@ public abstract class Enemy extends Entity {
     }
 
     public void checkbomberdie(Bomber bomber) {
-        if (checkCollision(bomber))
-            bomber.checkdie = true;
+        if (!checkdie) {
+            if (checkCollision(bomber))
+                bomber.checkdie = true;
+        }
     }
 
     public void checkDie() {

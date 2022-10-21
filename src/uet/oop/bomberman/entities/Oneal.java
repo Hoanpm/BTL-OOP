@@ -74,14 +74,13 @@ public class Oneal extends Enemy {
             }
         }
         if (distance[y/32][x/32] == 0) {
-            if (((x/32 != sx) || (y/32 != sy)))
+            if (x/32 != sx|| y/32 != sy)
                 check = true;
             else
                 direction_ = 0;
         } else check = false;
     }
     protected void chooseSprite() {
-
         switch(direction_) {
             case 4:
             case 1:
