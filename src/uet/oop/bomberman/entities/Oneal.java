@@ -55,7 +55,6 @@ public class Oneal extends Enemy {
             int v = y/32 + moveY[i];
             if ( u > 0 && v > 0 && u < BombermanGame.WIDTH && v < BombermanGame.HEIGHT) {
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f') continue;
-                //if (distance[y/32][x/32] == 0) direction_ = 0;
                 if (distance[v][u] == distance[y/32][x/32] - 1) {
                     switch (i) {
                         case 0:
@@ -74,7 +73,12 @@ public class Oneal extends Enemy {
                 }
             }
         }
-        check = distance[y/32][x/32] == 0;
+        if (distance[y/32][x/32] == 0) {
+            if (((x/32 != sx) || (y/32 != sy)))
+                check = true;
+            else
+                direction_ = 0;
+        } else check = false;
     }
     protected void chooseSprite() {
 
@@ -88,6 +92,8 @@ public class Oneal extends Enemy {
                 sprite_ = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, AnimatedEntity.animate_, 60);
                 break;
         }
+        if (checkdie)
+            sprite_ = (Sprite.oneal_dead);
     }
     @Override
     public void render(GraphicsContext gc) {
@@ -98,10 +104,13 @@ public class Oneal extends Enemy {
 
     public void update(Scene scene) {
         caculated(BombermanGame.bomber);
-        if (check)
-            caculateBalloon();
-        else
-            calculateMove();
-        deleteEnemy();
+        checkbomberdie(BombermanGame.bomber);
+        checkDie();
+        if (!checkdie)
+            if (check)
+                caculateBalloon();
+            else
+                calculateMove();
+        else deleteEnemy();
     }
 }

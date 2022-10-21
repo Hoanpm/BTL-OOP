@@ -7,13 +7,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Enemy extends Entity {
 
-    protected int TimeDelay = 0;
-
     public Enemy(int xUnit, int yUnit, Sprite sprite_) {
         super(xUnit, yUnit, sprite_);
     }
     public boolean check = false ,check1 = false, check2 = false, check3 = false, check4 = false;
     protected int direction_ = 3;
+    public boolean checkdie = false;
+    public int delaydie = 0;
 
     public void caculateBalloon() {
         if (x % 32 == 0 && y % 32 == 0) {
@@ -90,24 +90,31 @@ public abstract class Enemy extends Entity {
         return mapgame[v][u] != '*' && mapgame[v][u] != '#' && mapgame[v][u] != 'x' && mapgame[v][u] != 'f' && mapgame[v][u] != 'o';
     }
 
-    public boolean checkDie() {
-        for (int i = 0; i < Bomb.flame_objs.size(); i++) {
-            if (checkCollision(Bomb.flame_objs.get(i))) {
-                return true;
-            }
-        }
-        return false;
+    public void checkbomberdie(Bomber bomber) {
+        if (checkCollision(bomber))
+            bomber.checkdie = true;
     }
 
-    public void deleteEnemy() {
-        if (Bomb.delayTime > 150 && checkDie()) {
-            for (int i = 1; i <= BombermanGame.enemies.size(); i++) {
-                if (x == BombermanGame.enemies.get(i-1).getX()
-                        && y == BombermanGame.enemies.get(i-1).getY()) {
-                    BombermanGame.enemies.remove(i-1);
-                    i--;
+    public void checkDie() {
+        if (Bomb.delayTime > 150)
+            for (int i = 0; i < Bomb.flame_objs.size(); i++) {
+                if (checkCollision(Bomb.flame_objs.get(i))) {
+                    checkdie = true;
                 }
+            }
+    }
+        public void deleteEnemy() {
+            if (checkdie)
+                delaydie ++;
+            if (delaydie == 60) {
+                for (int i = 1; i <= BombermanGame.enemies.size(); i++) {
+                    if (x == BombermanGame.enemies.get(i - 1).getX()
+                            && y == BombermanGame.enemies.get(i - 1).getY()) {
+                        BombermanGame.enemies.remove(i - 1);
+                        i--;
+                    }
+                }
+                delaydie = 0;
             }
         }
     }
-}

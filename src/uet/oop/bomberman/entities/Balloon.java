@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Balloon extends Enemy {
@@ -23,6 +24,8 @@ public class Balloon extends Enemy {
                 sprite_ = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, AnimatedEntity.animate_, 60);
                 break;
         }
+        if (checkdie)
+            sprite_ = Sprite.balloom_dead;
     }
 
     @Override
@@ -32,8 +35,11 @@ public class Balloon extends Enemy {
         gc.drawImage(new_img, x, y);
     }
     public void update(Scene scene) {
-        caculateBalloon();
         checkDie();
-        deleteEnemy();
+        if (!checkdie) {
+            caculateBalloon();
+            checkbomberdie(BombermanGame.bomber);
+        }
+        else deleteEnemy();
     };
 }

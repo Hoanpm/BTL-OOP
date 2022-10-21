@@ -14,6 +14,10 @@ import java.util.List;
 public class Bomber extends Entity {
     private int dx, dy;
     private static final int velocity = 2;
+
+    public boolean checkdie = false;
+
+    private int delaydie = 0;
     private boolean isMove_ = false;
     private boolean isStep_buff = false;
     private static final String MOVE_UP = "UP",
@@ -122,14 +126,24 @@ public class Bomber extends Entity {
                     this.sprite_ = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, AnimatedEntity.animate_, 20);
                 break;
         }
+        if (checkdie)
+            this.sprite_ = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, Sprite.player_dead3, AnimatedEntity.animate_, 60);
     }
 
     public void move()  {
         setDirection();
+        if (checkdie ) {
+            if (delaydie == 60) {
+                x = 32;
+                y = 32;
+                checkdie = false;
+                delaydie = 0;
+            }
+            delaydie ++;
+        }
 
         x += dx;
         y += dy;
-
         isMove_ = dx != 0 || dy != 0;
 
         for (int i=0; i < BombermanGame.stillObjects.size(); i++) {
