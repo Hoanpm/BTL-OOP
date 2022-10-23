@@ -14,7 +14,8 @@ import java.util.List;
 public class Bomber extends Entity {
     private int dx, dy;
     private static final int velocity = 2;
-
+    public static int NumberOfLives = 1;
+    public static boolean isDie = false;
     public boolean checkdie = false;
 
     private int delaydie = 0;
@@ -60,7 +61,7 @@ public class Bomber extends Entity {
                         dx = velocity;
                         break;
                     case SPACE:
-                        if (Bomb.delayTime == 0)
+                        if (Bomb.delayTime == 0 && Bomb.NumberOfBombs > 0)
                             isSetBomb_ = true;
                         break;
                 }
@@ -141,6 +142,7 @@ public class Bomber extends Entity {
                 delaydie = 0;
             }
             delaydie++;
+            NumberOfLives--;
         } else {
             x += dx;
             y += dy;
@@ -181,6 +183,7 @@ public class Bomber extends Entity {
             BombermanGame.map_[new_b.getY()/32][new_b.getX()/32] = 'o';
             if (isStep_buff) new_b.setBuff(true);
             bombList.add(new_b);
+            Bomb.NumberOfBombs--;
             Flame_obj.checkFlame(new_b);
             Brick.checkDes(new_b);
             isSetBomb_ = false;
@@ -217,5 +220,13 @@ public class Bomber extends Entity {
         chooseSprite();
         Image new_img = sprite_.getFxImage();
         gc.drawImage(new_img, x, y);
+    }
+
+    public void setSetBomb_(boolean setBomb_) {
+        isSetBomb_ = setBomb_;
+    }
+
+    public void setDelaydie(int delaydie) {
+        this.delaydie = delaydie;
     }
 }

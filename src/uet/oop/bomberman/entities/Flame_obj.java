@@ -9,7 +9,7 @@ public abstract class Flame_obj extends Entity {
     }
 
     public void checkBomberDie(Bomber bomber) {
-        if (Bomb.delayTime > 150) {
+        if (Bomb.delayTime > 151) {
             if (checkCollision(bomber)) {
                 bomber.checkdie = true;
             }

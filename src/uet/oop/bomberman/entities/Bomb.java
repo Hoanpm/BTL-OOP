@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Bomb extends Entity {
     public static int delayTime = 0;
+    public static int NumberOfBombs = 20;
     private boolean isBuff = false;
 
     public static List<Flame_obj> flame_objs = new ArrayList<>();

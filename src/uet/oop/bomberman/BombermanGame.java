@@ -17,9 +17,6 @@ public class BombermanGame extends Application {
     public static int WIDTH;
     public static int HEIGHT;
 
-    public static final int test1 = 20;
-    public static final int test2 = 10;
-
     public static List<Buff> buffs = new ArrayList<>();
     public static List<Brick> bricks = new ArrayList<>();
     public static List<Enemy> enemies = new CopyOnWriteArrayList<>();

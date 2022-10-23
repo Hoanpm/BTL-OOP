@@ -24,6 +24,22 @@ public class GamePlay extends BombermanGame {
     private GraphicsContext gc;
     private Canvas canvas;
 
+    public void reset() {
+        buffs.clear();
+        bricks.clear();
+        enemies.clear();
+        stillObjects.clear();
+        Bomber.bombList.clear();
+        Bomb.flame_objs.clear();
+        Bomber.NumberOfLives = 1;
+        Bomb.NumberOfBombs = 20;
+        Bomb.delayTime = 0;
+        bomber.setSetBomb_(false);
+        bomber.checkdie = false;
+        bomber.setDelaydie(0);
+        Bomber.isStepOut = false;
+    }
+
     public List<String> createMap() {
         List<String> str = new ArrayList<>();
         try {
@@ -135,9 +151,9 @@ public class GamePlay extends BombermanGame {
         bomber.render(gc);
     }
 
-    public void createGamePlay() {
+    public void createGamePlay(javafx.event.ActionEvent actionEvent) throws IOException {
         List<String> str = createMap();
-
+        System.out.println(Bomber.NumberOfLives);
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
@@ -151,20 +167,33 @@ public class GamePlay extends BombermanGame {
         stage.setScene(scene);
         stage.show();
 
+        final int[] flag = {0};
+
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                render();
-                update(scene);
+                if (Bomber.NumberOfLives > 0) {
+                    render();
+                    update(scene);
+                } else {
+                    try {
+                        reset();
+                        switchToGameOverScene(actionEvent);
+                        this.stop();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         };
-
+        System.out.println("hehe");
         timer.start();
     }
 
-    public void Game(javafx.event.ActionEvent actionEvent) {
+    public void Game(javafx.event.ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        createGamePlay();
+        createGamePlay(actionEvent);
+
     }
 
     public void switchToControlGuide(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -186,6 +215,13 @@ public class GamePlay extends BombermanGame {
     public void exit(javafx.event.ActionEvent actionEvent) {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    public void switchToGameOverScene(javafx.event.ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/GameoverScene.fxml"));
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
 
