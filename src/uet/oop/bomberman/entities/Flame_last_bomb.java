@@ -3,6 +3,7 @@ package uet.oop.bomberman.entities;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Flame_last_bomb extends Flame_obj {
@@ -43,7 +44,9 @@ public class Flame_last_bomb extends Flame_obj {
         this.direction = direction;
     }
 
-    public void update(Scene scene) {}
+    public void update(Scene scene) {
+        checkBomberDie(BombermanGame.bomber);
+    }
 
     public void render(GraphicsContext gc) {
         if (Bomb.delayTime > 150 && Bomb.delayTime <= 180) {

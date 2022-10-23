@@ -8,6 +8,14 @@ public abstract class Flame_obj extends Entity {
         super(x, y, sprite);
     }
 
+    public void checkBomberDie(Bomber bomber) {
+        if (Bomb.delayTime > 151) {
+            if (checkCollision(bomber)) {
+                bomber.checkdie = true;
+            }
+        }
+    }
+
     public static void checkFlame(Bomb bomb) {
         char[][] c = BombermanGame.map_;
         int y = bomb.getY() / 32;

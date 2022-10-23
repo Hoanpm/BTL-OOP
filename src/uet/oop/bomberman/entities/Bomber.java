@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +14,10 @@ import java.util.List;
 public class Bomber extends Entity {
     private int dx, dy;
     private static final int velocity = 2;
-
+    public static int NumberOfLives = 1;
+    public static boolean isDie = false;
     public boolean checkdie = false;
 
-    public char[][] map = BombermanGame.map_;
     private int delaydie = 0;
     private boolean isMove_ = false;
     private boolean isStep_buff = false;
@@ -32,7 +31,7 @@ public class Bomber extends Entity {
     public static List<Bomb> bombList = new ArrayList<>();
 
     private boolean isSetBomb_ = false;
-    private boolean isStepOut = false;
+    public static boolean isStepOut = false;
 
     public Bomber() {}
 
@@ -62,11 +61,10 @@ public class Bomber extends Entity {
                         dx = velocity;
                         break;
                     case SPACE:
-                        if (Bomb.delayTime == 0)
+                        if (Bomb.delayTime == 0 && Bomb.NumberOfBombs > 0)
                             isSetBomb_ = true;
                         break;
                 }
-
             }
         });
 
@@ -144,38 +142,39 @@ public class Bomber extends Entity {
                 delaydie = 0;
             }
             delaydie++;
+            NumberOfLives--;
         } else {
-
+            x += dx;
+            y += dy;
             isMove_ = dx != 0 || dy != 0;
 
-            for (int i = 0; i < BombermanGame.buffs.size(); i++) {
-                if (checkCollision(BombermanGame.buffs.get(0)) && BombermanGame.buffs.get(0).isRevealed()) {
-                    isStep_buff = true;
-                    Sound.playitemGet();
-                    BombermanGame.buffs.remove(0);
-                    }
-            }
-            x += dx;
-            if (!canmove()) x -=dx;
-            y += dy;
-            if (!canmove()) y -=dy;
-        }
-    }
-
-    public boolean canmove() {
             for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
                 if (BombermanGame.stillObjects.get(i) instanceof Wall) {
                     if (checkCollision(BombermanGame.stillObjects.get(i))) {
-                       return false;
-                   }
+                        x -= dx;
+                        y -= dy;
+                    }
                 }
                 if (i < BombermanGame.bricks.size()) {
                     if (checkCollision(BombermanGame.bricks.get(i))) {
-                        return false;
+                        x -= dx;
+                        y -= dy;
+                    }
+                }
+                if (i < BombermanGame.buffs.size()) {
+                    if (checkCollision(BombermanGame.buffs.get(0)) && BombermanGame.buffs.get(0).isRevealed()) {
+                        isStep_buff = true;
+                        BombermanGame.buffs.remove(0);
                     }
                 }
             }
-            return true;
+            if (isStepOut && bombList.size() > 0) {
+                if (checkCollision(bombList.get(0))) {
+                    x -= dx;
+                    y -= dy;
+                }
+            }
+        }
     }
 
     public void setBomb() {
@@ -184,19 +183,36 @@ public class Bomber extends Entity {
             BombermanGame.map_[new_b.getY()/32][new_b.getX()/32] = 'o';
             if (isStep_buff) new_b.setBuff(true);
             bombList.add(new_b);
+            Bomb.NumberOfBombs--;
             Flame_obj.checkFlame(new_b);
             Brick.checkDes(new_b);
             isSetBomb_ = false;
-            Sound.playbomSet();
+        }
+    }
+
+    public void setIsStepOut() {
+        if (bombList.size() > 0) {
+            int left_b = this.x;
+            int right_b = this.x + this.sprite_.get_realWidth() * 2;
+            int top_b = this.y;
+            int bottom_b = this.y + this.sprite_.get_realHeight() * 2;
+
+            int m = bombList.get(0).getX();
+            int n = bombList.get(0).getY();
+
+            if (right_b <= m || left_b >= (m + 32) || top_b >= (n + 32) || bottom_b <= n) {
+                isStepOut = true;
+            }
         }
     }
 
     @Override
     public void update(Scene scene) {
+        setIsStepOut();
         setKey(scene);
         AnimatedEntity.animate();
-        move();
         setBomb();
+        move();
     }
 
     @Override
@@ -204,5 +220,13 @@ public class Bomber extends Entity {
         chooseSprite();
         Image new_img = sprite_.getFxImage();
         gc.drawImage(new_img, x, y);
+    }
+
+    public void setSetBomb_(boolean setBomb_) {
+        isSetBomb_ = setBomb_;
+    }
+
+    public void setDelaydie(int delaydie) {
+        this.delaydie = delaydie;
     }
 }
