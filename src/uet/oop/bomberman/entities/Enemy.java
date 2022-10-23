@@ -1,10 +1,11 @@
 package uet.oop.bomberman.entities;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
-
+import uet.oop.bomberman.sound.Sound;
+import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
-
 public abstract class Enemy extends Entity {
 
     public Enemy(int xUnit, int yUnit, Sprite sprite_) {
@@ -14,7 +15,6 @@ public abstract class Enemy extends Entity {
     protected int direction_ = 3;
     public boolean checkdie = false;
     public int delaydie = 0;
-
     public void caculateBalloon() {
         if (x % 32 == 0 && y % 32 == 0) {
             check = false; check1 = false; check2 = false; check3 = false; check4 = false;
@@ -41,6 +41,7 @@ public abstract class Enemy extends Entity {
         if (check2) y += 1;
         if (check3) x -= 1;
         if (check4) x += 1;
+
     }
 
     public void calculateMove() {
@@ -106,8 +107,13 @@ public abstract class Enemy extends Entity {
             }
     }
         public void deleteEnemy() {
-            if (checkdie)
-                delaydie ++;
+            if (checkdie) {
+                delaydie++;
+
+            }
+            if (delaydie == 1) {
+                Sound.playDead();
+            }
             if (delaydie == 60) {
                 for (int i = 1; i <= BombermanGame.enemies.size(); i++) {
                     if (x == BombermanGame.enemies.get(i - 1).getX()

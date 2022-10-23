@@ -3,10 +3,10 @@ package uet.oop.bomberman.entities;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+
 import javafx.util.Pair;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
-
 import java.util.ArrayDeque;
 import java.util.Queue;
 

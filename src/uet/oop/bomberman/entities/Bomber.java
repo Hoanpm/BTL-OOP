@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Bomber extends Entity {
 
     public boolean checkdie = false;
 
+    public char[][] map = BombermanGame.map_;
     private int delaydie = 0;
     private boolean isMove_ = false;
     private boolean isStep_buff = false;
@@ -64,6 +66,7 @@ public class Bomber extends Entity {
                             isSetBomb_ = true;
                         break;
                 }
+
             }
         });
 
@@ -142,31 +145,37 @@ public class Bomber extends Entity {
             }
             delaydie++;
         } else {
-            x += dx;
-            y += dy;
+
             isMove_ = dx != 0 || dy != 0;
 
+            for (int i = 0; i < BombermanGame.buffs.size(); i++) {
+                if (checkCollision(BombermanGame.buffs.get(0)) && BombermanGame.buffs.get(0).isRevealed()) {
+                    isStep_buff = true;
+                    Sound.playitemGet();
+                    BombermanGame.buffs.remove(0);
+                    }
+            }
+            x += dx;
+            if (!canmove()) x -=dx;
+            y += dy;
+            if (!canmove()) y -=dy;
+        }
+    }
+
+    public boolean canmove() {
             for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
                 if (BombermanGame.stillObjects.get(i) instanceof Wall) {
                     if (checkCollision(BombermanGame.stillObjects.get(i))) {
-                        x -= dx;
-                        y -= dy;
-                    }
+                       return false;
+                   }
                 }
                 if (i < BombermanGame.bricks.size()) {
                     if (checkCollision(BombermanGame.bricks.get(i))) {
-                        x -= dx;
-                        y -= dy;
-                    }
-                }
-                if (i < BombermanGame.buffs.size()) {
-                    if (checkCollision(BombermanGame.buffs.get(0)) && BombermanGame.buffs.get(0).isRevealed()) {
-                        isStep_buff = true;
-                        BombermanGame.buffs.remove(0);
+                        return false;
                     }
                 }
             }
-        }
+            return true;
     }
 
     public void setBomb() {
@@ -178,6 +187,7 @@ public class Bomber extends Entity {
             Flame_obj.checkFlame(new_b);
             Brick.checkDes(new_b);
             isSetBomb_ = false;
+            Sound.playbomSet();
         }
     }
 
