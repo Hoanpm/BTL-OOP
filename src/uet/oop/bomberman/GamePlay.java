@@ -153,7 +153,6 @@ public class GamePlay extends BombermanGame {
 
     public void createGamePlay(javafx.event.ActionEvent actionEvent) throws IOException {
         List<String> str = createMap();
-        System.out.println(Bomber.NumberOfLives);
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         gc = canvas.getGraphicsContext2D();
 
@@ -186,7 +185,6 @@ public class GamePlay extends BombermanGame {
                 }
             }
         };
-        System.out.println("hehe");
         timer.start();
     }
 

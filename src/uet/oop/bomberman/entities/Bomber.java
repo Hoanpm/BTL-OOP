@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,37 +145,40 @@ public class Bomber extends Entity {
             delaydie++;
             NumberOfLives--;
         } else {
-            x += dx;
-            y += dy;
+
             isMove_ = dx != 0 || dy != 0;
 
-            for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
-                if (BombermanGame.stillObjects.get(i) instanceof Wall) {
-                    if (checkCollision(BombermanGame.stillObjects.get(i))) {
-                        x -= dx;
-                        y -= dy;
-                    }
-                }
-                if (i < BombermanGame.bricks.size()) {
-                    if (checkCollision(BombermanGame.bricks.get(i))) {
-                        x -= dx;
-                        y -= dy;
-                    }
-                }
-                if (i < BombermanGame.buffs.size()) {
+            for (int i = 0; i < BombermanGame.buffs.size(); i++) {
                     if (checkCollision(BombermanGame.buffs.get(0)) && BombermanGame.buffs.get(0).isRevealed()) {
                         isStep_buff = true;
                         BombermanGame.buffs.remove(0);
                     }
+            }
+
+            x += dx;
+            if (!canmove()) x -=dx;
+            y += dy;
+            if (!canmove()) y -=dy;
+        }
+    }
+
+    public boolean canmove() {
+        for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
+            if (BombermanGame.stillObjects.get(i) instanceof Wall) {
+                if (checkCollision(BombermanGame.stillObjects.get(i))) {
+                    return false;
                 }
             }
-            if (isStepOut && bombList.size() > 0) {
-                if (checkCollision(bombList.get(0))) {
-                    x -= dx;
-                    y -= dy;
+            if (i < BombermanGame.bricks.size()) {
+                if (checkCollision(BombermanGame.bricks.get(i))) {
+                    return false;
                 }
             }
         }
+        if (isStepOut && bombList.size() > 0) {
+            return !checkCollision(bombList.get(0));
+        }
+        return true;
     }
 
     public void setBomb() {
@@ -224,6 +228,7 @@ public class Bomber extends Entity {
 
     public void setSetBomb_(boolean setBomb_) {
         isSetBomb_ = setBomb_;
+        Sound.playbomSet();
     }
 
     public void setDelaydie(int delaydie) {

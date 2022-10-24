@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 public class Sound {
     public static String bomb_Explose = "res/sound/bom_explode.wav";
 
-    public static String bg_sound = "res/sound/bg_sound.wav";
+    public static String bg_sound = "res/sound/bg_sound.mp3";
 
     public static String bom_set = "res/sound/bom_set.wav";
 
@@ -19,35 +19,37 @@ public class Sound {
     public static String item_get = "res/sound/item_get.wav";
 
     public Sound() {}
-    public static void play(String s) {
+    public static void play(String s,int n) {
         Media media = new Media(Paths.get(s).toUri().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setVolume(0.1);
+        mediaPlayer.setCycleCount(n);
         mediaPlayer.play();
     }
 
     public static void playbomExplose() {
-        Sound.play(bomb_Explose);
+        Sound.play(bomb_Explose, 1);
     }
 
     public static void playbgSound() {
-        Sound.play(bg_sound);
+        Sound.play(bg_sound, 10);
+
     }
 
     public static void playbomSet() {
-        Sound.play(bom_set);
+        Sound.play(bom_set, 1);
     }
 
     public static void playEndgame() {
-        Sound.play(endgame);
+        Sound.play(endgame,1);
     }
 
     public static void playDead() {
-        Sound.play(dead);
+        Sound.play(dead,1);
     }
 
     public static void playitemGet() {
-        Sound.play(item_get);
+        Sound.play(item_get,1);
     }
 }
 
