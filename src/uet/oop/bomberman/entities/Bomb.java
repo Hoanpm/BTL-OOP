@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,8 @@ public class Bomb extends Entity {
         if (delayTime > 150 && delayTime <= 180) {
             BombermanGame.map_[getY()/32][getX()/32] = ' ';
             sprite_ = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, delayTime, 30);
+            if (delayTime == 151)
+                Sound.playbomExplose();
         }
     }
 

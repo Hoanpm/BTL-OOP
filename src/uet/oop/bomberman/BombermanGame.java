@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.sound.Sound;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class BombermanGame extends Application {
     public static char[][] map_ = new char[100][100];
     public static Bomber bomber = new Bomber();
     public static void main(String[] args) {
+        Sound.playbgSound();
         Application.launch(BombermanGame.class);
     }
 

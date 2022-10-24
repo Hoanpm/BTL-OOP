@@ -187,6 +187,7 @@ public class GamePlay extends BombermanGame {
         stage.setScene(scene);
         stage.show();
 
+        final int[] flag = {0};
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -209,12 +210,14 @@ public class GamePlay extends BombermanGame {
                 if (delayrenderLvl < 122) delayrenderLvl++;
             }
         };
+        System.out.println("hehe");
         timer.start();
     }
 
     public void Game(javafx.event.ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         createGamePlay(actionEvent);
+
     }
 
     public void switchToControlGuide(javafx.event.ActionEvent actionEvent) throws IOException {
