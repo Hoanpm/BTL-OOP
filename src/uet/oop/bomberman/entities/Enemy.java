@@ -14,7 +14,7 @@ public abstract class Enemy extends Entity {
     public boolean checkdie = false;
     public int delaydie = 0;
     public void caculateBalloon() {
-        if (x % 32 == 0 && y % 32 == 0) {
+        if (x % 32 == 0 && y % 32  == 0) {
             check = false; check1 = false; check2 = false; check3 = false; check4 = false;
             direction_ = ThreadLocalRandom.current().nextInt(1, 5);
             while (!canmove(direction_)) {
