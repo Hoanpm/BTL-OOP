@@ -79,7 +79,7 @@ public class GamePlay extends BombermanGame {
                     Buff buff;
                     Brick brick;
                     int i_ = i + 2;
-                    switch (str.get(i + 1).charAt(j)) {
+                    switch (str.get(i+1).charAt(j)) {
                         case '#' :
                             obj = new Wall(j, i_, Sprite.wall);
                             stillObjects.add(obj);
@@ -171,7 +171,6 @@ public class GamePlay extends BombermanGame {
     }
 
     public void createGamePlay(javafx.event.ActionEvent actionEvent) throws IOException {
-
         Sound.stopmenu();
         Sound.playStartgame();
         Sound.playbgSound();

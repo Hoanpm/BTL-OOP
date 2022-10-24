@@ -31,7 +31,7 @@ public class Bomb extends Entity {
                 if (BombermanGame.bricks.get(i).isDes()) {
                     int x = BombermanGame.bricks.get(i).getX();
                     int y = BombermanGame.bricks.get(i).getY();
-                    BombermanGame.map_[y/32][x/32] = ' ';
+                    BombermanGame.map_[y/32 - 2][x/32] = ' ';
                     BombermanGame.bricks.remove(i);
                     if (BombermanGame.buffs.size() > 0
                         && i == BombermanGame.buffs.get(0).getIndexBrick()) {
@@ -49,7 +49,7 @@ public class Bomb extends Entity {
         if (delayTime <= 150)
             sprite_ = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, delayTime, 50);
         if (delayTime > 150 && delayTime <= 180) {
-            BombermanGame.map_[getY()/32][getX()/32] = ' ';
+            BombermanGame.map_[getY()/32 - 2][getX()/32] = ' ';
             sprite_ = Sprite.movingSprite(Sprite.bomb_exploded, Sprite.bomb_exploded1, Sprite.bomb_exploded2, delayTime, 30);
             if (delayTime == 151)
                 Sound.playbomExplode();

@@ -32,8 +32,8 @@ public class Brick extends Entity {
             int y_ = c_.get(i).getY();
             if (y_ == y) {
                 if (bomb.isBuff()) {
-                    if (x_ == x + 64 && b[y / 32][x / 32 + 1] == ' '
-                            || x_ == x - 64 && b[y / 32][x / 32 - 1] == ' '
+                    if (x_ == x + 64 && b[y / 32 - 2][x / 32 + 1] == ' '
+                            || x_ == x - 64 && b[y / 32 - 2][x / 32 - 1] == ' '
                             || x_ == x + 32 || x_ == x - 32) {
                         c_.get(i).setDes(true);
                         if (x_ == x_buff && y_ == y_buff) {
@@ -50,8 +50,8 @@ public class Brick extends Entity {
                 }
             } else if (x_ == x) {
                 if (bomb.isBuff()) {
-                    if (y_ == y + 64 && b[y / 32 + 1][x / 32] == ' '
-                            || y_ == y - 64 && b[y / 32 - 1][x / 32] == ' '
+                    if (y_ == y + 64 && b[y / 32 - 1][x / 32] == ' '
+                            || y_ == y - 64 && b[y / 32 - 3][x / 32] == ' '
                             || y_ == y + 32 || y_ == y - 32) {
                         c_.get(i).setDes(true);
                         if (x_ == x_buff && y_ == y_buff) {

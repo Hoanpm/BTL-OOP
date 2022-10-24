@@ -16,7 +16,6 @@ public class Bomber extends Entity {
     private int dx, dy;
     private static final int velocity = 2;
     public static int NumberOfLives = 1;
-    public static boolean isDie = false;
     public boolean checkdie = false;
 
     private int delaydie = 0;
@@ -185,7 +184,7 @@ public class Bomber extends Entity {
     public void setBomb() {
         if (isSetBomb_) {
             Bomb new_b = new Bomb((getX() + 16) / 32, (getY()  + 16) / 32, Sprite.bomb);
-            BombermanGame.map_[new_b.getY()/32][new_b.getX()/32] = 'o';
+            BombermanGame.map_[new_b.getY()/32 - 2][new_b.getX()/32] = 'o';
             if (isStep_buff) new_b.setBuff(true);
             bombList.add(new_b);
             Bomb.NumberOfBombs--;

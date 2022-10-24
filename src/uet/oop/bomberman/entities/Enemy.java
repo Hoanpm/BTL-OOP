@@ -1,10 +1,11 @@
 package uet.oop.bomberman.entities;
+
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
+
 import java.util.concurrent.ThreadLocalRandom;
 public abstract class Enemy extends Entity {
-
     public Enemy(int xUnit, int yUnit, Sprite sprite_) {
         super(xUnit, yUnit, sprite_);
     }
