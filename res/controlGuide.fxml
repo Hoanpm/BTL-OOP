@@ -7,125 +7,124 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="416.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.GamePlay">
+<AnchorPane prefHeight="480.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.GamePlay">
    <children>
-      <ImageView fitHeight="416.0" fitWidth="992.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="480.0" fitWidth="992.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@controlGuide.png" />
          </image>
       </ImageView>
-      <Label layoutX="75.0" layoutY="117.0" text="MOVE DOWN" textFill="#d283e6">
+      <Label layoutX="75.0" layoutY="135.0" text="MOVE DOWN" textFill="#d283e6">
          <font>
             <Font name="Berlin Sans FB Bold" size="25.0" />
          </font>
       </Label>
-      <Label layoutX="75.0" layoutY="190.0" text="MOVE LEFT" textFill="#d283e6">
+      <Label layoutX="75.0" layoutY="214.0" text="MOVE LEFT" textFill="#d283e6">
          <font>
             <Font name="Berlin Sans FB Bold" size="25.0" />
          </font>
       </Label>
-      <Label layoutX="77.0" layoutY="42.0" text="MOVE UP" textFill="#d283e6">
+      <Label layoutX="76.0" layoutY="56.0" text="MOVE UP" textFill="#d283e6">
          <font>
             <Font name="Berlin Sans FB Bold" size="25.0" />
          </font>
       </Label>
-      <Label layoutX="73.0" layoutY="265.0" text="MOVE RIGHT" textFill="#d283e6">
+      <Label layoutX="77.0" layoutY="297.0" text="MOVE RIGHT" textFill="#d283e6">
          <font>
             <Font name="Berlin Sans FB Bold" size="25.0" />
          </font>
       </Label>
-      <Label layoutX="73.0" layoutY="337.0" text="SET BOMB" textFill="#d283e6">
+      <Label layoutX="71.0" layoutY="372.0" text="SET BOMB" textFill="#d283e6">
          <font>
             <Font name="Berlin Sans FB Bold" size="25.0" />
          </font>
       </Label>
-      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@w_.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@s_.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@a_.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@d_.png" />
          </image>
       </ImageView>
-      <Label layoutX="352.0" layoutY="21.0" text="/">
+      <Label layoutX="352.0" layoutY="35.0" text="/">
          <font>
             <Font size="53.0" />
          </font>
       </Label>
-      <Label layoutX="352.0" layoutY="96.0" text="/">
+      <Label layoutX="352.0" layoutY="114.0" text="/">
          <font>
             <Font size="53.0" />
          </font>
       </Label>
-      <Label layoutX="352.0" layoutY="169.0" text="/">
+      <Label layoutX="352.0" layoutY="194.0" text="/">
          <font>
             <Font size="53.0" />
          </font>
       </Label>
-      <Label layoutX="352.0" layoutY="244.0" text="/">
+      <Label layoutX="352.0" layoutY="276.0" text="/">
          <font>
             <Font size="53.0" />
          </font>
       </Label>
-      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@up.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@down.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@left.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@right.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="64.0" fitWidth="249.0" layoutX="262.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="64.0" fitWidth="249.0" layoutX="263.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@space.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="187.0" layoutX="557.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="187.0" layoutX="557.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@heart.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="187.0" layoutX="557.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="187.0" layoutX="557.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@bomb.png" />
          </image>
       </ImageView>
-      <Label layoutX="715.0" layoutY="74.0" text="NUMBER OF LIVES" textFill="#d283e6">
+      <Label layoutX="715.0" layoutY="117.0" text="NUMBER OF LIVES" textFill="#d283e6">
          <font>
             <Font name="Berlin Sans FB Bold" size="25.0" />
          </font>
       </Label>
-      <Label layoutX="715.0" layoutY="232.0" text="NUMBER OF BOMBS" textFill="#d283e6">
+      <Label layoutX="715.0" layoutY="282.0" text="NUMBER OF BOMBS" textFill="#d283e6">
          <font>
             <Font name="Berlin Sans FB Bold" size="25.0" />
          </font>
       </Label>
-      <Button blendMode="COLOR_DODGE" layoutX="794.0" layoutY="359.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="25.0" prefWidth="161.0" text="GO BACK">
+      <Button blendMode="COLOR_DODGE" layoutX="802.0" layoutY="424.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="25.0" prefWidth="161.0" text="GO BACK">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

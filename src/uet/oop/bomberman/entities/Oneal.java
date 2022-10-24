@@ -37,7 +37,7 @@ public class Oneal extends Enemy {
 
             for (int i = 0; i < 4; ++i) {
                 int u = x1 + moveX[i];
-                int v = y1 + moveY[i] - 2;
+                int v = y1 + moveY[i];
 
                 if (u > BombermanGame.WIDTH || u < 1) continue;
                 if (v > BombermanGame.HEIGHT || v < 1) continue;
@@ -74,7 +74,7 @@ public class Oneal extends Enemy {
             }
         }
         if (distance[y/32 - 2][x/32] == 0) {
-            if (x/32 != sx|| y/32 != sy)
+            if (x/32 != sx|| y/32 - 2 != sy)
                 check = true;
             else {
                 //direction_ = 0;

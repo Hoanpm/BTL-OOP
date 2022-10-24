@@ -175,7 +175,7 @@ public class GamePlay extends BombermanGame {
         Sound.playStartgame();
         Sound.playbgSound();
         List<String> str = createMap();
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, 480);
+        canvas = new Canvas(screen_width, screen_height);
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container
@@ -190,8 +190,6 @@ public class GamePlay extends BombermanGame {
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
-
-        final int[] flag = {0};
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -214,7 +212,6 @@ public class GamePlay extends BombermanGame {
                 if (delayrenderLvl < 122) delayrenderLvl++;
             }
         };
-        System.out.println("hehe");
         timer.start();
     }
 
