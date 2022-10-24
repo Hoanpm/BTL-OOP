@@ -2,12 +2,16 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
@@ -23,6 +27,9 @@ public class GamePlay extends BombermanGame {
     private Scene scene;
     private GraphicsContext gc;
     private Canvas canvas;
+    private int Level = 1;
+    private int delayrenderLvl = 0;
+    private final Text text = new Text();
 
     public void reset() {
         buffs.clear();
@@ -43,7 +50,7 @@ public class GamePlay extends BombermanGame {
     public List<String> createMap() {
         List<String> str = new ArrayList<>();
         try {
-            FileReader fr = new FileReader("res\\levels\\Level1.txt");
+            FileReader fr = new FileReader("res\\levels\\Level" + Level + ".txt");
             BufferedReader br = new BufferedReader(fr);
 
             String line = "";
@@ -70,52 +77,53 @@ public class GamePlay extends BombermanGame {
                     Enemy obj_;
                     Buff buff;
                     Brick brick;
+                    int i_ = i + 2;
                     switch (str.get(i + 1).charAt(j)) {
                         case '#' :
-                            obj = new Wall(j, i, Sprite.wall);
+                            obj = new Wall(j, i_, Sprite.wall);
                             stillObjects.add(obj);
                             break;
                         case ' ' :
-                            obj = new Grass(j, i, Sprite.grass);
+                            obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
                             break;
                         case '*' :
-                            obj = new Grass(j, i, Sprite.grass);
+                            obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
-                            brick = new Brick(j, i, Sprite.brick);
+                            brick = new Brick(j, i_, Sprite.brick);
                             bricks.add(brick);
                             break;
                         case 'p' :
-                            obj = new Grass(j, i, Sprite.grass);
+                            obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
-                            bomber = new Bomber(1, 1, Sprite.player_right);
+                            bomber = new Bomber(1, 3, Sprite.player_right);
                             break;
                         case 'x' :
-                            obj = new Grass(j, i, Sprite.grass);
+                            obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Portal(j, i, Sprite.portal);
+                            obj = new Portal(j, i_, Sprite.portal);
                             stillObjects.add(obj);
-                            brick = new Brick(j, i, Sprite.brick);
+                            brick = new Brick(j, i_, Sprite.brick);
                             bricks.add(brick);
                             break;
                         case '1' :
-                            obj = new Grass(j, i, Sprite.grass);
+                            obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
-                            obj_ = new Balloon(j ,i, Sprite.balloom_right1);
+                            obj_ = new Balloon(j ,i_, Sprite.balloom_right1);
                             enemies.add(obj_);
                             break;
                         case '2' :
-                            obj = new Grass(j, i, Sprite.grass);
+                            obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
-                            obj_ = new Oneal(j, i, Sprite.oneal_right1);
+                            obj_ = new Oneal(j, i_, Sprite.oneal_right1);
                             enemies.add(obj_);
                             break;
                         case 'f' :
-                            obj = new Grass(j, i, Sprite.grass);
+                            obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
-                            buff = new Flame_Item(j, i, Sprite.powerup_flames);
+                            buff = new Flame_Item(j, i_, Sprite.powerup_flames);
                             buffs.add(buff);
-                            brick = new Brick(j, i, Sprite.brick);
+                            brick = new Brick(j, i_, Sprite.brick);
                             bricks.add(brick);
                             break;
                     }
@@ -151,10 +159,19 @@ public class GamePlay extends BombermanGame {
         bomber.render(gc);
     }
 
+    public void renderLevel(Group root, Scene scene) {
+        text.setText("Level " + Level);
+        text.setTextOrigin(VPos.TOP);
+        text.setFont(Font.font("Verdana",50));
+        text.layoutXProperty().bind(scene.widthProperty().subtract(text.prefWidth(-1)).divide(2));
+        text.layoutYProperty().bind(scene.heightProperty().subtract(text.prefHeight(-1)).divide(2));
+        text.setFill(Color.rgb(255, 255, 255));
+        root.getChildren().add(text);
+    }
+
     public void createGamePlay(javafx.event.ActionEvent actionEvent) throws IOException {
         List<String> str = createMap();
-        System.out.println(Bomber.NumberOfLives);
-        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
+        canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, 480);
         gc = canvas.getGraphicsContext2D();
 
         // Tao root container
@@ -162,38 +179,42 @@ public class GamePlay extends BombermanGame {
         root.getChildren().add(canvas);
 
         // Tao scene
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, Color.rgb(68, 78, 94));
+
+        renderLevel(root,scene);
+
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
 
-        final int[] flag = {0};
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if (Bomber.NumberOfLives > 0) {
-                    render();
-                    update(scene);
-                } else {
-                    try {
-                        reset();
-                        switchToGameOverScene(actionEvent);
-                        this.stop();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                if (delayrenderLvl > 120) {
+                    root.getChildren().remove(text);
+                    if (Bomber.NumberOfLives > 0) {
+                        render();
+                        update(scene);
+                    } else {
+                        try {
+                            reset();
+                            switchToGameOverScene(actionEvent);
+                            this.stop();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
+                if (delayrenderLvl < 122) delayrenderLvl++;
             }
         };
-        System.out.println("hehe");
         timer.start();
     }
 
     public void Game(javafx.event.ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         createGamePlay(actionEvent);
-
     }
 
     public void switchToControlGuide(javafx.event.ActionEvent actionEvent) throws IOException {

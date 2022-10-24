@@ -39,7 +39,7 @@ public class Oneal extends Enemy {
                 int u = x1 + moveX[i];
                 int v = y1 + moveY[i];
 
-                if (u > BombermanGame.WIDTH || u < 1) continue;
+                if (u > BombermanGame.WIDTH || u < 3) continue;
                 if (v > BombermanGame.HEIGHT || v < 1) continue;
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
 
