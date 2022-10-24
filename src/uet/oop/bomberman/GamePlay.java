@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound.Sound;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -170,6 +171,10 @@ public class GamePlay extends BombermanGame {
     }
 
     public void createGamePlay(javafx.event.ActionEvent actionEvent) throws IOException {
+
+        Sound.stopmenu();
+        Sound.playStartgame();
+        Sound.playbgSound();
         List<String> str = createMap();
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, 480);
         gc = canvas.getGraphicsContext2D();
@@ -242,6 +247,8 @@ public class GamePlay extends BombermanGame {
     }
 
     public void switchToGameOverScene(javafx.event.ActionEvent actionEvent) throws IOException {
+        Sound.stopbgSound();
+        Sound.playEndgame();
         Parent root = FXMLLoader.load(getClass().getResource("/GameoverScene.fxml"));
         scene = new Scene(root);
         stage.setScene(scene);

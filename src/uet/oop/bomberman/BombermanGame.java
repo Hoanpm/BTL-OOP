@@ -26,12 +26,12 @@ public class BombermanGame extends Application {
     public static char[][] map_ = new char[100][100];
     public static Bomber bomber = new Bomber();
     public static void main(String[] args) {
-        Sound.playbgSound();
         Application.launch(BombermanGame.class);
     }
 
     @Override
     public void start(Stage stage) throws IOException {
+        Sound.playmenu();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/menu.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);

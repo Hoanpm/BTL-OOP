@@ -1,10 +1,7 @@
 package uet.oop.bomberman.entities;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
-import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
 public abstract class Enemy extends Entity {
 
@@ -71,7 +68,7 @@ public abstract class Enemy extends Entity {
     public boolean canmove( int direction_) {
         char[][] mapgame = BombermanGame.map_;
         int u = x/32;
-        int v = y/32;
+        int v = y/32 - 2;
         switch (direction_) {
             case 1:
                 v --;

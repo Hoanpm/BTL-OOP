@@ -24,8 +24,8 @@ public class Oneal extends Enemy {
         char[][] mapgame = BombermanGame.map_;
         boolean[][] visit = new boolean[BombermanGame.HEIGHT][BombermanGame.WIDTH];
         Queue <Pair <Integer, Integer> > q = new ArrayDeque<>();
-        int sx = bomber.x / 32;
-        int sy = bomber.y / 32;
+        int sx = bomber.x / 32 ;
+        int sy = bomber.y / 32 - 2;
 
         q.add(new Pair<>(sx, sy));
         visit[sy][sx] = true;
@@ -37,9 +37,9 @@ public class Oneal extends Enemy {
 
             for (int i = 0; i < 4; ++i) {
                 int u = x1 + moveX[i];
-                int v = y1 + moveY[i];
+                int v = y1 + moveY[i] - 2;
 
-                if (u > BombermanGame.WIDTH || u < 3) continue;
+                if (u > BombermanGame.WIDTH || u < 1) continue;
                 if (v > BombermanGame.HEIGHT || v < 1) continue;
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
 
@@ -52,7 +52,7 @@ public class Oneal extends Enemy {
         }
         for (int i = 0; i < 4; ++i) {
             int u = x/32 + moveX[i];
-            int v = y/32 + moveY[i];
+            int v = y/32 + moveY[i] - 2;
             if ( u > 0 && v > 0 && u < BombermanGame.WIDTH && v < BombermanGame.HEIGHT) {
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
                 if (distance[v][u] == distance[y/32][x/32] - 1) {
