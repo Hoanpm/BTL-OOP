@@ -3,13 +3,12 @@ package uet.oop.bomberman.entities;
 import javafx.scene.Scene;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Portal extends Entity{
+public class Portal extends Buff{
+    public static boolean isStepOn = false;
     public Portal(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
 
     @Override
-    public void update(Scene scene) {
-
-    }
+    public void update(Scene scene) {}
 }

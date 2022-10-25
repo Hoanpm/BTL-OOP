@@ -13,7 +13,6 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class Kondoria extends Enemy {
-
     int[] moveX = {0, 0, 1, -1};
     int[] moveY = {1, -1, 0, 0};
 
@@ -97,7 +96,6 @@ public class Kondoria extends Enemy {
         if (!checkdie)
                 caculateRandom();
         else deleteEnemy();
-
     }
 
 }

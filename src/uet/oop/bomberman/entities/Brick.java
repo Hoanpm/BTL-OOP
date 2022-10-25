@@ -14,18 +14,21 @@ public class Brick extends Entity {
         super(x, y, sprite_);
     }
 
+    public static void buffreveal(int x, int y, int index) {
+        for (int i=0; i<BombermanGame.buffs.size(); i++) {
+            int x_buff = BombermanGame.buffs.get(i).getX();
+            int y_buff = BombermanGame.buffs.get(i).getY();
+
+            if (x == x_buff && y == y_buff)
+                BombermanGame.buffs.get(i).setIndexBrick(index);
+        }
+    }
+
     public static void checkDes(Bomb bomb) {
         List<Brick> c_ = BombermanGame.bricks;
         char[][] b = BombermanGame.map_;
         int x = bomb.getX();
         int y = bomb.getY();
-
-        int x_buff = -1;
-        int y_buff = -1;
-        if (BombermanGame.buffs.size() > 0) {
-            x_buff = BombermanGame.buffs.get(0).getX();
-            y_buff = BombermanGame.buffs.get(0).getY();
-        }
 
         for (int i=0; i<c_.size(); i++) {
             int x_ = c_.get(i).getX();
@@ -36,16 +39,12 @@ public class Brick extends Entity {
                             || x_ == x - 64 && b[y / 32 - 2][x / 32 - 1] == ' '
                             || x_ == x + 32 || x_ == x - 32) {
                         c_.get(i).setDes(true);
-                        if (x_ == x_buff && y_ == y_buff) {
-                            BombermanGame.buffs.get(0).setIndexBrick(i);
-                        }
+                        buffreveal(x_, y_, i);
                     }
                 } else {
                     if (x_ == x + 32 || x_ == x - 32) {
                         c_.get(i).setDes(true);
-                        if (x_ == x_buff && y_ == y_buff) {
-                            BombermanGame.buffs.get(0).setIndexBrick(i);
-                        }
+                        buffreveal(x_, y_, i);
                     }
                 }
             } else if (x_ == x) {
@@ -54,16 +53,12 @@ public class Brick extends Entity {
                             || y_ == y - 64 && b[y / 32 - 3][x / 32] == ' '
                             || y_ == y + 32 || y_ == y - 32) {
                         c_.get(i).setDes(true);
-                        if (x_ == x_buff && y_ == y_buff) {
-                            BombermanGame.buffs.get(0).setIndexBrick(i);
-                        }
+                        buffreveal(x_, y_, i);
                     }
                 } else {
                     if (y_ == y + 32 || y_ == y - 32) {
                         c_.get(i).setDes(true);
-                        if (x_ == x_buff && y_ == y_buff) {
-                            BombermanGame.buffs.get(0).setIndexBrick(i);
-                        }
+                        buffreveal(x_, y_, i);
                     }
                 }
             }

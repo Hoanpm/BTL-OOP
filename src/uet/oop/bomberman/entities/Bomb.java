@@ -33,9 +33,10 @@ public class Bomb extends Entity {
                     int y = BombermanGame.bricks.get(i).getY();
                     BombermanGame.map_[y/32 - 2][x/32] = ' ';
                     BombermanGame.bricks.remove(i);
-                    if (BombermanGame.buffs.size() > 0
-                        && i == BombermanGame.buffs.get(0).getIndexBrick()) {
-                        BombermanGame.buffs.get(0).setRevealed(true);
+                    for (int j=0; j<BombermanGame.buffs.size(); j++) {
+                        if (i == BombermanGame.buffs.get(j).getIndexBrick()) {
+                            BombermanGame.buffs.get(j).setRevealed(true);
+                        }
                     }
                     i--;
                 }

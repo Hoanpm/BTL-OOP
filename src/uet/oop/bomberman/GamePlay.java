@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -29,9 +31,12 @@ public class GamePlay extends BombermanGame {
     private Scene scene;
     private GraphicsContext gc;
     private Canvas canvas;
+    private boolean isRunning = true;
     private int Level = 1;
     private int delayrenderLvl = 0;
     private final Text text = new Text();
+    public static Text lives = new Text();
+    public static Text bombs = new Text();
 
     public void reset() {
         buffs.clear();
@@ -40,13 +45,15 @@ public class GamePlay extends BombermanGame {
         stillObjects.clear();
         Bomber.bombList.clear();
         Bomb.flame_objs.clear();
-        Bomber.NumberOfLives = 1;
+        Bomber.NumberOfLives = 2;
         Bomb.NumberOfBombs = 20;
         Bomb.delayTime = 0;
         bomber.setSetBomb_(false);
         bomber.checkdie = false;
         bomber.setDelaydie(0);
         Bomber.isStepOut = false;
+        delayrenderLvl = 0;
+        Portal.isStepOn = false;
     }
 
     public List<String> createMap() {
@@ -103,8 +110,8 @@ public class GamePlay extends BombermanGame {
                         case 'x' :
                             obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
-                            obj = new Portal(j, i_, Sprite.portal);
-                            stillObjects.add(obj);
+                            buff = new Portal(j, i_, Sprite.portal);
+                            buffs.add(buff);
                             brick = new Brick(j, i_, Sprite.brick);
                             bricks.add(brick);
                             break;
@@ -179,8 +186,91 @@ public class GamePlay extends BombermanGame {
         text.setFont(Font.font("Verdana",50));
         text.layoutXProperty().bind(scene.widthProperty().subtract(text.prefWidth(-1)).divide(2));
         text.layoutYProperty().bind(scene.heightProperty().subtract(text.prefHeight(-1)).divide(2));
-        text.setFill(Color.rgb(255, 255, 255));
+        text.setFill(Color.WHITE);
         root.getChildren().add(text);
+    }
+
+    public void setUpgame(Group root, Scene scene) {
+        Image heart = new Image("file:res/miniheart.png");
+        ImageView imageView = new ImageView(heart);
+        imageView.setX(7);
+        imageView.setY(7);
+        root.getChildren().add(imageView);
+
+        lives = new Text("" + Bomber.NumberOfLives);
+        lives.setFill(Color.rgb(252, 207, 3));
+        lives.setX(64);
+        lives.setY(44);
+        lives.setFont(Font.font("Verdana", 30));
+        root.getChildren().add(lives);
+
+        Image bomb = new Image("file:res/minibomb.png");
+        ImageView imageView1 = new ImageView(bomb);
+        imageView1.setX(128);
+        imageView1.setY(10);
+        root.getChildren().add(imageView1);
+
+        bombs = new Text("" + Bomb.NumberOfBombs);
+        bombs.setFill(Color.rgb(252, 207, 3));
+        bombs.setX(180);
+        bombs.setY(44);
+        bombs.setFont(Font.font("Verdana", 30));
+        root.getChildren().add(bombs);
+
+        Image pause = new Image("file:res/pause.png");
+        ImageView imageView2 = new ImageView(pause);
+        imageView2.setX(910);
+        imageView2.setY(7);
+        root.getChildren().add(imageView2);
+
+        imageView2.setOnMouseClicked(mouseEvent -> isRunning = !isRunning);
+    }
+
+    public void run(Group root, Scene scene, javafx.event.ActionEvent actionEvent, AnimationTimer timer) {
+        if (delayrenderLvl == 121) {
+            root.getChildren().remove(text);
+            setUpgame(root, scene);
+            delayrenderLvl++;
+        }
+        if (delayrenderLvl > 120) {
+            if (isRunning) {
+                if (Bomber.NumberOfLives > 0) {
+                    if (!Portal.isStepOn) {
+                        render();
+                        update(scene);
+                    } else {
+                        int t = Level + 1;
+                        if (t <= 2) {
+                            Level++;
+                            reset();
+                            try {
+                                createGamePlay(actionEvent);
+                                timer.stop();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            try {
+                                reset();
+                                switchToVictoryScene(actionEvent);
+                                timer.stop();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                } else {
+                    try {
+                        reset();
+                        switchToGameOverScene(actionEvent);
+                        timer.stop();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+        if (delayrenderLvl < 122) delayrenderLvl++;
     }
 
     public void createGamePlay(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -199,7 +289,6 @@ public class GamePlay extends BombermanGame {
         Scene scene = new Scene(root, Color.rgb(68, 78, 94));
 
         renderLevel(root,scene);
-
         // Them scene vao stage
         stage.setScene(scene);
         stage.show();
@@ -207,22 +296,7 @@ public class GamePlay extends BombermanGame {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if (delayrenderLvl > 120) {
-                    root.getChildren().remove(text);
-                    if (Bomber.NumberOfLives > 0) {
-                        render();
-                        update(scene);
-                    } else {
-                        try {
-                            reset();
-                            switchToGameOverScene(actionEvent);
-                            this.stop();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-                if (delayrenderLvl < 122) delayrenderLvl++;
+                run(root, scene, actionEvent, this);
             }
         };
         timer.start();
@@ -231,7 +305,6 @@ public class GamePlay extends BombermanGame {
     public void Game(javafx.event.ActionEvent actionEvent) throws IOException {
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         createGamePlay(actionEvent);
-
     }
 
     public void switchToControlGuide(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -243,6 +316,7 @@ public class GamePlay extends BombermanGame {
     }
 
     public void switchToMenu(javafx.event.ActionEvent actionEvent) throws IOException {
+        Sound.playmenu();
         Parent root = FXMLLoader.load(getClass().getResource("/menu.fxml"));
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -263,5 +337,12 @@ public class GamePlay extends BombermanGame {
         stage.setScene(scene);
         stage.show();
     }
-}
 
+    public void switchToVictoryScene(javafx.event.ActionEvent actionEvent) throws IOException {
+        Sound.stopbgSound();
+        Parent root = FXMLLoader.load(getClass().getResource("/VictoryScene.fxml"));
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+}
