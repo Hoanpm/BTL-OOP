@@ -17,7 +17,7 @@ public class Kondoria extends Enemy {
     int[] moveX = {0, 0, 1, -1};
     int[] moveY = {1, -1, 0, 0};
 
-    int CD_time = 1;
+    int CD_time = 0;
 
     public Kondoria(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
@@ -85,10 +85,11 @@ public class Kondoria extends Enemy {
     }
 
     public void update(Scene scene) {
+        CD_time++;
         if (x % 32 == 0 && y % 32 == 0)
             speed = 1;
-        if (CD_time == 60*15) {
-            CD_time = 1;
+        if (CD_time == 32*30) {
+            CD_time = 0;
             caculated(BombermanGame.bomber);
         }
 
@@ -96,7 +97,7 @@ public class Kondoria extends Enemy {
         if (!checkdie)
                 caculateRandom();
         else deleteEnemy();
-        CD_time++;
+
     }
 
 }
