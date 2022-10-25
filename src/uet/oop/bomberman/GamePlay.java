@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.Enemy.*;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -117,6 +118,18 @@ public class GamePlay extends BombermanGame {
                             obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);
                             obj_ = new Oneal(j, i_, Sprite.oneal_right1);
+                            enemies.add(obj_);
+                            break;
+                        case '3' :
+                            obj = new Grass(j, i_, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj_ = new Doll(j, i_, Sprite.doll_right1);
+                            enemies.add(obj_);
+                            break;
+                        case '4' :
+                            obj = new Grass(j, i_, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj_ = new Kondoria(j, i_, Sprite.kondoria_right1);
                             enemies.add(obj_);
                             break;
                         case 'f' :

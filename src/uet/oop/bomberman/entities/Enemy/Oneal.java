@@ -1,4 +1,4 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -6,9 +6,12 @@ import javafx.scene.image.Image;
 
 import javafx.util.Pair;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.AnimatedEntity;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Oneal extends Enemy {
 
@@ -24,8 +27,8 @@ public class Oneal extends Enemy {
         char[][] mapgame = BombermanGame.map_;
         boolean[][] visit = new boolean[BombermanGame.HEIGHT][BombermanGame.WIDTH];
         Queue <Pair <Integer, Integer> > q = new ArrayDeque<>();
-        int sx = bomber.x / 32 ;
-        int sy = bomber.y / 32 - 2;
+        int sx = bomber.getX() / 32 ;
+        int sy = bomber.getY() / 32 - 2;
 
         q.add(new Pair<>(sx, sy));
         visit[sy][sx] = true;
@@ -55,7 +58,7 @@ public class Oneal extends Enemy {
             int v = y/32 + moveY[i] - 2;
             if ( u > 0 && v > 0 && u < BombermanGame.WIDTH && v < BombermanGame.HEIGHT) {
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
-                if (distance[v][u] == distance[y/32 - 2][x/32] - 1) {
+                if (distance[v][u] == distance[y/32 - 2][x/32] - 1 ) {
                     switch (i) {
                         case 0:
                             direction_ = 2;
@@ -74,13 +77,8 @@ public class Oneal extends Enemy {
             }
         }
         if (distance[y/32 - 2][x/32] == 0) {
-            if (x/32 != sx|| y/32 - 2 != sy)
-                check = true;
-            else {
-                //direction_ = 0;
-                check = false;
-            }
-        } else check = false;
+            check = x / 32 != sx || y / 32 - 2 != sy;
+        } else check = distance[y / 32 - 2][x / 32] > 10;
     }
     protected void chooseSprite() {
         switch(direction_) {
@@ -93,8 +91,9 @@ public class Oneal extends Enemy {
                 sprite_ = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, AnimatedEntity.animate_, 60);
                 break;
         }
-        if (checkdie)
-            sprite_ = (Sprite.oneal_dead);
+        if (checkdie) {
+            sprite_ = Sprite.movingSprite(Sprite.oneal_dead, Sprite.mob_dead1, Sprite.mob_dead3,AnimatedEntity.animate_, 60);
+        }
     }
     @Override
     public void render(GraphicsContext gc) {
@@ -104,12 +103,14 @@ public class Oneal extends Enemy {
     }
 
     public void update(Scene scene) {
+        if (x % 32 == 0 && y % 32 == 0)
+            speed = ThreadLocalRandom.current().nextInt(1, 3);
         caculated(BombermanGame.bomber);
         checkbomberdie(BombermanGame.bomber);
         checkDie();
         if (!checkdie)
             if (check)
-                caculateBalloon();
+                caculateRandom();
             else
                 calculateMove();
         else deleteEnemy();

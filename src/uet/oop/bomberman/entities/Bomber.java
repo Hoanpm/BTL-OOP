@@ -137,12 +137,12 @@ public class Bomber extends Entity {
         if (checkdie) {
             if (delaydie == 40) {
                 x = 32;
-                y = 32;
+                y = 32 + 64;
                 checkdie = false;
                 delaydie = 0;
+                NumberOfLives--;
             }
             delaydie++;
-            NumberOfLives--;
         } else {
 
             isMove_ = dx != 0 || dy != 0;

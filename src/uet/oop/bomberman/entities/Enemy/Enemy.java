@@ -1,5 +1,7 @@
-package uet.oop.bomberman.entities;
-
+package uet.oop.bomberman.entities.Enemy;
+import uet.oop.bomberman.entities.Bomb;
+import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
@@ -12,8 +14,8 @@ public abstract class Enemy extends Entity {
     public boolean check = false ,check1 = false, check2 = false, check3 = false, check4 = false;
     protected int direction_ = 3;
     public boolean checkdie = false;
-    public int delaydie = 0;
-    public void caculateBalloon() {
+    public int delaydie = 0, speed = 1;
+    public void caculateRandom() {
         if (x % 32 == 0 && y % 32  == 0) {
             check = false; check1 = false; check2 = false; check3 = false; check4 = false;
             direction_ = ThreadLocalRandom.current().nextInt(1, 5);
@@ -35,10 +37,10 @@ public abstract class Enemy extends Entity {
                     break;
             }
         }
-        if (check1) y -= 1;
-        if (check2) y += 1;
-        if (check3) x -= 1;
-        if (check4) x += 1;
+        if (check1) y -= speed;
+        if (check2) y += speed;
+        if (check3) x -= speed;
+        if (check4) x += speed;
 
     }
 
@@ -60,10 +62,11 @@ public abstract class Enemy extends Entity {
                     break;
             }
         }
-        if (check1) y -= 1;
-        if (check2) y += 1;
-        if (check3) x -= 1;
-        if (check4) x += 1;
+        System.out.println(speed);
+        if (check1) y -= speed;
+        if (check2) y += speed;
+        if (check3) x -= speed;
+        if (check4) x += speed;
     }
 
     public boolean canmove( int direction_) {
@@ -91,9 +94,13 @@ public abstract class Enemy extends Entity {
 
     public void checkbomberdie(Bomber bomber) {
         if (!checkdie) {
-            if (checkCollision(bomber))
+            if (checkCollision(bomber)) {
                 bomber.checkdie = true;
+                speed = 0;
+            }
         }
+
+
     }
 
     public void checkDie() {
@@ -112,7 +119,7 @@ public abstract class Enemy extends Entity {
             if (delaydie == 1) {
                 Sound.playDead();
             }
-            if (delaydie == 60) {
+            if (delaydie == 59) {
                 for (int i = 1; i <= BombermanGame.enemies.size(); i++) {
                     if (x == BombermanGame.enemies.get(i - 1).getX()
                             && y == BombermanGame.enemies.get(i - 1).getY()) {

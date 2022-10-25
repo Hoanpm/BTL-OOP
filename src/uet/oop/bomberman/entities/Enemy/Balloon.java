@@ -1,9 +1,10 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Enemy;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Balloon extends Enemy {
@@ -24,7 +25,7 @@ public class Balloon extends Enemy {
                 break;
         }
         if (checkdie)
-            sprite_ = Sprite.balloom_dead;
+            sprite_ = Sprite.movingSprite(Sprite.balloom_dead, Sprite.mob_dead1, Sprite.mob_dead3, this.delaydie, 60);
     }
 
     @Override
@@ -34,9 +35,10 @@ public class Balloon extends Enemy {
       gc.drawImage(new_img, x, y);
     }
     public void update(Scene scene) {
+        speed = 1;
         checkDie();
         if (!checkdie) {
-            caculateBalloon();
+            caculateRandom();
             checkbomberdie(BombermanGame.bomber);
         }
         else deleteEnemy();
