@@ -47,6 +47,7 @@ public class Sound {
         mediaPlayer2.play();
     }
 
+
     public static void stopmenu() {
         mediaPlayer2.stop();
     }
@@ -68,7 +69,6 @@ public class Sound {
     }
 
 
-
     public static void playbomExplode() {
         Sound.play(bomb_Explode);
     }
@@ -88,4 +88,6 @@ public class Sound {
     public static void playitemGet() {
         Sound.play(item_get);
     }
+
+
 }

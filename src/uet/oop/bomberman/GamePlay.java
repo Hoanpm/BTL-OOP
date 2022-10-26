@@ -229,7 +229,6 @@ public class GamePlay extends BombermanGame {
 
     public void run(Group root, Scene scene, javafx.event.ActionEvent actionEvent, AnimationTimer timer) {
         if (delayrenderLvl == 171) {
-            Sound.playbgSound();
             root.getChildren().remove(text);
             setUpgame(root, scene);
             delayrenderLvl++;
@@ -237,6 +236,7 @@ public class GamePlay extends BombermanGame {
         if (delayrenderLvl > 170) {
             if (isRunning) {
                 if (Bomber.NumberOfLives > 0) {
+                    Sound.playbgSound();
                     if (!Portal.isStepOn) {
                         render();
                         update(scene);
@@ -270,7 +270,7 @@ public class GamePlay extends BombermanGame {
                         throw new RuntimeException(e);
                     }
                 }
-            }
+            } else Sound.pausebgSound();
         }
         if (delayrenderLvl < 172) delayrenderLvl++;
     }
