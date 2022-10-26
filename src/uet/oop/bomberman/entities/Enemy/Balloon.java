@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities.Enemy;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.graphics.Sprite;
 
@@ -43,7 +43,7 @@ public class Balloon extends Enemy {
         if (!checkdie) {
             randomDirection();
             calculateMove();
-            checkbomberdie(BombermanGame.bomber);
+            checkbomberdie(Game.bomber);
         }
         else deleteEnemy();
     };

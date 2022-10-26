@@ -5,8 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.GamePlay;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -141,23 +140,23 @@ public class Bomber extends Entity {
                 checkdie = false;
                 delaydie = 0;
                 NumberOfLives--;
-                GamePlay.lives.setText("" + NumberOfLives);
+                Game.lives.setText("" + NumberOfLives);
             }
             delaydie++;
         } else {
 
             isMove_ = dx != 0 || dy != 0;
 
-            for (int i = 0; i < BombermanGame.buffs.size(); i++) {
-                    if (checkCollision(BombermanGame.buffs.get(i)) && BombermanGame.buffs.get(i).isRevealed()) {
-                        Sound.playitemGet();
-                        if (BombermanGame.buffs.get(i) instanceof Portal) {
-                            if (BombermanGame.enemies.size() == 0)
+            for (int i = 0; i < Game.buffs.size(); i++) {
+                    if (checkCollision(Game.buffs.get(i)) && Game.buffs.get(i).isRevealed()) {
+                        if (Game.buffs.get(i) instanceof Portal) {
+                            if (Game.enemies.size() == 0)
                                 Portal.isStepOn = true;
                         } else {
-                            if (BombermanGame.buffs.get(i) instanceof  Flame_Item)
+                            Sound.playitemGet();
+                            if (Game.buffs.get(i) instanceof  Flame_Item)
                                 Flame_Item.isStepOn = true;
-                            BombermanGame.buffs.remove(i);
+                            Game.buffs.remove(i);
                         }
                     }
             }
@@ -170,14 +169,14 @@ public class Bomber extends Entity {
     }
 
     public boolean canmove() {
-        for (int i = 0; i < BombermanGame.stillObjects.size(); i++) {
-            if (BombermanGame.stillObjects.get(i) instanceof Wall) {
-                if (checkCollision(BombermanGame.stillObjects.get(i))) {
+        for (int i = 0; i < Game.stillObjects.size(); i++) {
+            if (Game.stillObjects.get(i) instanceof Wall) {
+                if (checkCollision(Game.stillObjects.get(i))) {
                     return false;
                 }
             }
-            if (i < BombermanGame.bricks.size()) {
-                if (checkCollision(BombermanGame.bricks.get(i))) {
+            if (i < Game.bricks.size()) {
+                if (checkCollision(Game.bricks.get(i))) {
                     return false;
                 }
             }
@@ -191,11 +190,10 @@ public class Bomber extends Entity {
     public void setBomb() {
         if (isSetBomb_) {
             Bomb new_b = new Bomb((getX() + 16) / 32, (getY()  + 16) / 32, Sprite.bomb);
-            BombermanGame.map_[new_b.getY()/32 - 2][new_b.getX()/32] = 'o';
+            Game.map_[new_b.getY()/32 - 2][new_b.getX()/32] = 'o';
             if (Flame_Item.isStepOn) new_b.setBuff(true);
             bombList.add(new_b);
             Bomb.NumberOfBombs--;
-            GamePlay.bombs.setText("" + Bomb.NumberOfBombs);
             Flame_obj.checkFlame(new_b);
             Brick.checkDes(new_b);
             isSetBomb_ = false;

@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
@@ -23,9 +23,9 @@ public class Kondoria extends Enemy {
     }
 
     public void caculated(Entity bomber) {
-        int[][] distance = new int[BombermanGame.HEIGHT][BombermanGame.WIDTH];
-        char[][] mapgame = BombermanGame.map_;
-        boolean[][] visit = new boolean[BombermanGame.HEIGHT][BombermanGame.WIDTH];
+        int[][] distance = new int[Game.HEIGHT][Game.WIDTH];
+        char[][] mapgame = Game.map_;
+        boolean[][] visit = new boolean[Game.HEIGHT][Game.WIDTH];
         Queue<Pair<Integer, Integer>> q = new ArrayDeque<>();
         int sx = bomber.getX() / 32;
         int sy = bomber.getY() / 32 - 2;
@@ -42,8 +42,8 @@ public class Kondoria extends Enemy {
                 int u = x1 + moveX[i];
                 int v = y1 + moveY[i];
 
-                if (u > BombermanGame.WIDTH || u < 1) continue;
-                if (v > BombermanGame.HEIGHT || v < 1) continue;
+                if (u > Game.WIDTH || u < 1) continue;
+                if (v > Game.HEIGHT || v < 1) continue;
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o')
                     continue;
 
@@ -90,10 +90,10 @@ public class Kondoria extends Enemy {
             speed = 1;
         if (CD_time == 32*30) {
             CD_time = 0;
-            caculated(BombermanGame.bomber);
+            caculated(Game.bomber);
         }
 
-        checkbomberdie(BombermanGame.bomber);
+        checkbomberdie(Game.bomber);
         if (!checkdie) {
             randomDirection();
             calculateMove();

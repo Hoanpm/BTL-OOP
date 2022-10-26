@@ -1,8 +1,9 @@
 package uet.oop.bomberman.entities.Enemy;
+
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Bomb;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -15,7 +16,7 @@ public abstract class Enemy extends Entity {
     protected int direction_ = 3;
     public boolean checkdie = false;
     public int delaydie = 0, speed = 1;
-    char[][] mapgame = BombermanGame.map_;
+    char[][] mapgame = Game.map_;
 
     public void randomDirection() {
         if (x % 32 == 0 && y % 32 == 0) {
@@ -78,8 +79,8 @@ public abstract class Enemy extends Entity {
                 u ++;
                 break;
         }
-        if (u > BombermanGame.WIDTH || u < 1) return false;
-        if (v > BombermanGame.HEIGHT || v < 1) return false;
+        if (u > Game.WIDTH || u < 1) return false;
+        if (v > Game.HEIGHT || v < 1) return false;
         return mapgame[v][u] != '*' && mapgame[v][u] != '#' && mapgame[v][u] != 'x' && mapgame[v][u] != 'f' && mapgame[v][u] != 'o';
     }
 
@@ -101,24 +102,26 @@ public abstract class Enemy extends Entity {
                 }
             }
     }
-        public void deleteEnemy() {
-            if (checkdie) {
-                delaydie++;
+    public void deleteEnemy() {
+        if (checkdie) {
+            delaydie++;
 
-            }
-            if (delaydie == 1) {
-                Sound.playDead();
-            }
-            if (delaydie == 59) {
-                for (int i = 1; i <= BombermanGame.enemies.size(); i++) {
-                    if (x == BombermanGame.enemies.get(i - 1).getX()
-                            && y == BombermanGame.enemies.get(i - 1).getY()) {
-                        BombermanGame.enemies.remove(i - 1);
-                        i--;
-                    }
-
+        }
+        if (delaydie == 1) {
+            Sound.playDead();
+            Game.score_ += 200;
+            Game.score.setText("Score: " + Game.score_);
+        }
+        if (delaydie == 59) {
+            for (int i = 1; i <= Game.enemies.size(); i++) {
+                if (x == Game.enemies.get(i - 1).getX()
+                        && y == Game.enemies.get(i - 1).getY()) {
+                    Game.enemies.remove(i - 1);
+                    i--;
                 }
-                delaydie = 0;
+
             }
+            delaydie = 0;
         }
     }
+}

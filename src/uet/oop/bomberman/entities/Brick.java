@@ -3,7 +3,7 @@ package uet.oop.bomberman.entities;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.List;
@@ -15,18 +15,18 @@ public class Brick extends Entity {
     }
 
     public static void buffreveal(int x, int y, int index) {
-        for (int i=0; i<BombermanGame.buffs.size(); i++) {
-            int x_buff = BombermanGame.buffs.get(i).getX();
-            int y_buff = BombermanGame.buffs.get(i).getY();
+        for (int i = 0; i< Game.buffs.size(); i++) {
+            int x_buff = Game.buffs.get(i).getX();
+            int y_buff = Game.buffs.get(i).getY();
 
             if (x == x_buff && y == y_buff)
-                BombermanGame.buffs.get(i).setIndexBrick(index);
+                Game.buffs.get(i).setIndexBrick(index);
         }
     }
 
     public static void checkDes(Bomb bomb) {
-        List<Brick> c_ = BombermanGame.bricks;
-        char[][] b = BombermanGame.map_;
+        List<Brick> c_ = Game.bricks;
+        char[][] b = Game.map_;
         int x = bomb.getX();
         int y = bomb.getY();
 

@@ -1,6 +1,6 @@
 package uet.oop.bomberman.entities;
 
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Flame_obj extends Entity {
@@ -17,13 +17,13 @@ public abstract class Flame_obj extends Entity {
     }
 
     public static void checkFlame(Bomb bomb) {
-        char[][] c = BombermanGame.map_;
+        char[][] c = Game.map_;
         int y = bomb.getY() / 32;
         int x = bomb.getX() / 32;
 
         if (bomb.isBuff()) {
-            if (c[y - 2][x + 1] == ' ' || c[y - 2][x + 1] == '1' || c[y - 2][x + 1] == '2') {
-                if (c[y - 2][x + 2] != ' ' && c[y - 2][x + 2] != '1' && c[y - 2][x + 2] != '2') {
+            if (c[y - 2][x + 1] == ' ' || c[y - 2][x + 1] == '1' || c[y - 2][x + 1] == '2' || c[y - 2][x + 1] == '3' || c[y - 2][x + 1] == '4') {
+                if (c[y - 2][x + 2] != ' ' && c[y - 2][x + 2] != '1' && c[y - 2][x + 2] != '2' && c[y - 2][x + 2] != '3' && c[y - 2][x + 2] != '4') {
                     Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX() / 32 + 1, bomb.getY() / 32, Sprite.explosion_horizontal);
                     flame_bomb_hor.setDirection(0);
                     Bomb.flame_objs.add(flame_bomb_hor);
@@ -37,8 +37,8 @@ public abstract class Flame_obj extends Entity {
                 }
             }
 
-            if (c[y - 2][x - 1] == ' ' || c[y - 2][x - 1] == 'p' || c[y - 2][x - 1] == '1' || c[y - 2][x - 1] == '2') {
-                if (c[y - 2][x - 2] != 'p' && c[y - 2][x - 2] != ' ' && c[y - 2][x - 2] != '1' && c[y - 2][x - 2] != '2') {
+            if (c[y - 2][x - 1] == ' ' || c[y - 2][x - 1] == 'p' || c[y - 2][x - 1] == '1' || c[y - 2][x - 1] == '2' || c[y - 2][x - 1] == '3' || c[y - 2][x - 1] == '4') {
+                if (c[y - 2][x - 2] != 'p' && c[y - 2][x - 2] != ' ' && c[y - 2][x - 2] != '1' && c[y - 2][x - 2] != '2' && c[y - 2][x - 2] != '3' && c[y - 2][x - 2] != '4') {
                     Flame_bomb flame_bomb_hor = new Flame_bomb(bomb.getX() / 32 - 1, bomb.getY() / 32, Sprite.explosion_horizontal);
                     flame_bomb_hor.setDirection(0);
                     Bomb.flame_objs.add(flame_bomb_hor);
@@ -52,8 +52,8 @@ public abstract class Flame_obj extends Entity {
                 }
             }
 
-            if (c[y - 3][x] == ' ' || c[y - 3][x] == 'p' || c[y - 3][x] == '1' || c[y - 3][x] == '2') {
-                if (c[y - 4][x] != 'p' && c[y - 4][x] != ' ' && c[y - 4][x] != '1' && c[y - 4][x] != '2') {
+            if (c[y - 3][x] == ' ' || c[y - 3][x] == 'p' || c[y - 3][x] == '1' || c[y - 3][x] == '2' || c[y - 3][x] == '3' || c[y - 3][x] == '4') {
+                if (c[y - 4][x] != 'p' && c[y - 4][x] != ' ' && c[y - 4][x] != '1' && c[y - 4][x] != '2' && c[y - 4][x] != '3' && c[y - 4][x] != '4') {
                     Flame_bomb flame_bomb_ver = new Flame_bomb(bomb.getX() / 32, bomb.getY() / 32 - 1, Sprite.explosion_vertical);
                     flame_bomb_ver.setDirection(1);
                     Bomb.flame_objs.add(flame_bomb_ver);
@@ -67,8 +67,8 @@ public abstract class Flame_obj extends Entity {
                 }
             }
 
-            if (c[y - 1][x] == ' ' || c[y - 1][x] == '1' || c[y - 1][x] == '2') {
-                if (c[y][x] != ' ' && c[y][x] != '1' && c[y][x] != '2') {
+            if (c[y - 1][x] == ' ' || c[y - 1][x] == '1' || c[y - 1][x] == '2' || c[y - 1][x] == '3' || c[y - 1][x] == '4') {
+                if (c[y][x] != ' ' && c[y][x] != '1' && c[y][x] != '2' && c[y][x] != '3' && c[y][x] != '4') {
                     Flame_bomb flame_bomb_ver = new Flame_bomb(bomb.getX() / 32, bomb.getY() / 32 + 1, Sprite.explosion_vertical);
                     flame_bomb_ver.setDirection(1);
                     Bomb.flame_objs.add(flame_bomb_ver);
@@ -82,22 +82,22 @@ public abstract class Flame_obj extends Entity {
                 }
             }
         } else {
-            if (c[y - 2][x + 1] == ' ' || c[y - 2][x + 1] == '1' || c[y - 2][x + 1] == '2') {
+            if (c[y - 2][x + 1] == ' ' || c[y - 2][x + 1] == '1' || c[y - 2][x + 1] == '2' || c[y - 2][x + 1] == '3' || c[y - 2][x + 1] == '4') {
                 Flame_last_bomb flame_last_bomb_right = new Flame_last_bomb(bomb.getX() / 32 + 1, bomb.getY() / 32, Sprite.explosion_horizontal_right_last);
                 flame_last_bomb_right.setDirection(0);
                 Bomb.flame_objs.add(flame_last_bomb_right);
             }
-            if (c[y - 2][x - 1] == ' ' || c[y - 2][x - 1] == 'p' || c[y - 2][x - 1] == '1' || c[y - 2][x - 1] == '2') {
+            if (c[y - 2][x - 1] == ' ' || c[y - 2][x - 1] == 'p' || c[y - 2][x - 1] == '1' || c[y - 2][x - 1] == '2' || c[y - 2][x - 1] == '3' || c[y - 2][x - 1] == '4') {
                 Flame_last_bomb flame_last_bomb_left = new Flame_last_bomb(bomb.getX() / 32 - 1, bomb.getY() / 32, Sprite.explosion_horizontal_left_last);
                 flame_last_bomb_left.setDirection(1);
                 Bomb.flame_objs.add(flame_last_bomb_left);
             }
-            if (c[y - 3][x] == ' ' || c[y - 3][x] == 'p' || c[y - 3][x] == '1' || c[y - 3][x] == '2') {
+            if (c[y - 3][x] == ' ' || c[y - 3][x] == 'p' || c[y - 3][x] == '1' || c[y - 3][x] == '2' || c[y - 3][x] == '3' || c[y - 3][x] == '4') {
                 Flame_last_bomb flame_last_bomb_top = new Flame_last_bomb(bomb.getX() / 32, bomb.getY() / 32 - 1, Sprite.explosion_vertical_top_last);
                 flame_last_bomb_top.setDirection(2);
                 Bomb.flame_objs.add(flame_last_bomb_top);
             }
-            if (c[y - 1][x] == ' ' || c[y - 1][x] == '1' || c[y - 1][x] == '2') {
+            if (c[y - 1][x] == ' ' || c[y - 1][x] == '1' || c[y - 1][x] == '2' || c[y - 1][x] == '3' || c[y - 1][x] == '4') {
                 Flame_last_bomb flame_last_bomb_down = new Flame_last_bomb(bomb.getX() / 32, bomb.getY() / 32 + 1, Sprite.explosion_vertical_down_last);
                 flame_last_bomb_down.setDirection(3);
                 Bomb.flame_objs.add(flame_last_bomb_down);

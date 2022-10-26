@@ -3,12 +3,12 @@ package uet.oop.bomberman.entities.Enemy;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 import javafx.util.Pair;
-import uet.oop.bomberman.BombermanGame;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.AnimatedEntity;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,9 +23,9 @@ public class Oneal extends Enemy {
     }
 
     public void caculated(Entity bomber) {
-        int[][] distance = new int[BombermanGame.HEIGHT][BombermanGame.WIDTH];
-        char[][] mapgame = BombermanGame.map_;
-        boolean[][] visit = new boolean[BombermanGame.HEIGHT][BombermanGame.WIDTH];
+        int[][] distance = new int[Game.HEIGHT][Game.WIDTH];
+        char[][] mapgame = Game.map_;
+        boolean[][] visit = new boolean[Game.HEIGHT][Game.WIDTH];
         Queue <Pair <Integer, Integer> > q = new ArrayDeque<>();
         int sx = bomber.getX() / 32 ;
         int sy = bomber.getY() / 32 - 2;
@@ -42,8 +42,8 @@ public class Oneal extends Enemy {
                 int u = x1 + moveX[i];
                 int v = y1 + moveY[i];
 
-                if (u > BombermanGame.WIDTH || u < 1) continue;
-                if (v > BombermanGame.HEIGHT || v < 1) continue;
+                if (u > Game.WIDTH || u < 1) continue;
+                if (v > Game.HEIGHT || v < 1) continue;
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
 
                 if (!visit[v][u]) {
@@ -56,7 +56,7 @@ public class Oneal extends Enemy {
         for (int i = 0; i < 4; ++i) {
             int u = x/32 + moveX[i];
             int v = y/32 + moveY[i] - 2;
-            if ( u > 0 && v > 0 && u < BombermanGame.WIDTH && v < BombermanGame.HEIGHT) {
+            if ( u > 0 && v > 0 && u < Game.WIDTH && v < Game.HEIGHT) {
                 if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
                 if (distance[v][u] == distance[y/32 - 2][x/32] - 1 ) {
                     switch (i) {
@@ -80,6 +80,7 @@ public class Oneal extends Enemy {
             check = x / 32 != sx || y / 32 - 2 != sy;
         } else check = distance[y / 32 - 2][x / 32] > 10;
     }
+
     protected void chooseSprite() {
         switch(direction_) {
             case 4:
@@ -105,8 +106,8 @@ public class Oneal extends Enemy {
     public void update(Scene scene) {
         if (x % 64 == 0 || y % 64 == 0)
             speed = ThreadLocalRandom.current().nextInt(1, 3);
-        caculated(BombermanGame.bomber);
-        checkbomberdie(BombermanGame.bomber);
+        caculated(Game.bomber);
+        checkbomberdie(Game.bomber);
         checkDie();
         if (!checkdie) {
             if (check)

@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-
 <AnchorPane prefHeight="480.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.GamePlay">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2e2828" height="480.0" stroke="BLACK" strokeType="INSIDE" width="992.0" />
@@ -15,7 +14,7 @@
             <Image url="@victory.png" />
          </image>
       </ImageView>
-      <Button layoutX="402.0" layoutY="308.0" mnemonicParsing="false" onAction="#Game" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #ea8b21;" text="PLAY AGAIN" />
+      <Button layoutX="402.0" layoutY="308.0" mnemonicParsing="false" onAction="#gamedisplay" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #ea8b21;" text="PLAY AGAIN" />
       <Button layoutX="402.0" layoutY="361.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #ea8b21;" text="BACK TO MENU" />
    </children>
 </AnchorPane>
