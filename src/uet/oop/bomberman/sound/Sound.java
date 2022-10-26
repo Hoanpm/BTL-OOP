@@ -58,7 +58,7 @@ public class Sound {
     }
 
     public static void stopbgSound() {
-        mediaPlayer1.stop();
+        mediaPlayer1.pause();
     }
 
     public static void playStartgame() {

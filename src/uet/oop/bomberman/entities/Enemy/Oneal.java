@@ -103,7 +103,7 @@ public class Oneal extends Enemy {
     }
 
     public void update(Scene scene) {
-        if (x % 32 == 0 && y % 32 == 0)
+        if (x % 64 == 0 || y % 64 == 0)
             speed = ThreadLocalRandom.current().nextInt(1, 3);
         caculated(BombermanGame.bomber);
         checkbomberdie(BombermanGame.bomber);

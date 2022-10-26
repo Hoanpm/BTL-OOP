@@ -11,15 +11,24 @@ public abstract class Enemy extends Entity {
     public Enemy(int xUnit, int yUnit, Sprite sprite_) {
         super(xUnit, yUnit, sprite_);
     }
-    public boolean check = false ,check1 = false, check2 = false, check3 = false, check4 = false;
+    public boolean check = false ,check1 = false, check2 = false, check3 = false, check4 = false, checknodirection = true;
     protected int direction_ = 3;
     public boolean checkdie = false;
     public int delaydie = 0, speed = 1;
+    char[][] mapgame = BombermanGame.map_;
     public void caculateRandom() {
         if (x % 32 == 0 && y % 32  == 0) {
             check = false; check1 = false; check2 = false; check3 = false; check4 = false;
+            for (int i = 1; i <= 4; i ++) {
+                if (canmove(i)) {
+                    checknodirection = false;
+                    break;
+                };
+            }
+            if (checknodirection)
+                return;
             direction_ = ThreadLocalRandom.current().nextInt(1, 5);
-            while (!canmove(direction_)) {
+            while (!canmove(direction_) ) {
                 direction_ = ThreadLocalRandom.current().nextInt(1, 5);
             }
             switch (direction_) {
@@ -62,7 +71,6 @@ public abstract class Enemy extends Entity {
                     break;
             }
         }
-        System.out.println(speed);
         if (check1) y -= speed;
         if (check2) y += speed;
         if (check3) x -= speed;
@@ -70,7 +78,6 @@ public abstract class Enemy extends Entity {
     }
 
     public boolean canmove( int direction_) {
-        char[][] mapgame = BombermanGame.map_;
         int u = x/32;
         int v = y/32 - 2;
         switch (direction_) {
@@ -96,7 +103,6 @@ public abstract class Enemy extends Entity {
         if (!checkdie) {
             if (checkCollision(bomber)) {
                 bomber.checkdie = true;
-                speed = 0;
             }
         }
 
@@ -126,6 +132,7 @@ public abstract class Enemy extends Entity {
                         BombermanGame.enemies.remove(i - 1);
                         i--;
                     }
+
                 }
                 delaydie = 0;
             }

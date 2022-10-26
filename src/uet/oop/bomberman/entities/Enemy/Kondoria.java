@@ -85,6 +85,7 @@ public class Kondoria extends Enemy {
 
     public void update(Scene scene) {
         CD_time++;
+        checkDie();
         if (x % 32 == 0 && y % 32 == 0)
             speed = 1;
         if (CD_time == 32*30) {

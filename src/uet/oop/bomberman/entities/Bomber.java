@@ -150,12 +150,11 @@ public class Bomber extends Entity {
 
             for (int i = 0; i < BombermanGame.buffs.size(); i++) {
                     if (checkCollision(BombermanGame.buffs.get(i)) && BombermanGame.buffs.get(i).isRevealed()) {
+                        Sound.playitemGet();
                         if (BombermanGame.buffs.get(i) instanceof Portal) {
                             if (BombermanGame.enemies.size() == 0)
                                 Portal.isStepOn = true;
-                            System.out.println("hehe");
                         } else {
-                            Sound.playitemGet();
                             if (BombermanGame.buffs.get(i) instanceof  Flame_Item)
                                 Flame_Item.isStepOn = true;
                             BombermanGame.buffs.remove(i);

@@ -39,14 +39,15 @@ public class GamePlay extends BombermanGame {
     public static Text bombs = new Text();
 
     public void reset() {
+        Sound.playStartgame();
         buffs.clear();
         bricks.clear();
         enemies.clear();
         stillObjects.clear();
         Bomber.bombList.clear();
         Bomb.flame_objs.clear();
-        Bomber.NumberOfLives = 2;
-        Bomb.NumberOfBombs = 20;
+        Bomber.NumberOfLives = 100;
+        Bomb.NumberOfBombs = 10000;
         Bomb.delayTime = 0;
         bomber.setSetBomb_(false);
         bomber.checkdie = false;
@@ -227,12 +228,13 @@ public class GamePlay extends BombermanGame {
     }
 
     public void run(Group root, Scene scene, javafx.event.ActionEvent actionEvent, AnimationTimer timer) {
-        if (delayrenderLvl == 121) {
+        if (delayrenderLvl == 171) {
+            Sound.playbgSound();
             root.getChildren().remove(text);
             setUpgame(root, scene);
             delayrenderLvl++;
         }
-        if (delayrenderLvl > 120) {
+        if (delayrenderLvl > 170) {
             if (isRunning) {
                 if (Bomber.NumberOfLives > 0) {
                     if (!Portal.isStepOn) {
@@ -270,13 +272,13 @@ public class GamePlay extends BombermanGame {
                 }
             }
         }
-        if (delayrenderLvl < 122) delayrenderLvl++;
+        if (delayrenderLvl < 172) delayrenderLvl++;
     }
 
     public void createGamePlay(javafx.event.ActionEvent actionEvent) throws IOException {
         Sound.stopmenu();
         Sound.playStartgame();
-        Sound.playbgSound();
+
         List<String> str = createMap();
         canvas = new Canvas(screen_width, screen_height);
         gc = canvas.getGraphicsContext2D();
