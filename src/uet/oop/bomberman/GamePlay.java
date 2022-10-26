@@ -332,7 +332,7 @@ public class GamePlay extends BombermanGame {
     }
 
     public void switchToGameOverScene(javafx.event.ActionEvent actionEvent) throws IOException {
-        Sound.stopbgSound();
+        Sound.pausebgSound();
         Sound.playEndgame();
         Parent root = FXMLLoader.load(getClass().getResource("/GameoverScene.fxml"));
         scene = new Scene(root);
@@ -341,7 +341,7 @@ public class GamePlay extends BombermanGame {
     }
 
     public void switchToVictoryScene(javafx.event.ActionEvent actionEvent) throws IOException {
-        Sound.stopbgSound();
+        Sound.pausebgSound();
         Parent root = FXMLLoader.load(getClass().getResource("/VictoryScene.fxml"));
         scene = new Scene(root);
         stage.setScene(scene);

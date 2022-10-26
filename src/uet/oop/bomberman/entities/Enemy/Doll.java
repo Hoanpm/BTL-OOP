@@ -38,7 +38,8 @@ public class Doll extends Enemy {
         speed = 2;
         checkDie();
         if (!checkdie) {
-            caculateRandom();
+            randomDirection();
+            calculateMove();
             checkbomberdie(BombermanGame.bomber);
         }
         else deleteEnemy();

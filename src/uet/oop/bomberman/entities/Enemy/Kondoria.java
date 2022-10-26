@@ -94,9 +94,11 @@ public class Kondoria extends Enemy {
         }
 
         checkbomberdie(BombermanGame.bomber);
-        if (!checkdie)
-                caculateRandom();
-        else deleteEnemy();
+        if (!checkdie) {
+            randomDirection();
+            calculateMove();
+        }
+            else deleteEnemy();
     }
 
 }

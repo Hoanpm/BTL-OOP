@@ -15,6 +15,9 @@ public class Balloon extends Enemy {
 
     protected void chooseSprite() {
         switch(direction_) {
+            case 0:
+                sprite_ = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, AnimatedEntity.animate_, 60);
+                break;
             case 1:
             case 4:
                 sprite_ = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, AnimatedEntity.animate_, 60);
@@ -30,15 +33,16 @@ public class Balloon extends Enemy {
 
     @Override
     public void render(GraphicsContext gc) {
-       chooseSprite();
-   Image new_img = sprite_.getFxImage();
-      gc.drawImage(new_img, x, y);
+        chooseSprite();
+        Image new_img = sprite_.getFxImage();
+        gc.drawImage(new_img, x, y);
     }
     public void update(Scene scene) {
         speed = 1;
         checkDie();
         if (!checkdie) {
-            caculateRandom();
+            randomDirection();
+            calculateMove();
             checkbomberdie(BombermanGame.bomber);
         }
         else deleteEnemy();

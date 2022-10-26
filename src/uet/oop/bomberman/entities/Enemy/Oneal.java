@@ -108,11 +108,11 @@ public class Oneal extends Enemy {
         caculated(BombermanGame.bomber);
         checkbomberdie(BombermanGame.bomber);
         checkDie();
-        if (!checkdie)
+        if (!checkdie) {
             if (check)
-                caculateRandom();
-            else
-                calculateMove();
+                randomDirection();
+            calculateMove();
+        }
         else deleteEnemy();
     }
 }

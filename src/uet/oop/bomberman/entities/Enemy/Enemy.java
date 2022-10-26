@@ -16,41 +16,25 @@ public abstract class Enemy extends Entity {
     public boolean checkdie = false;
     public int delaydie = 0, speed = 1;
     char[][] mapgame = BombermanGame.map_;
-    public void caculateRandom() {
-        if (x % 32 == 0 && y % 32  == 0) {
-            check = false; check1 = false; check2 = false; check3 = false; check4 = false;
-            for (int i = 1; i <= 4; i ++) {
+
+    public void randomDirection() {
+        if (x % 32 == 0 && y % 32 == 0) {
+            for (int i = 1; i <= 4; i++) {
                 if (canmove(i)) {
                     checknodirection = false;
                     break;
-                };
+                }
+                ;
             }
-            if (checknodirection)
+            if (checknodirection) {
+                direction_ = 0;
                 return;
+            }
             direction_ = ThreadLocalRandom.current().nextInt(1, 5);
-            while (!canmove(direction_) ) {
+            while (!canmove(direction_)) {
                 direction_ = ThreadLocalRandom.current().nextInt(1, 5);
             }
-            switch (direction_) {
-                case 1:
-                    check1 = true;
-                    break;
-                case 2:
-                    check2 = true;
-                    break;
-                case 3:
-                    check3 = true;
-                    break;
-                case 4:
-                    check4 = true;
-                    break;
-            }
         }
-        if (check1) y -= speed;
-        if (check2) y += speed;
-        if (check3) x -= speed;
-        if (check4) x += speed;
-
     }
 
     public void calculateMove() {

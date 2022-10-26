@@ -14,7 +14,7 @@ public class Sound {
 
     public static String dead = "res/sound/dead.wav";
 
-    public static String endgame = "res/sound/end_game.mp3";
+    public static String endgame = "res/sound/end_game.wav";
 
     public static String item_get = "res/sound/item_get.wav";
 
@@ -57,7 +57,7 @@ public class Sound {
         mediaPlayer1.play();
     }
 
-    public static void stopbgSound() {
+    public static void pausebgSound() {
         mediaPlayer1.pause();
     }
 
@@ -67,10 +67,7 @@ public class Sound {
         mediaPlayer3.play();
     }
 
-    public static boolean Endstartgame() {
-        System.out.println(mediaPlayer3.isMute());
-        return mediaPlayer3.isMute();
-    }
+
 
     public static void playbomExplode() {
         Sound.play(bomb_Explode);
