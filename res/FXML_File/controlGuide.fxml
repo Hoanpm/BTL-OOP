@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="480.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.GamePlay">
+<AnchorPane prefHeight="480.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uet.oop.bomberman.Controller.GamePlay">
    <children>
       <ImageView fitHeight="480.0" fitWidth="992.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@controlGuide.png" />
+            <Image url="@../FXML_Image/controlGuide.png" />
          </image>
       </ImageView>
       <Label layoutX="75.0" layoutY="135.0" text="MOVE DOWN" textFill="#d283e6">
@@ -41,22 +41,22 @@
       </Label>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@w_.png" />
+            <Image url="@../FXML_Image/w_.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@s_.png" />
+            <Image url="@../FXML_Image/s_.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@a_.png" />
+            <Image url="@../FXML_Image/a_.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="264.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@d_.png" />
+            <Image url="@../FXML_Image/d_.png" />
          </image>
       </ImageView>
       <Label layoutX="352.0" layoutY="35.0" text="/">
@@ -81,37 +81,37 @@
       </Label>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@up.png" />
+            <Image url="@../FXML_Image/up.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@down.png" />
+            <Image url="@../FXML_Image/down.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@left.png" />
+            <Image url="@../FXML_Image/left.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="65.0" fitWidth="63.0" layoutX="399.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@right.png" />
+            <Image url="@../FXML_Image/right.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="64.0" fitWidth="249.0" layoutX="263.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@space.png" />
+            <Image url="@../FXML_Image/space.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="187.0" layoutX="557.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@heart.png" />
+            <Image url="@../FXML_Image/heart.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="187.0" layoutX="557.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@bomb.png" />
+            <Image url="@../FXML_Image/bomb.png" />
          </image>
       </ImageView>
       <Label layoutX="715.0" layoutY="117.0" text="NUMBER OF LIVES" textFill="#d283e6">

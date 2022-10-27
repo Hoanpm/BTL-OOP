@@ -1,7 +1,7 @@
 package uet.oop.bomberman.entities.Enemy;
 
-import uet.oop.bomberman.Game;
-import uet.oop.bomberman.entities.Bomber;
+import uet.oop.bomberman.GameDisplay.Game;
+import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
@@ -94,6 +94,7 @@ public abstract class Enemy extends Entity {
 
     public void checkDie() {
         for (int i=0; i<Bomber.bombList.size(); i++) {
+            if (checkCollision(Bomber.bombList.get(i))) checkdie = true;
             for (int j=0; j<Bomber.bombList.get(i).flame_bombs.size(); j++) {
                 if (checkCollision(Bomber.bombList.get(i).flame_bombs.get(j))) {
                     checkdie = true;

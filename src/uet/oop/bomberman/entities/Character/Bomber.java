@@ -1,11 +1,20 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Character;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import uet.oop.bomberman.Game;
+import uet.oop.bomberman.GameDisplay.Game;
+import uet.oop.bomberman.entities.AnimatedEntity;
+import uet.oop.bomberman.entities.Bomb.Bomb;
+import uet.oop.bomberman.entities.Buff.Bomb_Item;
+import uet.oop.bomberman.entities.Buff.Flame_Item;
+import uet.oop.bomberman.entities.Buff.Portal;
+import uet.oop.bomberman.entities.Buff.Speed_Item;
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.StillObject.Brick;
+import uet.oop.bomberman.entities.StillObject.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -14,8 +23,8 @@ import java.util.List;
 
 public class Bomber extends Entity {
     private int dx, dy;
-    public int velocity = 1;
-    public static int NumberOfLives = 2;
+    public int velocity = 2;
+    public static int NumberOfLives = 5;
     public boolean checkdie = false;
 
     private int delaydie = 0;
@@ -158,7 +167,7 @@ public class Bomber extends Entity {
                                 Portal.isStepOn = true;
                         } else {
                             Sound.playitemGet();
-                            if (Game.buffs.get(i) instanceof  Flame_Item)
+                            if (Game.buffs.get(i) instanceof Flame_Item)
                                 Flame_Item.isStepOn = true;
                             if (Game.buffs.get(i) instanceof Speed_Item) {
                                 Speed_Item.isStepOn = true;
@@ -230,7 +239,7 @@ public class Bomber extends Entity {
 
     @Override
     public void update(Scene scene) {
-        if (Speed_Item.isStepOn) velocity = 2;
+        if (Speed_Item.isStepOn) velocity = 4;
         setIsStepOut();
         setKey(scene);
         AnimatedEntity.animate();

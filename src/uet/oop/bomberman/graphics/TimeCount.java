@@ -1,4 +1,6 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.graphics;
+
+import uet.oop.bomberman.GameDisplay.Game;
 
 public class TimeCount {
     public int time = 300;
