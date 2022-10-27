@@ -56,7 +56,7 @@ public class Minvo extends Enemy {
             int u = x/32 + moveX[i];
             int v = y/32 + moveY[i] - 2;
             if ( u > 0 && v > 0 && u < Game.WIDTH && v < Game.HEIGHT) {
-                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
+                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o' || mapgame[v][u] == 's' || mapgame[v][u] == 'b') continue;
                 if (distance[v][u] == distance[y/32 - 2][x/32] - 1 ) {
                     switch (i) {
                         case 0:
