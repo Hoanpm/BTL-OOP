@@ -18,18 +18,18 @@ public abstract class Enemy extends Entity {
     char[][] mapgame = Game.map_;
 
     public void randomDirection() {
-        if (x % 32 == 0 && y % 32 == 0) {
-            for (int i = 1; i <= 4; i++) {
-                if (canmove(i)) {
-                    checknodirection = false;
-                    break;
-                }
-                ;
+        for (int i = 1; i <= 4; i++) {
+            if (canmove(i)) {
+                checknodirection = false;
+                break;
             }
             if (checknodirection) {
                 direction_ = 0;
                 return;
             }
+        }
+        if (x % 32 == 0 && y % 32 == 0) {
+
             direction_ = ThreadLocalRandom.current().nextInt(1, 5);
             while (!canmove(direction_)) {
                 direction_ = ThreadLocalRandom.current().nextInt(1, 5);
