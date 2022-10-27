@@ -43,8 +43,7 @@ public class Minvo extends Enemy {
 
                 if (u > Game.WIDTH || u < 1) continue;
                 if (v > Game.HEIGHT || v < 1) continue;
-                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
-
+                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o' || mapgame[v][u] == 's' || mapgame[v][u] == 'b') continue;
                 if (!visit[v][u]) {
                     distance[v][u] = distance[y1][x1] + 1;
                     visit[v][u] = true;
@@ -75,7 +74,11 @@ public class Minvo extends Enemy {
                 }
             }
         }
-        check = distance[y / 32 - 2][x / 32] == 0;
+        if (distance[y/32 - 2][x/32] == 0) {
+            if (sx == x/32 && sy == y/32 - 2)
+                direction_ = 0;
+            else check = true;
+        } else check = false;
     }
 
     protected void chooseSprite() {

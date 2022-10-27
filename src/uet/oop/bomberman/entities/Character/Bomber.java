@@ -24,7 +24,7 @@ import java.util.List;
 public class Bomber extends Entity {
     private int dx, dy;
     public int velocity = 2;
-    public static int NumberOfLives = 5;
+    public static int NumberOfLives = 50000;
     public boolean checkdie = false;
 
     private int delaydie = 0;

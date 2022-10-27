@@ -17,47 +17,53 @@ public abstract class Enemy extends Entity {
     public int delaydie = 0, speed = 1;
     char[][] mapgame = Game.map_;
 
-    public void randomDirection() {
+    public boolean havewayout() {
         for (int i = 1; i <= 4; i++) {
             if (canmove(i)) {
-                checknodirection = false;
-                break;
+                return true;
             }
         }
-        if (checknodirection) {
-            direction_ = 0;
-            return;
-        }
+        direction_ = 0;
+        return false;
+    }
+
+    public void randomDirection() {
         if (x % 32 == 0 && y % 32 == 0) {
             direction_ = ThreadLocalRandom.current().nextInt(1, 5);
-            while (!canmove(direction_)) {
+            while (!canmove(direction_) && havewayout()) {
                 direction_ = ThreadLocalRandom.current().nextInt(1, 5);
             }
         }
     }
 
     public void calculateMove() {
-        if (x % 32 == 0 && y % 32 == 0) {
-            check = false; check1 = false; check2 = false; check3 = false; check4 = false;
-            switch (direction_) {
-                case 1:
-                    check1 = true;
-                    break;
-                case 2:
-                    check2 = true;
-                    break;
-                case 3:
-                    check3 = true;
-                    break;
-                case 4:
-                    check4 = true;
-                    break;
+        if (havewayout()) {
+            if (x % 32 == 0 && y % 32 == 0) {
+                check = false;
+                check1 = false;
+                check2 = false;
+                check3 = false;
+                check4 = false;
+                switch (direction_) {
+                    case 1:
+                        check1 = true;
+                        break;
+                    case 2:
+                        check2 = true;
+                        break;
+                    case 3:
+                        check3 = true;
+                        break;
+                    case 4:
+                        check4 = true;
+                        break;
+                }
             }
+                if (check1) y -= speed;
+                if (check2) y += speed;
+                if (check3) x -= speed;
+                if (check4) x += speed;
         }
-        if (check1) y -= speed;
-        if (check2) y += speed;
-        if (check3) x -= speed;
-        if (check4) x += speed;
     }
 
     public boolean canmove( int direction_) {
@@ -94,7 +100,7 @@ public abstract class Enemy extends Entity {
 
     public void checkDie() {
         for (int i=0; i<Bomber.bombList.size(); i++) {
-            if (checkCollision(Bomber.bombList.get(i))) checkdie = true;
+            if (checkCollision(Bomber.bombList.get(i)) && Bomber.bombList.get(i).delayTime > 151 ) checkdie = true;
             for (int j=0; j<Bomber.bombList.get(i).flame_bombs.size(); j++) {
                 if (checkCollision(Bomber.bombList.get(i).flame_bombs.get(j))) {
                     checkdie = true;

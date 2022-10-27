@@ -56,7 +56,7 @@ public class Oneal extends Enemy {
             int u = x/32 + moveX[i];
             int v = y/32 + moveY[i] - 2;
             if ( u > 0 && v > 0 && u < Game.WIDTH && v < Game.HEIGHT) {
-                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o') continue;
+                if (mapgame[v][u] == '*' || mapgame[v][u] == '#' || mapgame[v][u] == 'x' || mapgame[v][u] == 'f' || mapgame[v][u] == 'o' || mapgame[v][u] == 's' || mapgame[v][u] == 'b') continue;
                 if (distance[v][u] == distance[y/32 - 2][x/32] - 1 ) {
                     switch (i) {
                         case 0:
@@ -76,7 +76,9 @@ public class Oneal extends Enemy {
             }
         }
         if (distance[y/32 - 2][x/32] == 0) {
-            check = true;
+            if (sx == x/32 && sy == y/32 - 2)
+                direction_ = 0;
+            else check = true;
         } else check = distance[y / 32 - 2][x / 32] > 10;
     }
 
@@ -106,7 +108,7 @@ public class Oneal extends Enemy {
     }
 
     public void update(Scene scene) {
-        if (x % 64 == 0 || y % 64 == 0)
+        if (x % 32 == 0 && y % 32 == 0)
             speed = ThreadLocalRandom.current().nextInt(1, 3);
         caculated(Game.bomber);
         checkbomberdie(Game.bomber);
