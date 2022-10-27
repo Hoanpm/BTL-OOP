@@ -101,6 +101,22 @@ public class Map extends Game {
                             brick = new Brick(j, i_, Sprite.brick);
                             bricks.add(brick);
                             break;
+                        case 'b' :
+                            obj = new Grass(j, i_, Sprite.grass);
+                            stillObjects.add(obj);
+                            buff = new Bomb_Item(j, i_, Sprite.powerup_bombs);
+                            buffs.add(buff);
+                            brick = new Brick(j, i_, Sprite.brick);
+                            bricks.add(brick);
+                            break;
+                        case 's' :
+                            obj = new Grass(j, i_, Sprite.grass);
+                            stillObjects.add(obj);
+                            buff = new Speed_Item(j, i_, Sprite.powerup_speed);
+                            buffs.add(buff);
+                            brick = new Brick(j, i_, Sprite.brick);
+                            bricks.add(brick);
+                            break;
                     }
                 }
             }

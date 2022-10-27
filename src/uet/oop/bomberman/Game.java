@@ -97,17 +97,32 @@ public class Game {
         buffs.forEach(g -> g.render(gc));
         bricks.forEach(g -> g.render(gc));
         enemies.forEach(g -> g.render(gc));
-        Bomber.bombList.forEach(g -> g.render(gc));
-        Bomb.flame_objs.forEach(g -> g.render(gc));
+        for (int i=0; i<Bomber.bombList.size(); i++) {
+            Bomber.bombList.get(i).render(gc);
+            for (int j=0; j<Bomber.bombList.get(i).flame_bombs.size(); j++) {
+                Bomber.bombList.get(i).flame_bombs.get(j).render(gc);
+            }
+            for (int j=0; j<Bomber.bombList.get(i).flame_last_bombs.size(); j++) {
+                Bomber.bombList.get(i).flame_last_bombs.get(j).render(gc);
+            }
+        }
         bomber.render(gc);
     }
 
     public void update(Scene scene) {
-        for (int i=0; i<Bomber.bombList.size(); i++) {
-            Bomber.bombList.get(i).update(scene);
-        }
-        for (int i=0; i<Bomb.flame_objs.size(); i++) {
-            Bomb.flame_objs.get(i).update(scene);
+        try {
+            for (int i = 0; i < Bomber.bombList.size(); i++) {
+                Bomber.bombList.get(i).update(scene);
+                for (int j=0; j<Bomber.bombList.get(i).flame_bombs.size(); j++) {
+                    Bomber.bombList.get(i).flame_bombs.get(j).update(scene);
+                }
+                for (int j=0; j<Bomber.bombList.get(i).flame_last_bombs.size(); j++) {
+                    Bomber.bombList.get(i).flame_last_bombs.get(j).update(scene);
+                }
+            }
+        } catch (IndexOutOfBoundsException ignored) {}
+        for (Brick brick : bricks) {
+            brick.update(scene);
         }
         bomber.update(scene);
         for (Enemy enemy : enemies) {
@@ -132,30 +147,27 @@ public class Game {
         enemies.clear();
         stillObjects.clear();
         Bomber.bombList.clear();
-        Bomb.flame_objs.clear();
         Bomber.NumberOfLives = 2;
-        Bomb.NumberOfBombs = 20;
-        Bomb.delayTime = 0;
         bomber.setSetBomb_(false);
         bomber.checkdie = false;
         bomber.setDelaydie(0);
-        Bomber.isStepOut = false;
         delayrenderLvl = 0;
         Portal.isStepOn = false;
         Flame_Item.isStepOn = false;
+        Bomb_Item.isStepOn = false;
+        Speed_Item.isStepOn = false;
         timeCount.time = 300;
         timeCount.count = 300;
         score_ = 0;
     }
 
     public void nextLevel() {
-        buffs.clear();
         bricks.clear();
         enemies.clear();
         stillObjects.clear();
         Bomber.bombList.clear();
-        Bomb.flame_objs.clear();
         Portal.isStepOn = false;
+        if (Speed_Item.isStepOn) bomber.velocity = 2;
         delayrenderLvl = 0;
         timeCount.time = 300;
         timeCount.count = 0;

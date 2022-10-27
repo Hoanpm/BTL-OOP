@@ -3,10 +3,10 @@ package uet.oop.bomberman.entities;
 import javafx.scene.Scene;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Flame_Item extends Buff {
+public class Bomb_Item extends Buff {
     public static boolean isStepOn = false;
 
-    public Flame_Item(int x, int y, Sprite sprite_) {
+    public Bomb_Item(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
 

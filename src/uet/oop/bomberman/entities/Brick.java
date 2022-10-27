@@ -10,17 +10,19 @@ import java.util.List;
 
 public class Brick extends Entity {
     private boolean isDes = false;
+    private Bomb bombDes;
+    public int delayD;
     public Brick(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
 
-    public static void buffreveal(int x, int y, int index) {
+    public static void buffreveal(int x, int y, Brick brick) {
         for (int i = 0; i< Game.buffs.size(); i++) {
             int x_buff = Game.buffs.get(i).getX();
             int y_buff = Game.buffs.get(i).getY();
 
             if (x == x_buff && y == y_buff)
-                Game.buffs.get(i).setIndexBrick(index);
+                Game.buffs.get(i).setBrickCover(brick);
         }
     }
 
@@ -39,12 +41,14 @@ public class Brick extends Entity {
                             || x_ == x - 64 && b[y / 32 - 2][x / 32 - 1] == ' '
                             || x_ == x + 32 || x_ == x - 32) {
                         c_.get(i).setDes(true);
-                        buffreveal(x_, y_, i);
+                        c_.get(i).setBomb(bomb);
+                        buffreveal(x_, y_, c_.get(i));
                     }
                 } else {
                     if (x_ == x + 32 || x_ == x - 32) {
                         c_.get(i).setDes(true);
-                        buffreveal(x_, y_, i);
+                        c_.get(i).setBomb(bomb);
+                        buffreveal(x_, y_, c_.get(i));
                     }
                 }
             } else if (x_ == x) {
@@ -53,12 +57,14 @@ public class Brick extends Entity {
                             || y_ == y - 64 && b[y / 32 - 3][x / 32] == ' '
                             || y_ == y + 32 || y_ == y - 32) {
                         c_.get(i).setDes(true);
-                        buffreveal(x_, y_, i);
+                        c_.get(i).setBomb(bomb);
+                        buffreveal(x_, y_, c_.get(i));
                     }
                 } else {
                     if (y_ == y + 32 || y_ == y - 32) {
                         c_.get(i).setDes(true);
-                        buffreveal(x_, y_, i);
+                        c_.get(i).setBomb(bomb);
+                        buffreveal(x_, y_, c_.get(i));
                     }
                 }
             }
@@ -66,18 +72,20 @@ public class Brick extends Entity {
     }
 
     public void chooseSprite() {
-        if (isDes) {
+        if (isDes && delayD > 150) {
             sprite_ = Sprite.movingSprite(Sprite.brick_exploded,
                     Sprite.brick_exploded1, Sprite.brick_exploded2,
-                    Bomb.delayTime, 30);
+                    delayD, 30);
         }
     }
 
     @Override
-    public void update(Scene scene) {}
+    public void update(Scene scene) {
+        if (isDes) delayD++;
+    }
 
     public void render(GraphicsContext gc) {
-        if (Bomb.delayTime > 150 && Bomb.delayTime <= 180 && isDes) {
+        if (delayD > 150 && delayD <= 180 && isDes) {
             chooseSprite();
             Image new_img = sprite_.getFxImage();
             gc.drawImage(new_img, x, y);
@@ -90,5 +98,21 @@ public class Brick extends Entity {
 
     public void setDes(boolean des) {
         isDes = des;
+    }
+
+    public void setBomb(Bomb bomb) {
+        bombDes = bomb;
+    }
+
+    public Bomb getBombDes() {
+        return bombDes;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj instanceof Brick) {
+            Brick other = (Brick) obj;
+            return x == other.getX() && y == other.getY();
+        }
+        return false;
     }
 }

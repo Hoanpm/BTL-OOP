@@ -6,27 +6,36 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Flame_bomb extends Flame_obj {
+public class Flame_bomb extends Entity {
+    private int delayTime = 0;
     private int direction = 0;
     public Flame_bomb(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
 
     public void chooseSprite() {
-        if (Bomb.delayTime > 150 && Bomb.delayTime <= 180)  {
+        if (delayTime > 150 && delayTime <= 180)  {
             switch (direction) {
                 case 0 :
                     sprite_ = Sprite.movingSprite(Sprite.explosion_horizontal,
                               Sprite.explosion_horizontal1, Sprite.explosion_horizontal2,
-                              Bomb.delayTime, 30);
+                              delayTime, 30);
                     break;
                 case 1 :
                     sprite_ = Sprite.movingSprite(Sprite.explosion_vertical,
                               Sprite.explosion_vertical1, Sprite.explosion_vertical2,
-                              Bomb.delayTime, 30);
+                              delayTime, 30);
                     break;
             }
 
+        }
+    }
+
+    public void checkBomberDie(Bomber bomber) {
+        if (delayTime > 150) {
+            if (checkCollision(bomber)) {
+                bomber.checkdie = true;
+            }
         }
     }
 
@@ -35,14 +44,24 @@ public class Flame_bomb extends Flame_obj {
     }
 
     public void update(Scene scene) {
+        //System.out.println(delayTime);
+        if (delayTime >= 150 && delayTime <= 180) delayTime++;
         checkBomberDie(Game.bomber);
     }
 
     public void render(GraphicsContext gc) {
-        if (Bomb.delayTime > 150 && Bomb.delayTime <= 180) {
+        if (delayTime > 150 && delayTime <= 180) {
             chooseSprite();
             Image new_img = sprite_.getFxImage();
             gc.drawImage(new_img, x, y);
         }
+    }
+
+    public void setDelayTime(int delayTime) {
+        this.delayTime = delayTime;
+    }
+
+    public int getDelayTime() {
+        return delayTime;
     }
 }

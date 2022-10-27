@@ -1,7 +1,6 @@
 package uet.oop.bomberman.entities.Enemy;
 
 import uet.oop.bomberman.Game;
-import uet.oop.bomberman.entities.Bomb;
 import uet.oop.bomberman.entities.Bomber;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
@@ -95,12 +94,18 @@ public abstract class Enemy extends Entity {
     }
 
     public void checkDie() {
-        if (Bomb.delayTime > 150)
-            for (int i = 0; i < Bomb.flame_objs.size(); i++) {
-                if (checkCollision(Bomb.flame_objs.get(i))) {
+        for (int i=0; i<Bomber.bombList.size(); i++) {
+            for (int j=0; j<Bomber.bombList.get(i).flame_bombs.size(); j++) {
+                if (checkCollision(Bomber.bombList.get(i).flame_bombs.get(j))) {
                     checkdie = true;
                 }
             }
+            for (int j=0; j<Bomber.bombList.get(i).flame_last_bombs.size(); j++) {
+                if (checkCollision(Bomber.bombList.get(i).flame_last_bombs.get(j))) {
+                    checkdie = true;
+                }
+            }
+        }
     }
     public void deleteEnemy() {
         if (checkdie) {

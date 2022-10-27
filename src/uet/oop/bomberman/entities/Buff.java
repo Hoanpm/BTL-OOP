@@ -4,7 +4,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Buff extends Entity{
     private boolean isRevealed = false;
-    private int indexBrick = -1;
+    private Brick brickCover;
     public Buff(int x, int y, Sprite sprite) {
         super(x, y, sprite);
     }
@@ -17,11 +17,11 @@ public abstract class Buff extends Entity{
         isRevealed = revealed;
     }
 
-    public int getIndexBrick() {
-        return indexBrick;
+    public void setBrickCover(Brick brickCover) {
+        this.brickCover = brickCover;
     }
 
-    public void setIndexBrick(int indexBrick) {
-        this.indexBrick = indexBrick;
+    public Brick getBrickCover() {
+        return brickCover;
     }
 }

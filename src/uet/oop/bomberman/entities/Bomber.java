@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Bomber extends Entity {
     private int dx, dy;
-    private static final int velocity = 2;
+    public int velocity = 1;
     public static int NumberOfLives = 2;
     public boolean checkdie = false;
 
@@ -26,11 +26,11 @@ public class Bomber extends Entity {
                                 MOVE_LEFT = "LEFT";
 
     private String direction = MOVE_RIGHT;
+    private Bomb new_b;
 
     public static List<Bomb> bombList = new ArrayList<>();
 
     private boolean isSetBomb_ = false;
-    public static boolean isStepOut = false;
 
     public Bomber() {}
 
@@ -60,8 +60,12 @@ public class Bomber extends Entity {
                         dx = velocity;
                         break;
                     case SPACE:
-                        if (Bomb.delayTime == 0 && Bomb.NumberOfBombs > 0)
+                        if (Bomb_Item.isStepOn) {
+                            if (bombList.size() <= 1)
+                                isSetBomb_ = true;
+                        } else if (bombList.size() == 0) {
                             isSetBomb_ = true;
+                        }
                         break;
                 }
             }
@@ -156,6 +160,13 @@ public class Bomber extends Entity {
                             Sound.playitemGet();
                             if (Game.buffs.get(i) instanceof  Flame_Item)
                                 Flame_Item.isStepOn = true;
+                            if (Game.buffs.get(i) instanceof Speed_Item) {
+                                Speed_Item.isStepOn = true;
+                                velocity = 2;
+                            }
+                            if (Game.buffs.get(i) instanceof Bomb_Item) {
+                                Bomb_Item.isStepOn = true;
+                            }
                             Game.buffs.remove(i);
                         }
                     }
@@ -180,21 +191,22 @@ public class Bomber extends Entity {
                     return false;
                 }
             }
-        }
-        if (isStepOut && bombList.size() > 0) {
-            return !checkCollision(bombList.get(0));
+            if (i < bombList.size()) {
+                if (bombList.get(i).isStepOut()) {
+                    if (checkCollision(bombList.get(i)))
+                        return false;
+                }
+            }
         }
         return true;
     }
 
     public void setBomb() {
         if (isSetBomb_) {
-            Bomb new_b = new Bomb((getX() + 16) / 32, (getY()  + 16) / 32, Sprite.bomb);
+            new_b = new Bomb((getX() + 16) / 32, (getY()  + 16) / 32, Sprite.bomb);
             Game.map_[new_b.getY()/32 - 2][new_b.getX()/32] = 'o';
             if (Flame_Item.isStepOn) new_b.setBuff(true);
             bombList.add(new_b);
-            Bomb.NumberOfBombs--;
-            Flame_obj.checkFlame(new_b);
             Brick.checkDes(new_b);
             isSetBomb_ = false;
             Sound.playbomSet();
@@ -202,17 +214,17 @@ public class Bomber extends Entity {
     }
 
     public void setIsStepOut() {
-        if (bombList.size() > 0) {
+        for (Bomb bomb : bombList) {
             int left_b = this.x;
             int right_b = this.x + this.sprite_.get_realWidth() * 2;
             int top_b = this.y;
             int bottom_b = this.y + this.sprite_.get_realHeight() * 2;
 
-            int m = bombList.get(0).getX();
-            int n = bombList.get(0).getY();
+            int m = bomb.getX();
+            int n = bomb.getY();
 
             if (right_b <= m || left_b >= (m + 32) || top_b >= (n + 32) || bottom_b <= n) {
-                isStepOut = true;
+                bomb.setStepOut(true);
             }
         }
     }
