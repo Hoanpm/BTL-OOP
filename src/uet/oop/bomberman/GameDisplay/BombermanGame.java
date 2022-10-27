@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.GameDisplay;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
