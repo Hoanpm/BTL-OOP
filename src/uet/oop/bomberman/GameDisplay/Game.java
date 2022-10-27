@@ -18,6 +18,7 @@ import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.Enemy;
 import uet.oop.bomberman.entities.StillObject.Brick;
 import uet.oop.bomberman.graphics.TimeCount;
+import uet.oop.bomberman.sound.Sound;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,9 +51,8 @@ public class Game {
     TimeCount timeCount = new TimeCount();
 
     public void gamescreen(javafx.event.ActionEvent actionEvent) {
-//        Sound.stopmenu();
-//        Sound.playStartgame();
-//        Sound.playbgSound();
+        Sound.stopmenu();
+        Sound.playStartgame();
 
         Map map = new Map();
         List<String> str = map.createMap();
@@ -75,13 +75,14 @@ public class Game {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                if (delayrenderLvl == 121) {
+                if (delayrenderLvl == 171) {
                     root.getChildren().remove(text);
                     setUpgame(root, scene);
                     delayrenderLvl++;
                 }
-                if (delayrenderLvl > 120) {
+                if (delayrenderLvl > 170) {
                     if (isRunning) {
+                        Sound.playbgSound();
                         if (timeCount.time > 0 && Bomber.NumberOfLives > 0) {
                             if (!Portal.isStepOn) {
                                 render();
@@ -89,8 +90,9 @@ public class Game {
                             } else checkLevelChange(actionEvent, this);
                         } else switchGO(actionEvent, this);
                     }
+                    else Sound.pausebgSound();
                 }
-                if (delayrenderLvl < 122) delayrenderLvl++;
+                if (delayrenderLvl < 172) delayrenderLvl++;
             }
         };
         timer.start();
@@ -152,7 +154,7 @@ public class Game {
         enemies.clear();
         stillObjects.clear();
         Bomber.bombList.clear();
-        Bomber.NumberOfLives = 5;
+        Bomber.NumberOfLives = 1;
         bomber.setSetBomb_(false);
         bomber.checkdie = false;
         bomber.setDelaydie(0);
@@ -227,6 +229,7 @@ public class Game {
         if (t <= 2) {
             Level++;
             nextLevel();
+            Sound.StopbgSound();
             gamescreen(actionEvent);
             timer.stop();
         } else {

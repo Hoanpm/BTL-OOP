@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import uet.oop.bomberman.sound.Sound;
 
 import java.io.IOException;
 
@@ -16,7 +17,7 @@ public class BombermanGame extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        //Sound.playmenu();
+        Sound.playmenu();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML_File/menu.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);

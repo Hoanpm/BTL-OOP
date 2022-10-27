@@ -43,6 +43,7 @@ public class GamePlay {
     }
 
     public void switchToGameOverScene(javafx.event.ActionEvent actionEvent) throws IOException {
+        Sound.StopbgSound();
         Sound.playEndgame();
         Parent root = FXMLLoader.load(getClass().getResource("/FXML_File/GameoverScene.fxml"));
         scene = new Scene(root);
@@ -52,6 +53,8 @@ public class GamePlay {
 
     public void switchToVictoryScene(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/FXML_File/VictoryScene.fxml"));
+        Sound.StopbgSound();
+        Sound.playWin();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

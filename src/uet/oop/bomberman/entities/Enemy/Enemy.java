@@ -11,7 +11,7 @@ public abstract class Enemy extends Entity {
     public Enemy(int xUnit, int yUnit, Sprite sprite_) {
         super(xUnit, yUnit, sprite_);
     }
-    public boolean check = false ,check1 = false, check2 = false, check3 = false, check4 = false, checknodirection = true;
+    public boolean check = false ,check1 = false, check2 = false, check3 = false, check4 = false;
     protected int direction_ = 3;
     public boolean checkdie = false;
     public int delaydie = 0, speed = 1;
@@ -120,8 +120,7 @@ public abstract class Enemy extends Entity {
         }
         if (delaydie == 1) {
             Sound.playDead();
-            Game.score_ += 200;
-            Game.score.setText("Score: " + Game.score_);
+
         }
         if (delaydie == 59) {
             for (int i = 1; i <= Game.enemies.size(); i++) {
@@ -130,9 +129,11 @@ public abstract class Enemy extends Entity {
                     Game.enemies.remove(i - 1);
                     i--;
                 }
-
             }
             delaydie = 0;
+            Game.score_ += 200;
+            Game.score.setText("Score: " + Game.score_);
+            Sound.playPointup();
         }
     }
 }
