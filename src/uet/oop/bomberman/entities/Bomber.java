@@ -162,7 +162,6 @@ public class Bomber extends Entity {
                                 Flame_Item.isStepOn = true;
                             if (Game.buffs.get(i) instanceof Speed_Item) {
                                 Speed_Item.isStepOn = true;
-                                velocity = 2;
                             }
                             if (Game.buffs.get(i) instanceof Bomb_Item) {
                                 Bomb_Item.isStepOn = true;
@@ -231,6 +230,7 @@ public class Bomber extends Entity {
 
     @Override
     public void update(Scene scene) {
+        if (Speed_Item.isStepOn) velocity = 2;
         setIsStepOut();
         setKey(scene);
         AnimatedEntity.animate();
