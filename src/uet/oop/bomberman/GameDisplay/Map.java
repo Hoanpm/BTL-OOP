@@ -1,7 +1,13 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.GameDisplay;
 
+import uet.oop.bomberman.GameDisplay.Game;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.Buff.*;
+import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.*;
+import uet.oop.bomberman.entities.StillObject.Brick;
+import uet.oop.bomberman.entities.StillObject.Grass;
+import uet.oop.bomberman.entities.StillObject.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.BufferedReader;

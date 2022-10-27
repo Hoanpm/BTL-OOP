@@ -1,9 +1,11 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Bomb;
 
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import uet.oop.bomberman.Game;
+import uet.oop.bomberman.GameDisplay.Game;
+import uet.oop.bomberman.entities.Character.Bomber;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.sound.Sound;
 
@@ -57,6 +59,7 @@ public class Bomb extends Entity {
     }
 
     public void update(Scene scene_) {
+        checkDieBomber(Game.bomber);
         checkDelay();
         if (delayTime == 150) setFlame();
     }
@@ -177,6 +180,12 @@ public class Bomb extends Entity {
                 flame_last_bomb_down.setDelayTime(delayTime);
                 flame_last_bombs.add(flame_last_bomb_down);
             }
+        }
+    }
+
+    public void checkDieBomber(Bomber bomber) {
+        if (!isStepOut && delayTime > 151) {
+            bomber.checkdie = true;
         }
     }
 

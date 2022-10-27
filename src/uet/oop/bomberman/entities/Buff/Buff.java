@@ -1,8 +1,10 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Buff;
 
+import uet.oop.bomberman.entities.StillObject.Brick;
+import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
-public abstract class Buff extends Entity{
+public abstract class Buff extends Entity {
     private boolean isRevealed = false;
     private Brick brickCover;
     public Buff(int x, int y, Sprite sprite) {

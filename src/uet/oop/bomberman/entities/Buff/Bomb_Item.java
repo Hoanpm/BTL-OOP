@@ -1,6 +1,7 @@
-package uet.oop.bomberman.entities;
+package uet.oop.bomberman.entities.Buff;
 
 import javafx.scene.Scene;
+import uet.oop.bomberman.entities.Buff.Buff;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb_Item extends Buff {

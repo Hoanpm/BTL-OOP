@@ -1,4 +1,4 @@
-package uet.oop.bomberman;
+package uet.oop.bomberman.GameDisplay;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -11,8 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import uet.oop.bomberman.Controller.GamePlay;
 import uet.oop.bomberman.entities.*;
+import uet.oop.bomberman.entities.Buff.*;
+import uet.oop.bomberman.entities.Character.Bomber;
 import uet.oop.bomberman.entities.Enemy.Enemy;
+import uet.oop.bomberman.entities.StillObject.Brick;
+import uet.oop.bomberman.graphics.TimeCount;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -147,7 +152,7 @@ public class Game {
         enemies.clear();
         stillObjects.clear();
         Bomber.bombList.clear();
-        Bomber.NumberOfLives = 2;
+        Bomber.NumberOfLives = 5;
         bomber.setSetBomb_(false);
         bomber.checkdie = false;
         bomber.setDelaydie(0);
@@ -174,7 +179,7 @@ public class Game {
     }
 
     public void setUpgame(Group root, Scene scene) {
-        javafx.scene.image.Image heart = new javafx.scene.image.Image("file:res/miniheart.png");
+        javafx.scene.image.Image heart = new javafx.scene.image.Image("file:res/FXML_Image/miniheart.png");
         ImageView imageView = new ImageView(heart);
         imageView.setX(7);
         imageView.setY(7);
@@ -208,7 +213,7 @@ public class Game {
         score.setFont(Font.font("Verdana", 30));
         root.getChildren().add(score);
 
-        javafx.scene.image.Image pause = new javafx.scene.image.Image("file:res/pause.png");
+        javafx.scene.image.Image pause = new javafx.scene.image.Image("file:res/FXML_Image/pause.png");
         ImageView imageView2 = new ImageView(pause);
         imageView2.setX(910);
         imageView2.setY(7);

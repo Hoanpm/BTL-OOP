@@ -17,11 +17,11 @@ public class BombermanGame extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //Sound.playmenu();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/menu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML_File/menu.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
 
-        Image icon = new Image("file:res/icon.png");
+        Image icon = new Image("file:res/FXML_Image/icon.png");
         stage.getIcons().add(icon);
         stage.setTitle("Bomberman");
         stage.setScene(scene);
