@@ -162,12 +162,12 @@ public class Game {
     }
 
     public void nextLevel() {
+        buffs.clear();
         bricks.clear();
         enemies.clear();
         stillObjects.clear();
         Bomber.bombList.clear();
         Portal.isStepOn = false;
-        if (Speed_Item.isStepOn) bomber.velocity = 2;
         delayrenderLvl = 0;
         timeCount.time = 300;
         timeCount.count = 0;
