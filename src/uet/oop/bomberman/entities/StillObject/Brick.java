@@ -35,6 +35,7 @@ public class Brick extends Entity {
         int y = bomb.getY();
 
         for (int i=0; i<c_.size(); i++) {
+            if (c_.get(i).isDes) continue;
             int x_ = c_.get(i).getX();
             int y_ = c_.get(i).getY();
             if (y_ == y) {
