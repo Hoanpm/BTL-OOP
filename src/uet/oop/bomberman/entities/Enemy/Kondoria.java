@@ -63,6 +63,9 @@ public class Kondoria extends Enemy {
 
     protected void chooseSprite() {
         switch(direction_) {
+            case 0:
+                sprite_ = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, AnimatedEntity.animate_, 60);
+                break;
             case 4:
             case 1:
                 sprite_ = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, AnimatedEntity.animate_, 60);

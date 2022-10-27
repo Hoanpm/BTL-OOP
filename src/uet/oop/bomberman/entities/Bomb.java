@@ -81,8 +81,8 @@ public class Bomb extends Entity {
         int x = this.getX() / 32;
 
         if (this.isBuff()) {
-            if (c[y - 2][x + 1] == ' ' || c[y - 2][x + 1] == '1' || c[y - 2][x + 1] == '2' || c[y - 2][x + 1] == '3' || c[y - 2][x + 1] == '4') {
-                if (c[y - 2][x + 2] != ' ' && c[y - 2][x + 2] != '1' && c[y - 2][x + 2] != '2' && c[y - 2][x + 2] != '3' && c[y - 2][x + 2] != '4') {
+            if (c[y - 2][x + 1] == ' ' || c[y - 2][x + 1] == '1' || c[y - 2][x + 1] == '2' || c[y - 2][x + 1] == '3' || c[y - 2][x + 1] == '4' || c[y - 2][x + 1] == '5') {
+                if (c[y - 2][x + 2] != ' ' && c[y - 2][x + 2] != '1' && c[y - 2][x + 2] != '2' && c[y - 2][x + 2] != '3' && c[y - 2][x + 2] != '4' && c[y - 2][x + 2] != '5') {
                     Flame_bomb flame_bomb_hor = new Flame_bomb(x + 1, y, Sprite.explosion_horizontal);
                     flame_bomb_hor.setDirection(0);
                     flame_bomb_hor.setDelayTime(delayTime);
@@ -99,8 +99,8 @@ public class Bomb extends Entity {
                 }
             }
 
-            if (c[y - 2][x - 1] == ' ' || c[y - 2][x - 1] == 'p' || c[y - 2][x - 1] == '1' || c[y - 2][x - 1] == '2' || c[y - 2][x - 1] == '3' || c[y - 2][x - 1] == '4') {
-                if (c[y - 2][x - 2] != 'p' && c[y - 2][x - 2] != ' ' && c[y - 2][x - 2] != '1' && c[y - 2][x - 2] != '2' && c[y - 2][x - 2] != '3' && c[y - 2][x - 2] != '4') {
+            if (c[y - 2][x - 1] == ' ' || c[y - 2][x - 1] == 'p' || c[y - 2][x - 1] == '1' || c[y - 2][x - 1] == '2' || c[y - 2][x - 1] == '3' || c[y - 2][x - 1] == '4' || c[y - 2][x - 1] == '5' ) {
+                if (c[y - 2][x - 2] != 'p' && c[y - 2][x - 2] != ' ' && c[y - 2][x - 2] != '1' && c[y - 2][x - 2] != '2' && c[y - 2][x - 2] != '3' && c[y - 2][x - 2] != '4' && c[y - 2][x - 2] != '5') {
                     Flame_bomb flame_bomb_hor = new Flame_bomb(x - 1, y, Sprite.explosion_horizontal);
                     flame_bomb_hor.setDirection(0);
                     flame_bomb_hor.setDelayTime(delayTime);
@@ -117,8 +117,8 @@ public class Bomb extends Entity {
                 }
             }
 
-            if (c[y - 3][x] == ' ' || c[y - 3][x] == 'p' || c[y - 3][x] == '1' || c[y - 3][x] == '2' || c[y - 3][x] == '3' || c[y - 3][x] == '4') {
-                if (c[y - 4][x] != 'p' && c[y - 4][x] != ' ' && c[y - 4][x] != '1' && c[y - 4][x] != '2' && c[y - 4][x] != '3' && c[y - 4][x] != '4') {
+            if (c[y - 3][x] == ' ' || c[y - 3][x] == 'p' || c[y - 3][x] == '1' || c[y - 3][x] == '2' || c[y - 3][x] == '3' || c[y - 3][x] == '4' || c[y - 3][x] == '5') {
+                if (c[y - 4][x] != 'p' && c[y - 4][x] != ' ' && c[y - 4][x] != '1' && c[y - 4][x] != '2' && c[y - 4][x] != '3' && c[y - 4][x] != '4' && c[y - 4][x] != '5') {
                     Flame_bomb flame_bomb_ver = new Flame_bomb(x, y - 1, Sprite.explosion_vertical);
                     flame_bomb_ver.setDirection(1);
                     flame_bomb_ver.setDelayTime(delayTime);
@@ -135,8 +135,8 @@ public class Bomb extends Entity {
                 }
             }
 
-            if (c[y - 1][x] == ' ' || c[y - 1][x] == '1' || c[y - 1][x] == '2' || c[y - 1][x] == '3' || c[y - 1][x] == '4') {
-                if (c[y][x] != ' ' && c[y][x] != '1' && c[y][x] != '2' && c[y][x] != '3' && c[y][x] != '4') {
+            if (c[y - 1][x] == ' ' || c[y - 1][x] == '1' || c[y - 1][x] == '2' || c[y - 1][x] == '3' || c[y - 1][x] == '4' ||  c[y - 1][x] == '5') {
+                if (c[y][x] != ' ' && c[y][x] != '1' && c[y][x] != '2' && c[y][x] != '3' && c[y][x] != '4' &&  c[y][x] != '5') {
                     Flame_bomb flame_bomb_ver = new Flame_bomb(x, y + 1, Sprite.explosion_vertical);
                     flame_bomb_ver.setDirection(1);
                     flame_bomb_ver.setDelayTime(delayTime);
@@ -153,25 +153,25 @@ public class Bomb extends Entity {
                 }
             }
         } else {
-            if (c[y - 2][x + 1] == ' ' || c[y - 2][x + 1] == '1' || c[y - 2][x + 1] == '2' || c[y - 2][x + 1] == '3' || c[y - 2][x + 1] == '4') {
+            if (c[y - 2][x + 1] == ' ' || c[y - 2][x + 1] == '1' || c[y - 2][x + 1] == '2' || c[y - 2][x + 1] == '3' || c[y - 2][x + 1] == '4' || c[y - 2][x + 1] == '5') {
                 Flame_last_bomb flame_last_bomb_right = new Flame_last_bomb(x + 1, y, Sprite.explosion_horizontal_right_last);
                 flame_last_bomb_right.setDirection(0);
                 flame_last_bomb_right.setDelayTime(delayTime);
                 flame_last_bombs.add(flame_last_bomb_right);
             }
-            if (c[y - 2][x - 1] == ' ' || c[y - 2][x - 1] == 'p' || c[y - 2][x - 1] == '1' || c[y - 2][x - 1] == '2' || c[y - 2][x - 1] == '3' || c[y - 2][x - 1] == '4') {
+            if (c[y - 2][x - 1] == ' ' || c[y - 2][x - 1] == 'p' || c[y - 2][x - 1] == '1' || c[y - 2][x - 1] == '2' || c[y - 2][x - 1] == '3' || c[y - 2][x - 1] == '4' || c[y - 2][x - 1] == '5') {
                 Flame_last_bomb flame_last_bomb_left = new Flame_last_bomb(x - 1, y, Sprite.explosion_horizontal_left_last);
                 flame_last_bomb_left.setDirection(1);
                 flame_last_bomb_left.setDelayTime(delayTime);
                 flame_last_bombs.add(flame_last_bomb_left);
             }
-            if (c[y - 3][x] == ' ' || c[y - 3][x] == 'p' || c[y - 3][x] == '1' || c[y - 3][x] == '2' || c[y - 3][x] == '3' || c[y - 3][x] == '4') {
+            if (c[y - 3][x] == ' ' || c[y - 3][x] == 'p' || c[y - 3][x] == '1' || c[y - 3][x] == '2' || c[y - 3][x] == '3' || c[y - 3][x] == '4' || c[y - 3][x] == '5') {
                 Flame_last_bomb flame_last_bomb_top = new Flame_last_bomb(x, y - 1, Sprite.explosion_vertical_top_last);
                 flame_last_bomb_top.setDirection(2);
                 flame_last_bomb_top.setDelayTime(delayTime);
                 flame_last_bombs.add(flame_last_bomb_top);
             }
-            if (c[y - 1][x] == ' ' || c[y - 1][x] == '1' || c[y - 1][x] == '2' || c[y - 1][x] == '3' || c[y - 1][x] == '4') {
+            if (c[y - 1][x] == ' ' || c[y - 1][x] == '1' || c[y - 1][x] == '2' || c[y - 1][x] == '3' || c[y - 1][x] == '4' || c[y - 1][x] == '5') {
                 Flame_last_bomb flame_last_bomb_down = new Flame_last_bomb(x, y + 1, Sprite.explosion_vertical_down_last);
                 flame_last_bomb_down.setDirection(3);
                 flame_last_bomb_down.setDelayTime(delayTime);

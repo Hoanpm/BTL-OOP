@@ -93,6 +93,12 @@ public class Map extends Game {
                             obj_ = new Kondoria(j, i_, Sprite.kondoria_right1);
                             enemies.add(obj_);
                             break;
+                        case '5' :
+                            obj = new Grass(j, i_, Sprite.grass);
+                            stillObjects.add(obj);
+                            obj_ = new Minvo(j, i_, Sprite.minvo_right1);
+                            enemies.add(obj_);
+                            break;
                         case 'f' :
                             obj = new Grass(j, i_, Sprite.grass);
                             stillObjects.add(obj);

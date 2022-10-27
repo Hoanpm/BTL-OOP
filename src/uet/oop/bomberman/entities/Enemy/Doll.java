@@ -15,6 +15,9 @@ public class Doll extends Enemy {
 
     protected void chooseSprite() {
         switch(direction_) {
+            case 0:
+                sprite_ = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, AnimatedEntity.animate_, 60);
+                break;
             case 1:
             case 4:
                 sprite_ = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, AnimatedEntity.animate_, 60);

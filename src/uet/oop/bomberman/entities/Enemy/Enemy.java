@@ -23,13 +23,12 @@ public abstract class Enemy extends Entity {
                 checknodirection = false;
                 break;
             }
-            if (checknodirection) {
-                direction_ = 0;
-                return;
-            }
+        }
+        if (checknodirection) {
+            direction_ = 0;
+            return;
         }
         if (x % 32 == 0 && y % 32 == 0) {
-
             direction_ = ThreadLocalRandom.current().nextInt(1, 5);
             while (!canmove(direction_)) {
                 direction_ = ThreadLocalRandom.current().nextInt(1, 5);

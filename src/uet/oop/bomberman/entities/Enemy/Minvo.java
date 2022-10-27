@@ -11,14 +11,13 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
-import java.util.concurrent.ThreadLocalRandom;
 
-public class Oneal extends Enemy {
+public class Minvo extends Enemy {
 
     int[] moveX = {0, 0, 1, -1};
     int[] moveY = {1, -1, 0, 0};
 
-    public Oneal(int x, int y, Sprite sprite_) {
+    public Minvo(int x, int y, Sprite sprite_) {
         super(x, y, sprite_);
     }
 
@@ -76,27 +75,22 @@ public class Oneal extends Enemy {
                 }
             }
         }
-        if (distance[y/32 - 2][x/32] == 0) {
-            check = true;
-        } else check = distance[y / 32 - 2][x / 32] > 10;
+        check = distance[y / 32 - 2][x / 32] == 0;
     }
 
     protected void chooseSprite() {
         switch(direction_) {
-            case 0:
-                sprite_ = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, AnimatedEntity.animate_, 60);
-                break;
             case 4:
             case 1:
-                sprite_ = Sprite.movingSprite(Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3, AnimatedEntity.animate_, 60);
+                sprite_ = Sprite.movingSprite(Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3, AnimatedEntity.animate_, 60);
                 break;
             case 2:
             case 3:
-                sprite_ = Sprite.movingSprite(Sprite.oneal_left1, Sprite.oneal_left2, Sprite.oneal_left3, AnimatedEntity.animate_, 60);
+                sprite_ = Sprite.movingSprite(Sprite.minvo_left1, Sprite.minvo_left2, Sprite.minvo_left3, AnimatedEntity.animate_, 60);
                 break;
         }
         if (checkdie) {
-            sprite_ = Sprite.movingSprite(Sprite.oneal_dead, Sprite.mob_dead1, Sprite.mob_dead3,AnimatedEntity.animate_, 60);
+            sprite_ = Sprite.movingSprite(Sprite.minvo_dead, Sprite.mob_dead1, Sprite.mob_dead3,AnimatedEntity.animate_, 60);
         }
     }
     @Override
@@ -107,8 +101,7 @@ public class Oneal extends Enemy {
     }
 
     public void update(Scene scene) {
-        if (x % 64 == 0 || y % 64 == 0)
-            speed = ThreadLocalRandom.current().nextInt(1, 3);
+        speed = 2;
         caculated(Game.bomber);
         checkbomberdie(Game.bomber);
         checkDie();

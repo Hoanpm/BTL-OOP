@@ -29,7 +29,7 @@ public class Bomber extends Entity {
     private Bomb new_b;
 
     public static List<Bomb> bombList = new ArrayList<>();
-
+    
     private boolean isSetBomb_ = false;
 
     public Bomber() {}
